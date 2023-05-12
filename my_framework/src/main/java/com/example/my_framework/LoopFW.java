@@ -10,6 +10,7 @@ public class LoopFW implements Runnable
 
     Thread gameThread = null;
 
+    //temp
     float updates = 0;
     float drawing = 0;
     long timer = 0;

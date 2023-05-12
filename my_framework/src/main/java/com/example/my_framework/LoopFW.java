@@ -2,9 +2,8 @@ package com.example.my_framework;
 
 public class LoopFW implements Runnable
 {
-    private final float FPS = 60;
-    private final float SECOND = 1000000000;
-    private  final float UPDATE_TIME = SECOND / FPS;
+    private final int FPS = 60;
+    private final int SECOND = 1000;
 
     private  boolean running = false;
 
@@ -18,23 +17,20 @@ public class LoopFW implements Runnable
     @Override
     public void run()
     {
-        float lastTime = System.nanoTime();
-        float delta = 0;
-
         timer =System.currentTimeMillis();
+        long UPDATE_TIME = (long) SECOND / FPS;
 
         while (running)
         {
-            float nowTime = System.nanoTime();
-            float elapsedTime = nowTime - lastTime;
-            lastTime = nowTime;
-            delta += elapsedTime / UPDATE_TIME;
-
-            if (delta > 1)
+            try
             {
+                Thread.sleep(UPDATE_TIME);
                 updateGame();
                 drawingGame();
-                --delta;
+            }
+            catch (InterruptedException e)
+            {
+                throw new RuntimeException(e);
             }
 
             if (System.currentTimeMillis() - timer > 1000)
@@ -70,6 +66,6 @@ public class LoopFW implements Runnable
         catch (InterruptedException e) { e.printStackTrace();}
     }
 
-    private void updateGame(){++updates;}
-    private void drawingGame(){++drawing;}
+    private void updateGame() {++updates;}
+    private void drawingGame() {++drawing;}
 }

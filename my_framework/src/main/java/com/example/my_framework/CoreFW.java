@@ -3,9 +3,7 @@ package com.example.my_framework;
 import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.view.Display;
-import android.view.Window;
 import android.view.WindowManager;
 
 import androidx.annotation.Nullable;
@@ -34,6 +32,7 @@ public class CoreFW extends AppCompatActivity
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
         sizeDisplay = new Point();
         display = getWindowManager().getDefaultDisplay();
         display.getSize(sizeDisplay);
@@ -42,8 +41,10 @@ public class CoreFW extends AppCompatActivity
         sceneWidth = FRAME_BUFFER_WIDTH / sizeDisplay.x;
         sceneHeight = FRAME_BUFFER_HEIGHT / sizeDisplay.y;
 
-        LoopFW = new LoopFW(this, frameBuffer);
+        loopFW = new LoopFW(this, frameBuffer);
         graphicsFW = new GraphicsFW(getAssets(), frameBuffer);
+
+        sceneFW = getStartScene();
 
         stateOnPause = false;
         stateOnResume = false;
@@ -68,6 +69,7 @@ public class CoreFW extends AppCompatActivity
         super.onPause();
         sceneFW.pause();
         loopFW.stopGame();
+        stateOnPause = true;
 
         if (isFinishing())
         {
@@ -97,9 +99,6 @@ public class CoreFW extends AppCompatActivity
         return sceneFW;
     }
 
-    public SceneFW getSceneFW()
-    {
-        return sceneFW;
-    }
+    public SceneFW getStartScene() { return sceneFW;}
 
 }

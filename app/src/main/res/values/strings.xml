@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">SpaceCleaner</string>
+    <string name="txtMainMenuNameGame">Космос</string>
+    <string name="txtMainMenuNewGame">Новая игра</string>
+    <string name="txtMainMenuMenuSettings">Настройки</string>
+    <string name="txtMainMenuResult">Результат</string>
+    <string name="txtMainMenuExitGame">Выход из игры</string>
 </resources>

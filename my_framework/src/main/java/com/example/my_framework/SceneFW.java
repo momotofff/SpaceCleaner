@@ -2,7 +2,7 @@ package com.example.my_framework;
 
 public abstract class SceneFW
 {
-    private CoreFW coreFW;
+    public CoreFW coreFW;
     public int sceneWidth;
     public int sceneHeight;
     public GraphicsFW graphicsFW;
@@ -10,7 +10,9 @@ public abstract class SceneFW
     public SceneFW(CoreFW coreFW)
     {
         this.coreFW = coreFW;
-
+        sceneWidth = coreFW.getGraphicsFW().getWidthFrameBuffer();
+        sceneHeight = coreFW.getGraphicsFW().getHeightFrameBuffer();
+        graphicsFW = coreFW.getGraphicsFW();
     }
 
     public abstract void update();

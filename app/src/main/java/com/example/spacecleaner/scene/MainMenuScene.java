@@ -24,8 +24,7 @@ public class MainMenuScene extends SceneFW
     @Override
     public void update()
     {
-        if (coreFW.getTouchListenerFW().getTouchUp(new Rect(
-            MenuSpace.position.x,MenuSpace.position.y - MenuSpace.size,MenuSpace.position.x + graphicsFW.measureText(MenuSpace), MenuSpace.position.y)))
+        if (coreFW.getTouchListenerFW().getTouchUp(MenuSpace.getTouchArea(graphicsFW)))
         {
             coreFW.setScene(new GameScene(coreFW));
         }

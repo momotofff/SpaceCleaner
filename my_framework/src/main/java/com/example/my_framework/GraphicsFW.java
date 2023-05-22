@@ -11,72 +11,79 @@ import java.io.InputStream;
 
 public class GraphicsFW
 {
-    private AssetManager assetManagerGame;
-    private Bitmap frameBufferGame;
-    private Bitmap textureGame;
-    private Canvas canvasGame;
-    private Paint paintGame;
+    private AssetManager assetManager;
+    private Bitmap frameBuffer;
+    private Bitmap texture;
+    private Canvas canvas;
+    private Paint paint;
 
-    public GraphicsFW (AssetManager assetManager, Bitmap frameBuffer)
+    public GraphicsFW(AssetManager assetManager, Bitmap frameBuffer)
     {
-        this.assetManagerGame = assetManager;
-        this.frameBufferGame = frameBuffer;
-        this.canvasGame = new Canvas(frameBuffer);
-        this.paintGame = new Paint();
+        this.assetManager = assetManager;
+        this.frameBuffer = frameBuffer;
+        this.canvas = new Canvas(frameBuffer);
+        this.paint = new Paint();
     }
 
     public void clearScene(int colorRGB)
     {
-        canvasGame.drawRGB(colorRGB, colorRGB, colorRGB);
+        canvas.drawRGB(colorRGB, colorRGB, colorRGB);
     }
 
     public void drawPixel(int x, int y, int color)
     {
-        paintGame.setColor(color);
-        canvasGame.drawPoint(x, y, paintGame);
+        paint.setColor(color);
+        canvas.drawPoint(x, y, paint);
     }
 
     public void drawLine(int startX, int startY, int stopX, int stopY, int color)
     {
-        paintGame.setColor(color);
-        canvasGame.drawLine(startX, startY, stopX, stopY, paintGame);
+        paint.setColor(color);
+        canvas.drawLine(startX, startY, stopX, stopY, paint);
     }
 
-    public void drawText(String text, int x, int y, int color, int sizeText, Typeface font)
+    public int measureText(StaticText text)
     {
-        paintGame.setColor(color);
-        paintGame.setTextSize(sizeText);
-        paintGame.setTypeface(font);
-        canvasGame.drawText(text, x, y, paintGame);
+        paint.setTextSize(text.size);
+        paint.setTypeface(text.font);
+        return (int) paint.measureText(text.text);
+    }
+
+    public void drawText(StaticText text)
+    {
+        paint.setColor(text.color);
+        paint.setTextSize(text.size);
+        paint.setTypeface(text.font);
+        canvas.drawText(text.text, text.position.x, text.position.y, paint);
     }
 
     public void drawTexture(Bitmap bitmap, int x, int y)
     {
-        canvasGame.drawBitmap(bitmap, x, y, null);
+        canvas.drawBitmap(bitmap, x, y, null);
     }
 
     public int getWidthFrameBuffer()
     {
-        return frameBufferGame.getWidth();
+        return frameBuffer.getWidth();
     }
 
     public int getHeightFrameBuffer()
     {
-        return frameBufferGame.getHeight();
+        return frameBuffer.getHeight();
     }
 
-    public Bitmap newTexture(String fileName)
+    public Bitmap loadTexture(String fileName)
     {
         InputStream inputStream = null;
 
         try
         {
-            inputStream = assetManagerGame.open(fileName);
-            textureGame = BitmapFactory.decodeStream(inputStream);
+            inputStream = assetManager.open(fileName);
+            texture = BitmapFactory.decodeStream(inputStream);
 
-            if(textureGame == null)
+            if (texture == null)
             {
-                throw new RuntimeException("File not found exeption " + fileName);
+                throw new RuntimeException("File not found exception " + fileName);
             }
         }
         catch (IOException e)
@@ -93,6 +100,6 @@ public class GraphicsFW
             e.printStackTrace();
         }
 
-        return textureGame;
+        return texture;
     }
 }

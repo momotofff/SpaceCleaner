@@ -1,26 +1,26 @@
 package com.example.my_framework;
 
+import android.graphics.PointF;
+import android.graphics.Rect;
 import android.view.MotionEvent;
 import android.view.View;
 
-public class TouchListenerFW  implements View.OnTouchListener
+public class TouchListenerFW implements View.OnTouchListener
 {
-    float touchX;
-    float touchY;
+    PointF touch = new PointF();
     boolean isTouchDown;
     boolean isTouchUp;
-    float sceneWidth;
-    float sceneHeight;
 
-    public TouchListenerFW(View view, float sceneWidth, float sceneHeight)
+    final PointF scale;
+
+    public TouchListenerFW(View view, PointF scale)
     {
         view.setOnTouchListener(this);
-        this.sceneWidth = sceneWidth;
-        this.sceneHeight = sceneHeight;
+        this.scale = scale;
     }
 
     @Override
-    public boolean onTouch(View view , MotionEvent event)
+    public boolean onTouch(View view, MotionEvent event)
     {
         synchronized (this)
         {
@@ -30,51 +30,45 @@ public class TouchListenerFW  implements View.OnTouchListener
             switch (event.getAction())
             {
                 case MotionEvent.ACTION_DOWN:
-                    touchX = event.getX() * sceneWidth;
-                    touchY = event.getX() * sceneHeight;
+                    touch.x = event.getX() * scale.x;
+                    touch.y = event.getY() * scale.y;
                     isTouchDown = true;
                     isTouchUp = false;
                     break;
 
                 case MotionEvent.ACTION_UP:
-                    touchX = event.getX() * sceneWidth;
-                    touchY = event.getX() * sceneHeight;
+                    touch.x = event.getX() * scale.x;
+                    touch.y = event.getY() * scale.y;
                     isTouchDown = false;
                     isTouchUp = true;
                     break;
             }
         }
+
         return true;
     }
 
-    public boolean getTouchUp(int x, int y, int touchWidth, int touchHeight)
+    public boolean getTouchUp(Rect touchArea)
     {
-        if (isTouchUp)
-        {
-            if (touchX >= x &&
-                touchX <= x + touchWidth - 1 &&
-                touchY <= y &&
-                touchY >= y - touchHeight - 1)
-            {
-                isTouchUp = false;
-                return true;
-            }
-        }
+        if (!isTouchUp)
+            return false;
 
-        return false;
+        if (!touchArea.contains((int) touch.x, (int) touch.y))
+            return false;
+
+        isTouchUp = false;
+        return true;
     }
 
-    public boolean getTouchDown(int x, int y, int touchWidth, int touchHeight)
+    public boolean getTouchDown(Rect touchArea)
     {
-        if (isTouchUp)
-        {
-            if (touchX >= x && touchX <=x + touchWidth - 1 && touchY <= y && touchY >= y - touchHeight - 1)
-            {
-                isTouchDown = false;
-                return true;
-            }
-        }
+        if (!isTouchDown)
+            return false;
 
-        return false;
+        if (!touchArea.contains((int) touch.x, (int) touch.y))
+            return false;
+
+        isTouchDown = false;
+        return true;
     }
 }

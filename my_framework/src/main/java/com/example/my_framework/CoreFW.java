@@ -2,6 +2,7 @@ package com.example.my_framework;
 
 import android.graphics.Bitmap;
 import android.graphics.Point;
+import android.graphics.PointF;
 import android.os.Bundle;
 import android.view.Display;
 import android.view.WindowManager;
@@ -22,12 +23,11 @@ public class CoreFW extends AppCompatActivity
     private Point sizeDisplay;
     private Bitmap frameBuffer;
     private SceneFW sceneFW;
-    private int sceneWidth;
-    private int sceneHeight;
+
+    private final PointF scale = new PointF();
 
     private boolean stateOnPause;
     private boolean stateOnResume;
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,12 +39,12 @@ public class CoreFW extends AppCompatActivity
         display.getSize(sizeDisplay);
 
         frameBuffer = Bitmap.createBitmap(FRAME_BUFFER_WIDTH, FRAME_BUFFER_HEIGHT, Bitmap.Config.ARGB_8888);
-        sceneWidth = FRAME_BUFFER_WIDTH / sizeDisplay.x;
-        sceneHeight = FRAME_BUFFER_HEIGHT / sizeDisplay.y;
+        scale.x = (float) FRAME_BUFFER_WIDTH / sizeDisplay.x;
+        scale.y = (float) FRAME_BUFFER_HEIGHT / sizeDisplay.y;
 
         loopFW = new LoopFW(this, frameBuffer);
         graphicsFW = new GraphicsFW(getAssets(), frameBuffer);
-        touchListenerFW = new TouchListenerFW(loopFW, sceneWidth, sceneHeight);
+        touchListenerFW = new TouchListenerFW(loopFW, scale);
         sceneFW = getStartScene();
 
         stateOnPause = false;

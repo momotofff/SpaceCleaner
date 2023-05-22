@@ -3,6 +3,7 @@ package com.example.my_framework;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
+import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -11,7 +12,7 @@ public class LoopFW extends SurfaceView implements Runnable
     private final int FPS = 60;
     private final int SECOND = 1000;
 
-    private  boolean running = false;
+    private boolean running = false;
 
     Thread gameThread = null;
     CoreFW coreFW;
@@ -31,17 +32,15 @@ public class LoopFW extends SurfaceView implements Runnable
     }
 
     //temp
-    float updates = 0;
-    float drawing = 0;
+    int updates = 0;
+    int draws = 0;
     long timer = 0;
-
-
 
     @Override
     public void run()
     {
-        timer =System.currentTimeMillis();
-        long UPDATE_TIME = (long) SECOND / FPS;
+        timer = System.currentTimeMillis();
+        final long UPDATE_TIME = (long) SECOND / FPS;
 
         while (running)
         {
@@ -58,11 +57,11 @@ public class LoopFW extends SurfaceView implements Runnable
 
             if (System.currentTimeMillis() - timer > 1000)
             {
-                System.out.println(updates);
-                System.out.println(drawing);
-                System.out.println();
+                Log.d(this.getClass().getSimpleName(), String.format("Updates: %d / 1 sec", updates));
+                Log.d(this.getClass().getSimpleName(), String.format("Redraws: %d / 1 sec", draws));
+
                 updates = 0;
-                drawing = 0;
+                draws = 0;
                 timer += 1000;
             }
         }
@@ -94,9 +93,10 @@ public class LoopFW extends SurfaceView implements Runnable
         ++updates;
         coreFW.getCurrentScene().update();
     }
+
     private void drawingGame()
     {
-        ++drawing;
+        ++draws;
         if (surfaceHolder.getSurface().isValid())
         {
             canvas = surfaceHolder.lockCanvas();

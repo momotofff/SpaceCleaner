@@ -6,16 +6,17 @@ import android.os.Bundle;
 import android.view.Display;
 import android.view.WindowManager;
 
-import androidx.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class CoreFW extends AppCompatActivity
 {
-    private final int FRAME_BUFFER_WIDTH = 800;
-    private final int FRAME_BUFFER_HEIGHT = 600;
+    private final int FRAME_BUFFER_WIDTH = 1280;
+    private final int FRAME_BUFFER_HEIGHT = 720;
 
     private LoopFW loopFW;
     private GraphicsFW graphicsFW;
+    private TouchListenerFW touchListenerFW;
 
     private Display display;
     private Point sizeDisplay;
@@ -43,7 +44,7 @@ public class CoreFW extends AppCompatActivity
 
         loopFW = new LoopFW(this, frameBuffer);
         graphicsFW = new GraphicsFW(getAssets(), frameBuffer);
-
+        touchListenerFW = new TouchListenerFW(loopFW, sceneWidth, sceneHeight);
         sceneFW = getStartScene();
 
         stateOnPause = false;
@@ -52,10 +53,7 @@ public class CoreFW extends AppCompatActivity
         setContentView(loopFW);
     }
 
-    public  CoreFW()
-    {
-
-    }
+    public  CoreFW() {}
 
     public  void  onResume()
     {
@@ -82,6 +80,11 @@ public class CoreFW extends AppCompatActivity
         return graphicsFW;
     }
 
+    public TouchListenerFW getTouchListenerFW()
+    {
+        return touchListenerFW;
+    }
+
     public void setScene(SceneFW sceneFW)
     {
         if (sceneFW == null)
@@ -100,5 +103,4 @@ public class CoreFW extends AppCompatActivity
     }
 
     public SceneFW getStartScene() { return sceneFW;}
-
 }

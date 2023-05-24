@@ -4,7 +4,7 @@ import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 
-public class StaticText
+public class StaticTextFW
 {
     public String text;
     public Point position;
@@ -12,7 +12,7 @@ public class StaticText
     public int size;
     public Typeface font;
 
-    public StaticText(String text, Point position, int color, int size, Typeface font)
+    public StaticTextFW(String text, Point position, int color, int size, Typeface font)
     {
         this.text = text;
         this.position = position;

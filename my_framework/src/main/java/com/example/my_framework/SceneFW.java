@@ -1,17 +1,17 @@
 package com.example.my_framework;
 
+import android.graphics.Point;
+
 public abstract class SceneFW
 {
     public CoreFW coreFW;
-    public int sceneWidth;
-    public int sceneHeight;
+    public Point sceneSize;
     public GraphicsFW graphicsFW;
 
     public SceneFW(CoreFW coreFW)
     {
         this.coreFW = coreFW;
-        sceneWidth = coreFW.getGraphicsFW().getWidthFrameBuffer();
-        sceneHeight = coreFW.getGraphicsFW().getHeightFrameBuffer();
+        sceneSize = new Point(coreFW.getGraphicsFW().getWidthFrameBuffer(), coreFW.getGraphicsFW().getHeightFrameBuffer());
         graphicsFW = coreFW.getGraphicsFW();
     }
 

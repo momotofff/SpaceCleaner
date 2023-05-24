@@ -18,7 +18,6 @@ public class CoreFW extends AppCompatActivity
     private LoopFW loopFW;
     private GraphicsFW graphicsFW;
     private TouchListenerFW touchListenerFW;
-
     private Display display;
     private Point sizeDisplay;
     private Bitmap frameBuffer;

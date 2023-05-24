@@ -2,20 +2,19 @@ package com.example.spacecleaner.scene;
 
 import android.graphics.Color;
 import android.graphics.Point;
-import android.graphics.Rect;
 
 import com.example.my_framework.CoreFW;
 import com.example.my_framework.SceneFW;
-import com.example.my_framework.StaticText;
+import com.example.my_framework.StaticTextFW;
 import com.example.spacecleaner.R;
 
 public class MainMenuScene extends SceneFW
 {
-    private final StaticText Title = new StaticText(coreFW.getString(R.string.txtMainMenuNameGame), new Point(100, 100), Color.BLUE, 60, null);
-    private final StaticText MenuSpace = new StaticText(coreFW.getString(R.string.txtMainMenuNameGame), new Point(30, 300), Color.BLUE, 40, null);
-    private final StaticText MenuSettings = new StaticText(coreFW.getString(R.string.txtMainMenuMenuSettings), new Point(30, 350), Color.BLUE, 40, null);
-    private final StaticText MenuResults = new StaticText(coreFW.getString(R.string.txtMainMenuResult), new Point(30, 400), Color.BLUE, 40, null);
-    private final StaticText MenuExit = new StaticText(coreFW.getString(R.string.txtMainMenuExitGame), new Point(30, 450), Color.BLUE, 40, null);
+    private final StaticTextFW Title = new StaticTextFW(coreFW.getString(R.string.txtMainMenuNameGame), new Point(100, 100), Color.BLUE, 60, null);
+    private final StaticTextFW MenuStart = new StaticTextFW(coreFW.getString(R.string.txtMainMenuStartGame), new Point(30, 300), Color.BLUE, 40, null);
+    private final StaticTextFW MenuSettings = new StaticTextFW(coreFW.getString(R.string.txtMainMenuMenuSettings), new Point(30, 350), Color.BLUE, 40, null);
+    private final StaticTextFW MenuResults = new StaticTextFW(coreFW.getString(R.string.txtMainMenuResult), new Point(30, 400), Color.BLUE, 40, null);
+    private final StaticTextFW MenuExit = new StaticTextFW(coreFW.getString(R.string.txtMainMenuExitGame), new Point(30, 450), Color.BLUE, 40, null);
 
     public MainMenuScene(CoreFW coreFW) {
         super(coreFW);
@@ -24,7 +23,7 @@ public class MainMenuScene extends SceneFW
     @Override
     public void update()
     {
-        if (coreFW.getTouchListenerFW().getTouchUp(MenuSpace.getTouchArea(graphicsFW)))
+        if (coreFW.getTouchListenerFW().getTouchUp(MenuStart.getTouchArea(graphicsFW)))
         {
             coreFW.setScene(new GameScene(coreFW));
         }
@@ -35,7 +34,7 @@ public class MainMenuScene extends SceneFW
     {
         graphicsFW.clearScene(Color.GREEN);
         graphicsFW.drawText(Title);
-        graphicsFW.drawText(MenuSpace);
+        graphicsFW.drawText(MenuStart);
         graphicsFW.drawText(MenuSettings);
         graphicsFW.drawText(MenuResults);
         graphicsFW.drawText(MenuExit);

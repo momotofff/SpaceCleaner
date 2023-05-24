@@ -5,7 +5,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.Typeface;
+import android.graphics.Point;
+
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -30,10 +31,10 @@ public class GraphicsFW
         canvas.drawRGB(colorRGB, colorRGB, colorRGB);
     }
 
-    public void drawPixel(int x, int y, int color)
+    public void drawPixel(Point position, int color)
     {
         paint.setColor(color);
-        canvas.drawPoint(x, y, paint);
+        canvas.drawPoint(position.x, position.y, paint);
     }
 
     public void drawLine(int startX, int startY, int stopX, int stopY, int color)
@@ -42,14 +43,14 @@ public class GraphicsFW
         canvas.drawLine(startX, startY, stopX, stopY, paint);
     }
 
-    public int measureText(StaticText text)
+    public int measureText(StaticTextFW text)
     {
         paint.setTextSize(text.size);
         paint.setTypeface(text.font);
         return (int) paint.measureText(text.text);
     }
 
-    public void drawText(StaticText text)
+    public void drawText(StaticTextFW text)
     {
         paint.setColor(text.color);
         paint.setTextSize(text.size);

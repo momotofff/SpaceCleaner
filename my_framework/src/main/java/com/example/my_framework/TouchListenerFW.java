@@ -10,7 +10,6 @@ public class TouchListenerFW implements View.OnTouchListener
     PointF touch = new PointF();
     boolean isTouchDown;
     boolean isTouchUp;
-
     final PointF scale;
 
     public TouchListenerFW(View view, PointF scale)

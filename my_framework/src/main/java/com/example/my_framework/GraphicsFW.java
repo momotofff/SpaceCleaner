@@ -6,7 +6,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
-
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -87,6 +86,7 @@ public class GraphicsFW
                 throw new RuntimeException("File not found exception " + fileName);
             }
         }
+
         catch (IOException e)
         {
             throw new RuntimeException(e);
@@ -96,6 +96,7 @@ public class GraphicsFW
         {
             inputStream.close();
         }
+
         catch (IOException e)
         {
             e.printStackTrace();

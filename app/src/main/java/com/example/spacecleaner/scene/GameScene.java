@@ -2,7 +2,6 @@ package com.example.spacecleaner.scene;
 
 import android.graphics.Color;
 import android.graphics.Point;
-
 import com.example.my_framework.CoreFW;
 import com.example.my_framework.SceneFW;
 import com.example.my_framework.StaticTextFW;

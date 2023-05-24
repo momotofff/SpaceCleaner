@@ -16,6 +16,7 @@ public class Star extends ObjectFW
     public void update()
     {
         position.x -= speed;
+
         if (position.x < 0)
         {
             position.x = maxScreen.x;
@@ -27,6 +28,5 @@ public class Star extends ObjectFW
     {
         return position;
     }
-
 
 }

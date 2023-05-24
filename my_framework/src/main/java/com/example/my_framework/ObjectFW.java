@@ -1,6 +1,5 @@
 package com.example.my_framework;
 
-
 import android.graphics.Point;
 import android.graphics.Rect;
 
@@ -13,7 +12,8 @@ public abstract class ObjectFW
     protected Rect hitBox;
     protected int radius;
 
-    public void setMaxScreen(Point maxScreen) {
+    public void setMaxScreen(Point maxScreen)
+    {
         this.maxScreen = maxScreen;
     }
 
@@ -60,6 +60,4 @@ public abstract class ObjectFW
     public int getRadius() {
         return radius;
     }
-
-
 }

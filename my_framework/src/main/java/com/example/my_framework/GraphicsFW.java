@@ -57,16 +57,15 @@ public class GraphicsFW
         canvas.drawText(text.text, text.position.x, text.position.y, paint);
     }
 
-    public void drawTexture(Bitmap bitmap, int x, int y)
+    public void drawTexture(Bitmap bitmap, Point position)
     {
-        canvas.drawBitmap(bitmap, x, y, null);
+        canvas.drawBitmap(bitmap, position.x, position.y, null);
     }
 
     public int getWidthFrameBuffer()
     {
         return frameBuffer.getWidth();
     }
-
     public int getHeightFrameBuffer()
     {
         return frameBuffer.getHeight();
@@ -76,32 +75,31 @@ public class GraphicsFW
     {
         InputStream inputStream = null;
 
-        try
-        {
+        try {
             inputStream = assetManager.open(fileName);
             texture = BitmapFactory.decodeStream(inputStream);
 
             if (texture == null)
-            {
                 throw new RuntimeException("File not found exception " + fileName);
-            }
         }
 
-        catch (IOException e)
-        {
+        catch (IOException e) {
             throw new RuntimeException(e);
         }
 
-        try
-        {
+        try {
             inputStream.close();
         }
 
-        catch (IOException e)
-        {
+        catch (IOException e) {
             e.printStackTrace();
         }
 
         return texture;
+    }
+
+    public Bitmap newSprite(Bitmap textureAtlas, Point position, Point spriteSize)
+    {
+        return Bitmap.createBitmap(textureAtlas,position.x, position.y, spriteSize.x, spriteSize.y);
     }
 }

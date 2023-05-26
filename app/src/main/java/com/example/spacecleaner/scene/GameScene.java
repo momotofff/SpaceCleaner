@@ -6,12 +6,14 @@ import com.example.my_framework.CoreFW;
 import com.example.my_framework.SceneFW;
 import com.example.my_framework.StaticTextFW;
 import com.example.spacecleaner.R;
+import com.example.spacecleaner.classes.Manager;
 import com.example.spacecleaner.generation.Background;
 
 public class GameScene extends SceneFW
 {
     GameState gameState;
     Background background;
+    Manager manager;
 
     private final StaticTextFW SceneReady = new StaticTextFW(coreFW.getString(R.string.txtGameSceneReady),new Point(250,300),Color.WHITE, 60, null);
     private final StaticTextFW SceneGame = new StaticTextFW(coreFW.getString(R.string.txtGameScene),new Point(250,300),Color.WHITE, 60, null);
@@ -26,6 +28,7 @@ public class GameScene extends SceneFW
         super(coreFW);
         gameState = GameState.READY;
         background = new Background(sceneSize);
+        manager = new Manager(coreFW, sceneSize);
     }
 
     @Override
@@ -52,6 +55,7 @@ public class GameScene extends SceneFW
     {
         gameState = GameState.RUNNING;
         background.update();
+        manager.update();
     }
 
     private void updateStatePause() {
@@ -92,6 +96,7 @@ public class GameScene extends SceneFW
         graphicsFW.clearScene(Color.BLACK);
         graphicsFW.drawText(SceneGame);
         background.drawing(graphicsFW);
+        manager.drawind(coreFW, graphicsFW);
     }
 
     private void drawingStateReady()

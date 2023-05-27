@@ -18,21 +18,26 @@ public class Loading
 
     private void loadSpritePlayer(GraphicsFW graphicsFW)
     {
-        Point oldPosition = new Point(1,1);
-        Point oldSpriteSize = new Point(128,64);
-        int countFrames = 4;
-        Resource.spritePlayer = new ArrayList<>();
+        //Point oldPosition = new Point(1,1);
+        //Point oldSpriteSize = new Point(128,64);
+        //int countFrames = 4;
+        Resource.spritePlayer.add(graphicsFW.newSprite(Resource.textureAtlas, 0,0, 128, 64));
+        Resource.spritePlayer.add(graphicsFW.newSprite(Resource.textureAtlas, 128,0, 128, 64));
+        Resource.spritePlayer.add(graphicsFW.newSprite(Resource.textureAtlas, 256,0, 128, 64));
+        Resource.spritePlayer.add(graphicsFW.newSprite(Resource.textureAtlas, 384,0, 128, 64));
 
-        for(int i = 0; i < countFrames; ++i)
+        /*for(int i = 0; i < countFrames; ++i)
         {
             Resource.spritePlayer.add(graphicsFW.newSprite(Resource.textureAtlas,oldPosition, oldSpriteSize));
             oldPosition.x = oldSpriteSize.x + 1;
-            oldSpriteSize.x = oldSpriteSize.x + 64;
-        }
+            oldSpriteSize.x = oldSpriteSize.x + 128;
+        }*/
+
+
     }
 
     private void loadTexture(GraphicsFW graphicsFW)
     {
-        Resource.textureAtlas = graphicsFW.loadTexture("Ship.png");
+        Resource.textureAtlas = graphicsFW.newTexture("qwerty.png");
     }
 }

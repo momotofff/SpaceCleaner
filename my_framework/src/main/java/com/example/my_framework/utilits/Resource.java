@@ -6,5 +6,5 @@ import java.util.ArrayList;
 public class Resource
 {
     public static Bitmap textureAtlas;
-    public static ArrayList<Bitmap> spritePlayer;
+    public static ArrayList<Bitmap> spritePlayer = new ArrayList<>();
 }

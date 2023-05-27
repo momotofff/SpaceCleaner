@@ -5,9 +5,9 @@ import android.graphics.Rect;
 
 public abstract class ObjectFW
 {
-    protected Point maxScreen;
-    protected Point minScreen;
-    protected Point position;
+    protected Point maxScreen = new Point();;
+    protected Point minScreen = new Point();;
+    protected Point position = new Point();
     protected int speed;
     protected Rect hitBox;
     protected int radius;

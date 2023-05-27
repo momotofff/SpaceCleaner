@@ -9,15 +9,13 @@ import com.example.spacecleaner.objects.Player;
 public class Manager
 {
     private Point maxScreen;
-    private final Point minScreen = new Point(0, 0);
 
     Player player;
 
-    public Manager(CoreFW coreFW, Point sceneSize)
+    public Manager(CoreFW coreFW, Point sizeDisplay)
     {
-        this.maxScreen.x = sceneSize.x;
-        this.maxScreen.y = sceneSize.y;
-        player = new Player(maxScreen, minScreen.y);
+        this.maxScreen = sizeDisplay;
+        player = new Player(maxScreen, 0);
     }
 
     public void update()

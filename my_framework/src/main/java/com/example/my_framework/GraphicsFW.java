@@ -71,11 +71,12 @@ public class GraphicsFW
         return frameBuffer.getHeight();
     }
 
-    public Bitmap loadTexture(String fileName)
+    public Bitmap newTexture(String fileName)
     {
         InputStream inputStream = null;
 
-        try {
+        try
+        {
             inputStream = assetManager.open(fileName);
             texture = BitmapFactory.decodeStream(inputStream);
 
@@ -84,22 +85,25 @@ public class GraphicsFW
         }
 
         catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("не находит он этот ебучий файл " + fileName);
         }
 
-        try {
-            inputStream.close();
-        }
+        if (inputStream != null)
+        {
+            try {
+                inputStream.close();
+            }
 
-        catch (IOException e) {
-            e.printStackTrace();
+            catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
         return texture;
     }
 
-    public Bitmap newSprite(Bitmap textureAtlas, Point position, Point spriteSize)
+    public Bitmap newSprite(Bitmap textureAtlas, int x, int y, int width, int height)
     {
-        return Bitmap.createBitmap(textureAtlas,position.x, position.y, spriteSize.x, spriteSize.y);
+        return Bitmap.createBitmap(textureAtlas, x, y, width, height);
     }
 }

@@ -9,7 +9,7 @@ import com.example.spacecleaner.classes.Animation;
 
 public class Player extends ObjectFW
 {
-    final int GRAVITY = -3;
+    final int GRAVITY = 0;
     final int MAX_SPEED = 15;
     final int MIN_SPEED = 1;
     Animation spritePlayer;
@@ -29,14 +29,10 @@ public class Player extends ObjectFW
         position.y -= speed + GRAVITY;
 
         if (position.y < minScreen.y)
-        {
             position.y = minScreen.y;
-        }
 
         if (position.y < maxScreen.y)
-        {
             position.y = maxScreen.y;
-        }
 
         spritePlayer.runAnimation();
 
@@ -44,6 +40,6 @@ public class Player extends ObjectFW
 
     public  void drawing(GraphicsFW graphicsFW)
     {
-        spritePlayer.gravingAnimation(graphicsFW, position);
+        spritePlayer.drawingAnimation(graphicsFW, position);
     }
 }

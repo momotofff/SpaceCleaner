@@ -13,12 +13,12 @@ public class Animation
     int delayIndex;
     int countFrames;
     int frames;
-
+    Bitmap sprite;
     ArrayList<Bitmap> spritePlayer;
 
     public Animation(double speed, ArrayList<Bitmap> spritePlayer)
     {
-
+        this.sprite = spritePlayer.get(0);
         this.spritePlayer = spritePlayer;
         this.speed = speed;
         frames = spritePlayer.size();
@@ -28,22 +28,23 @@ public class Animation
     {
         ++delayIndex;
 
-
         if (countFrames == 0)
-        {
-            sprite = sprite1;
-        }
+            sprite = spritePlayer.get(countFrames);
+        else if (countFrames == 1)
+            sprite = spritePlayer.get(countFrames);
+        else if (countFrames == 2)
+            sprite = spritePlayer.get(countFrames);
+        else if (countFrames == 3)
+            sprite = spritePlayer.get(countFrames);
+
+        ++countFrames;
+
+        if (countFrames > frames)
+            countFrames = 0;
     }
 
-    public void gravingAnimation(GraphicsFW graphicsFW, Point position)
+    public void drawingAnimation(GraphicsFW graphicsFW, Point position)
     {
-        for (int i = 0; i < frames; ++i)
-        {
-            graphicsFW.drawTexture(spritePlayer.get(i),position);
-        }
+        graphicsFW.drawTexture(sprite, position);
     }
-
-
-
-
 }

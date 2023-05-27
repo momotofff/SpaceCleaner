@@ -7,9 +7,11 @@ import com.example.spacecleaner.scene.MainMenuScene;
 
 public class Main extends CoreFW
 {
-    Loading loading = new Loading(this, this.getGraphicsFW());
+    Loading loading;
+
     public SceneFW getStartScene()
     {
+        loading = new Loading(this, this.getGraphicsFW());
         return new MainMenuScene(this);
     }
 }

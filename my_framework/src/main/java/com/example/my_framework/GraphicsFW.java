@@ -95,7 +95,6 @@ public class GraphicsFW
             try {
                 inputStream.close();
             }
-
             catch (IOException e) {
                 e.printStackTrace();
             }

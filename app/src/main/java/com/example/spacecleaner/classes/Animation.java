@@ -10,41 +10,22 @@ import java.util.ArrayList;
 public class Animation
 {
     double speed;
-    int delayIndex;
-    int countFrames;
-    int frames;
-    Bitmap sprite;
-    ArrayList<Bitmap> spritePlayer;
+    int frameIndex;
+    ArrayList<Bitmap> sprite;
 
-    public Animation(double speed, ArrayList<Bitmap> spritePlayer)
+    public Animation(double speed, ArrayList<Bitmap> sprite)
     {
-        this.sprite = spritePlayer.get(0);
-        this.spritePlayer = spritePlayer;
-        this.speed = speed;
-        frames = spritePlayer.size();
+        this.sprite = sprite;
     }
 
     public void runAnimation()
     {
-        ++delayIndex;
-
-        if (countFrames == 0)
-            sprite = spritePlayer.get(countFrames);
-        else if (countFrames == 1)
-            sprite = spritePlayer.get(countFrames);
-        else if (countFrames == 2)
-            sprite = spritePlayer.get(countFrames);
-        else if (countFrames == 3)
-            sprite = spritePlayer.get(countFrames);
-
-        ++countFrames;
-
-        if (countFrames > frames)
-            countFrames = 0;
+        if (++frameIndex >= sprite.size())
+            frameIndex = 0;
     }
 
     public void drawingAnimation(GraphicsFW graphicsFW, Point position)
     {
-        graphicsFW.drawTexture(sprite, position);
+        graphicsFW.drawTexture(sprite.get(frameIndex), position);
     }
 }

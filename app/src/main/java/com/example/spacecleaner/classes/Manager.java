@@ -23,7 +23,7 @@ public class Manager
         player.update();
     }
 
-    public  void drawind(CoreFW coreFW, GraphicsFW graphicsFW)
+    public void drawing(CoreFW coreFW, GraphicsFW graphicsFW)
     {
         player.drawing(graphicsFW);
     }

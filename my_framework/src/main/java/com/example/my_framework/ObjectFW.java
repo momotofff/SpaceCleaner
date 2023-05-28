@@ -5,20 +5,12 @@ import android.graphics.Rect;
 
 public abstract class ObjectFW
 {
-    protected Point maxScreen = new Point();;
-    protected Point minScreen = new Point();;
+    protected Rect screen = new Rect();
     protected Point position = new Point();
     protected int speed;
     protected Rect hitBox;
     protected int radius;
 
-    public void setMaxScreen(Point maxScreen)
-    {
-        this.maxScreen = maxScreen;
-    }
-    public void setMinScreen(Point minScreen) {
-        this.minScreen = minScreen;
-    }
     public void setPosition(Point position) {
         this.position = position;
     }
@@ -30,12 +22,6 @@ public abstract class ObjectFW
     }
     public void setRadius(int radius) {
         this.radius = radius;
-    }
-    public Point getMaxScreen() {
-        return maxScreen;
-    }
-    public Point getMinScreen() {
-        return minScreen;
     }
     public Point getPosition() {
         return position;

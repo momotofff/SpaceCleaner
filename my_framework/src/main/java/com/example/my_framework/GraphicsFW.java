@@ -6,6 +6,8 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
+import android.graphics.Rect;
+
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -102,8 +104,8 @@ public class GraphicsFW
         return texture;
     }
 
-    public Bitmap newSprite(Bitmap textureAtlas, int x, int y, int width, int height)
+    public Bitmap newSprite(Bitmap textureAtlas, Rect sprite)
     {
-        return Bitmap.createBitmap(textureAtlas, x, y, width, height);
+        return Bitmap.createBitmap(textureAtlas, sprite.left, sprite.top, sprite.right, sprite.bottom);
     }
 }

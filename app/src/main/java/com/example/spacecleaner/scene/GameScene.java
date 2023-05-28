@@ -96,7 +96,7 @@ public class GameScene extends SceneFW
         graphicsFW.clearScene(Color.BLACK);
         graphicsFW.drawText(SceneGame);
         background.drawing(graphicsFW);
-        manager.drawind(coreFW, graphicsFW);
+        manager.drawing(coreFW, graphicsFW);
     }
 
     private void drawingStateReady()

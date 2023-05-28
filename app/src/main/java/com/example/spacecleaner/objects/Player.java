@@ -19,26 +19,26 @@ public class Player extends ObjectFW
         position.x = 32;
         position.y = maxScreen.y / 2;
         speed = 1;
-        this.maxScreen.x = maxScreen.x;
-        this.maxScreen.y = maxScreen.y - Resource.spritePlayer.get(0).getHeight();
-        this.spritePlayer = new Animation(speed, Resource.spritePlayer);
+
+        this.screen.right = maxScreen.x;
+        this.screen.bottom = maxScreen.y - Resource.playerSprite.get(0).getHeight();
+        this.spritePlayer = new Animation(speed, Resource.playerSprite);
     }
 
     public void update()
     {
-        position.y -= speed + GRAVITY;
+        position.y += speed + GRAVITY;
 
-        if (position.y < minScreen.y)
-            position.y = minScreen.y;
+        if (position.y < screen.top)
+            position.y = screen.top;
 
-        if (position.y < maxScreen.y)
-            position.y = maxScreen.y;
+        if (position.y > screen.bottom)
+            position.y = screen.bottom;
 
         spritePlayer.runAnimation();
-
     }
 
-    public  void drawing(GraphicsFW graphicsFW)
+    public void drawing(GraphicsFW graphicsFW)
     {
         spritePlayer.drawingAnimation(graphicsFW, position);
     }

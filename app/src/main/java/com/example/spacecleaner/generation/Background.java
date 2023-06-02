@@ -1,6 +1,5 @@
 package com.example.spacecleaner.generation;
 
-import android.graphics.Color;
 import android.graphics.Point;
 import com.example.my_framework.GraphicsFW;
 import com.example.spacecleaner.objects.Star;
@@ -12,7 +11,7 @@ public class Background
 
     public Background(Point displaySize)
     {
-        final int STARS_COUNT = 50;
+        final int STARS_COUNT = 100;
 
         for (int i = 0; i < STARS_COUNT; ++i)
             stars.add(new Star(displaySize));

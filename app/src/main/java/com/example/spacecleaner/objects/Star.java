@@ -3,7 +3,6 @@ package com.example.spacecleaner.objects;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.Rect;
-
 import com.example.my_framework.GraphicsFW;
 import com.example.my_framework.ObjectFW;
 
@@ -26,6 +25,7 @@ public class Star extends ObjectFW
             position.y = (int) (Math.random() * screen.bottom);
         }
     }
+
 
     public Point getPosition()
     {

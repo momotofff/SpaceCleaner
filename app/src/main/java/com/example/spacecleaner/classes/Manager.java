@@ -15,7 +15,7 @@ public class Manager
     public Manager(CoreFW coreFW, Point sizeDisplay)
     {
         this.maxScreen = sizeDisplay;
-        player = new Player(maxScreen, 0);
+        player = new Player(coreFW, maxScreen, 0);
     }
 
     public void update()

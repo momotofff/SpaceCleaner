@@ -16,8 +16,6 @@ public class GameScene extends SceneFW
     Manager manager;
 
     private final StaticTextFW SceneReady = new StaticTextFW(coreFW.getString(R.string.txtGameSceneReady),new Point(250,300),Color.WHITE, 60, null);
-    private final StaticTextFW SceneGame = new StaticTextFW(coreFW.getString(R.string.txtGameScene),new Point(250,300),Color.WHITE, 60, null);
-
     enum GameState
     {
         READY, RUNNING, PAUSE, GAMEOVER
@@ -94,7 +92,7 @@ public class GameScene extends SceneFW
     private void drawingStateRunning()
     {
         graphicsFW.clearScene(Color.BLACK);
-        graphicsFW.drawText(SceneGame);
+
         background.drawing(graphicsFW);
         manager.drawing(coreFW, graphicsFW);
     }

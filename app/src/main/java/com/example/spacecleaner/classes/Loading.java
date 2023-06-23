@@ -12,6 +12,7 @@ public class Loading
     {
         loadTexture(graphicsFW);
         loadPlayerSprite(graphicsFW);
+        loadAsteroidSprite(graphicsFW);
     }
 
     private void loadPlayerSprite(GraphicsFW graphicsFW)
@@ -39,6 +40,18 @@ public class Loading
         for (int i = 0; i < FramesCount; ++i)
         {
             Resource.playerSpriteDown.add(graphicsFW.newSprite(Resource.textureAtlas, sprite));
+            sprite.left += 128;
+        }
+    }
+
+    private void loadAsteroidSprite(GraphicsFW graphicsFW)
+    {
+        Rect sprite = new Rect(0,192,128,64);
+        final int FramesCount = 4;
+
+        for (int i = 0; i < FramesCount; ++i)
+        {
+            Resource.asteroidSprite.add(graphicsFW.newSprite(Resource.textureAtlas, sprite));
             sprite.left += 128;
         }
     }

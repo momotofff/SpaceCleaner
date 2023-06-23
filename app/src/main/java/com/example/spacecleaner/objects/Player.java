@@ -13,21 +13,24 @@ public class Player extends ObjectFW
 {
     final int GRAVITY = 0;
     final int MAX_SPEED = 15;
-    final int MIN_SPEED = -3;
+    final int MIN_SPEED = -10;
     AnimationFW spritePlayer;
     AnimationFW spritePlayerUp;
     AnimationFW spritePlayerDown;
+    AnimationFW spritePlayerBoost;
     CoreFW coreFW;
+    private int shields;
 
     boolean isUp = false;;
     boolean isDown = false;
 
     public Player(CoreFW coreFW, Point maxScreen, int minScreenY)
     {
+        shields = 3;
         this.coreFW = coreFW;
         position.x = 32;
         position.y = maxScreen.y / 2;
-        speed = 2;
+        speed = 0;
 
         this.screen.right = maxScreen.x;
         this.screen.bottom = maxScreen.y - Resource.playerSprite.get(0).getHeight();
@@ -43,10 +46,12 @@ public class Player extends ObjectFW
         if (coreFW.getTouchListenerFW().getTouchUp(screen))
             stopPlayerUp();
 
+
+
         if (isUp)
             speed += 5;
         else
-            speed -= 2;
+            speed -= 5;
 
         if (speed > MAX_SPEED)
             speed = MAX_SPEED;
@@ -80,5 +85,15 @@ public class Player extends ObjectFW
         }
         else
             spritePlayer.drawingAnimation(graphicsFW, position);
+    }
+
+    public int getSpeedPlayer()
+    {
+        return speed;
+    }
+
+    public int getShieldsPlayer()
+    {
+        return shields;
     }
 }

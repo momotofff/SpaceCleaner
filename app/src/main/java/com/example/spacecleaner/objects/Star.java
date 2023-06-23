@@ -32,7 +32,7 @@ public class Star extends ObjectFW
         return position;
     }
 
-    public void draw(GraphicsFW graphicsFW)
+    public void drawing(GraphicsFW graphicsFW)
     {
         graphicsFW.drawPixel(getPosition(), Color.WHITE);
     }

@@ -10,7 +10,7 @@ public class AnimationFW
     double speed;
     int frameIndex;
     ArrayList<Bitmap> sprite;
-
+    Thread thread  = new Thread();
     public AnimationFW(double speed, ArrayList<Bitmap> sprite)
     {
         this.sprite = sprite;
@@ -19,7 +19,9 @@ public class AnimationFW
     public void runAnimation()
     {
         if (++frameIndex >= sprite.size())
+        {
             frameIndex = 0;
+        }
     }
 
     public void drawingAnimation(GraphicsFW graphicsFW, Point position)

@@ -12,7 +12,6 @@ import com.example.spacecleaner.generation.Background;
 public class GameScene extends SceneFW
 {
     GameState gameState;
-    Background background;
     Manager manager;
 
     private final StaticTextFW SceneReady = new StaticTextFW(coreFW.getString(R.string.txtGameSceneReady),new Point(250,300),Color.WHITE, 60, null);
@@ -25,7 +24,6 @@ public class GameScene extends SceneFW
     {
         super(coreFW);
         gameState = GameState.READY;
-        background = new Background(sceneSize);
         manager = new Manager(coreFW, sceneSize);
     }
 
@@ -52,7 +50,6 @@ public class GameScene extends SceneFW
     private void updateStateRunning()
     {
         gameState = GameState.RUNNING;
-        background.update();
         manager.update();
     }
 
@@ -93,7 +90,6 @@ public class GameScene extends SceneFW
     {
         graphicsFW.clearScene(Color.BLACK);
 
-        background.drawing(graphicsFW);
         manager.drawing(coreFW, graphicsFW);
     }
 

@@ -2,14 +2,16 @@ package com.example.spacecleaner.generation;
 
 import android.graphics.Point;
 import com.example.my_framework.GraphicsFW;
+import com.example.my_framework.IDrawable;
+import com.example.my_framework.ObjectFW;
 import com.example.spacecleaner.objects.Asteroid;
 import com.example.spacecleaner.objects.Star;
 import java.util.ArrayList;
 
-public class Background
+public class Background implements IDrawable
 {
-    public ArrayList<Star> stars = new ArrayList<>();
-    public ArrayList<Asteroid> asteroids = new ArrayList<>();
+    final public ArrayList<Star> stars = new ArrayList<>();
+    final public ArrayList<Asteroid> asteroids = new ArrayList<>();
 
     public Background(Point displaySize)
     {
@@ -27,6 +29,7 @@ public class Background
 
     }
 
+    @Override
     public void update()
     {
         for (Star star: stars)
@@ -36,6 +39,7 @@ public class Background
             asteroid.update();
     }
 
+    @Override
     public void drawing(GraphicsFW graphicsFW)
     {
         for (Star star: stars)

@@ -1,15 +1,15 @@
 package com.example.spacecleaner.objects;
 
 import android.graphics.Point;
-import android.graphics.Rect;
 
+import com.example.my_framework.AnimationFW;
 import com.example.my_framework.CoreFW;
 import com.example.my_framework.GraphicsFW;
+import com.example.my_framework.IDrawable;
 import com.example.my_framework.ObjectFW;
 import com.example.spacecleaner.utilits.Resource;
-import com.example.my_framework.AnimationFW;
 
-public class Player extends ObjectFW
+public class Player extends ObjectFW implements IDrawable
 {
     final int GRAVITY = 0;
     final int MAX_SPEED = 15;
@@ -39,14 +39,14 @@ public class Player extends ObjectFW
         this.spritePlayerDown = new AnimationFW(1, Resource.playerSpriteDown);
     }
 
+    @Override
     public void update()
     {
         if (coreFW.getTouchListenerFW().getTouchDown(screen))
             startPlayerUp();
+
         if (coreFW.getTouchListenerFW().getTouchUp(screen))
             stopPlayerUp();
-
-
 
         if (isUp)
             speed += 5;
@@ -77,12 +77,11 @@ public class Player extends ObjectFW
 
     private void startPlayerUp() { isUp = true;}
 
+    @Override
     public void drawing(GraphicsFW graphicsFW)
     {
         if (isUp)
-        {
             spritePlayerUp.drawingAnimation(graphicsFW, position);
-        }
         else
             spritePlayer.drawingAnimation(graphicsFW, position);
     }

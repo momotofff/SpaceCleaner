@@ -9,11 +9,11 @@ import com.example.my_framework.ObjectFW;
 
 public class Star extends ObjectFW implements IDrawable
 {
-    public Star(Point sceneSize)
+    public Star(Point sceneSize, int height)
     {
-        this.screen = new Rect(0, 0, sceneSize.x, sceneSize.y);
+        this.screen = new Rect(0, height, sceneSize.x, sceneSize.y);
         this.speed = 4;
-        this.position = new Point((int) (Math.random() * screen.right), (int) (Math.random() * screen.bottom));
+        this.position = new Point((int) (Math.random() * screen.right), (int) (Math.random() * screen.bottom) + height);
     }
 
     public Point getPosition()
@@ -29,7 +29,7 @@ public class Star extends ObjectFW implements IDrawable
         if (position.x < 0)
         {
             position.x = screen.right;
-            position.y = (int) (Math.random() * screen.bottom);
+            position.y = (int) (Math.random() * screen.bottom) + screen.top;
         }
     }
 

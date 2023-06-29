@@ -11,10 +11,10 @@ import com.example.spacecleaner.R;
 
 public class Hud implements IDrawable
 {
-    private int passedDistance;
     private final StaticTextFW txtPassedDistance;
     private final StaticTextFW txtCurrentSpeedPlayer;
     private final StaticTextFW txtCurrentShieldsPlayer;
+    private int passedDistance;
     private int currentSpeedPlayer;
     private int currentShieldsPlayer;
     CoreFW coreFW;
@@ -42,10 +42,14 @@ public class Hud implements IDrawable
     @Override
     public void drawing(GraphicsFW graphicsFW)
     {
+        txtPassedDistance.text = coreFW.getString(R.string.txtHudPassedDistance) + " : " + passedDistance;
+        txtCurrentSpeedPlayer.text = coreFW.getString(R.string.txtHudCurrentSpeedPlayer) + " : " + currentSpeedPlayer;
+        txtCurrentShieldsPlayer.text = coreFW.getString(R.string.txtHudCurrentShieldsPlayer) + " : " + currentShieldsPlayer;
         graphicsFW.drawLine(0, HEIGHT, graphicsFW.getWidthFrameBuffer(), HEIGHT, Color.WHITE);
         graphicsFW.drawText(txtPassedDistance);
         graphicsFW.drawText(txtCurrentSpeedPlayer);
         graphicsFW.drawText(txtCurrentShieldsPlayer);
+
     }
 
     public int getHeight() {

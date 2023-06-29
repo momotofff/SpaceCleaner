@@ -11,29 +11,26 @@ import com.example.spacecleaner.utilits.Resource;
 
 public class Player extends ObjectFW implements IDrawable
 {
-    final int GRAVITY = 0;
-    final int MAX_SPEED = 15;
-    final int MIN_SPEED = -10;
+    final int GRAVITY = 10;
     AnimationFW spritePlayer;
     AnimationFW spritePlayerUp;
     AnimationFW spritePlayerDown;
-    AnimationFW spritePlayerBoost;
     CoreFW coreFW;
     private int shields;
 
     boolean isUp = false;;
-    boolean isDown = false;
 
-    public Player(CoreFW coreFW, Point maxScreen, int minScreenY)
+    public Player(CoreFW coreFW, Point maxScreen, int height)
     {
         shields = 3;
         this.coreFW = coreFW;
         position.x = 32;
         position.y = maxScreen.y / 2;
-        speed = 0;
+        speed = 10;
 
         this.screen.right = maxScreen.x;
         this.screen.bottom = maxScreen.y - Resource.playerSprite.get(0).getHeight();
+        this.screen.top = height;
         this.spritePlayer = new AnimationFW(1, Resource.playerSprite);
         this.spritePlayerUp = new AnimationFW(1, Resource.playerSpriteUp);
         this.spritePlayerDown = new AnimationFW(1, Resource.playerSpriteDown);
@@ -49,17 +46,10 @@ public class Player extends ObjectFW implements IDrawable
             stopPlayerUp();
 
         if (isUp)
-            speed += 5;
+            position.y -= speed;
         else
-            speed -= 5;
+            position.y += GRAVITY;
 
-        if (speed > MAX_SPEED)
-            speed = MAX_SPEED;
-
-        if (speed < MIN_SPEED)
-            speed = MIN_SPEED;
-
-        position.y -= speed + GRAVITY;
 
         if (position.y < screen.top)
             position.y = screen.top;
@@ -84,11 +74,6 @@ public class Player extends ObjectFW implements IDrawable
             spritePlayerUp.drawingAnimation(graphicsFW, position);
         else
             spritePlayer.drawingAnimation(graphicsFW, position);
-    }
-
-    public int getSpeedPlayer()
-    {
-        return speed;
     }
 
     public int getShieldsPlayer()

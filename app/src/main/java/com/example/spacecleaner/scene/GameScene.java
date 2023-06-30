@@ -89,7 +89,6 @@ public class GameScene extends SceneFW
     private void drawingStateRunning()
     {
         graphicsFW.clearScene(Color.BLACK);
-
         manager.drawing(coreFW, graphicsFW);
     }
 

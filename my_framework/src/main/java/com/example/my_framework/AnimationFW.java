@@ -7,11 +7,11 @@ import java.util.ArrayList;
 
 public class AnimationFW
 {
-    double speed;
     int frameIndex;
     ArrayList<Bitmap> sprite;
     Thread thread  = new Thread();
-    public AnimationFW(double speed, ArrayList<Bitmap> sprite)
+
+    public AnimationFW(ArrayList<Bitmap> sprite)
     {
         this.sprite = sprite;
     }
@@ -26,6 +26,6 @@ public class AnimationFW
 
     public void drawingAnimation(GraphicsFW graphicsFW, Point position)
     {
-        graphicsFW.drawTexture(sprite.get(frameIndex), position);
+       graphicsFW.drawTexture(sprite.get(frameIndex), position);
     }
 }

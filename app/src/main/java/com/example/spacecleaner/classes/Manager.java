@@ -2,6 +2,7 @@ package com.example.spacecleaner.classes;
 
 import android.graphics.Point;
 
+import com.example.my_framework.CollisionDetect;
 import com.example.my_framework.CoreFW;
 import com.example.my_framework.GraphicsFW;
 import com.example.my_framework.IDrawable;
@@ -15,8 +16,7 @@ import java.util.List;
 public class Manager
 {
     private Point maxScreen;
-    Background background;
-    Asteroid asteroid;
+    public static Background background;
     Player player;
     Hud hud;
 
@@ -32,12 +32,11 @@ public class Manager
         this.maxScreen = sizeDisplay;
         hud = new Hud(coreFW);
         background = new Background(sizeDisplay, hud.getHeight());
-        asteroid = new Asteroid(sizeDisplay, hud.getHeight());
+
         player = new Player(coreFW, maxScreen, hud.getHeight());
         hud = new Hud(coreFW);
 
         zOrder.add(background);
-        zOrder.add(asteroid);
         zOrder.add(player);
     }
 
@@ -50,7 +49,23 @@ public class Manager
         for (IDrawable drawable: zOrder)
             drawable.update();
 
-        hud.update(passedDistance, currentSpeedPlayer, currentShieldsPlayer);    }
+        hud.update(passedDistance, currentSpeedPlayer, currentShieldsPlayer);
+
+        checkHit();
+    }
+
+    private void checkHit()
+    {
+        for (Asteroid asteroid: background.asteroids)
+        {
+            if (CollisionDetect.collisionDetect(player, asteroid))
+            {
+                player.hitAsteroid();
+                background.hitPlayer(asteroid);
+                break;
+            }
+        }
+    }
 
     public void drawing(CoreFW coreFW, GraphicsFW graphicsFW)
     {

@@ -5,8 +5,8 @@ import android.graphics.Rect;
 
 public abstract class ObjectFW
 {
-    protected Rect screen = new Rect();
-    protected Point position = new Point();
+    public Rect screen = new Rect();
+    public Point position = new Point();
     public int speed;
     protected Rect hitBox;
     protected int radius;
@@ -14,4 +14,6 @@ public abstract class ObjectFW
     public Point getPosition() {
         return position;
     }
+    public Rect getHitBox() {return hitBox;}
+    public int getRadius() {return radius;}
 }

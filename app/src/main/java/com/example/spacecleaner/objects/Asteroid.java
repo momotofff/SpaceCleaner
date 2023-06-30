@@ -15,10 +15,19 @@ public class Asteroid extends ObjectFW implements IDrawable
 
     public Asteroid(Point sceneSize, int height)
     {
+        radius = Resource.asteroidSprite.get(0).getHeight() / 2;
         this.screen = new Rect(0, height, sceneSize.x, sceneSize.y);
         this.speed = 10;
+        hitBox = new Rect(position.x, position.y, Resource.asteroidSprite.get(0).getHeight() + position.x, Resource.asteroidSprite.get(0).getWidth() + position.y);
         this.position = new Point((int) (screen.right * Math.random()), (int) (Math.random() * screen.bottom) + Resource.asteroidSprite.get(0).getHeight() + height);
-        this.asteroidAnim = new AnimationFW(1, Resource.asteroidSprite);
+        this.asteroidAnim = new AnimationFW(Resource.asteroidSprite);
+    }
+
+    public static Asteroid aster(Asteroid asteroid)
+    {
+        asteroid.position.x = asteroid.screen.right;
+        asteroid.position.y = (int) (asteroid.screen.bottom * Math.random()) + Resource.asteroidSprite.get(0).getHeight() * 2;
+        return asteroid;
     }
 
     @Override
@@ -33,12 +42,21 @@ public class Asteroid extends ObjectFW implements IDrawable
         }
 
         asteroidAnim.runAnimation();
+        hitBox.top = position.x;
+        hitBox.left = position.y;
+        hitBox.bottom = Resource.asteroidSprite.get(0).getHeight() + position.x;
+        hitBox.right = Resource.asteroidSprite.get(0).getWidth() + position.y;
     }
 
     @Override
     public void drawing(GraphicsFW graphicsFW)
     {
         asteroidAnim.drawingAnimation(graphicsFW, getPosition());
+    }
+
+    public Rect getHitBox()
+    {
+        return hitBox;
     }
 
 }

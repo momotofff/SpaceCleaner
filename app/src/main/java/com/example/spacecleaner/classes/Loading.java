@@ -36,15 +36,6 @@ public class Loading
             Resource.playerSpriteUp.add(graphicsFW.newSprite(Resource.textureAtlas, sprite));
             sprite.left += SPRITE_SIZE.x;
         }
-
-        sprite.top += SPRITE_SIZE.y;
-        sprite.left = 0;
-
-        for (int i = 0; i < FRAMES_COUNT; ++i)
-        {
-            Resource.playerSpriteDown.add(graphicsFW.newSprite(Resource.textureAtlas, sprite));
-            sprite.left += SPRITE_SIZE.x;
-        }
     }
 
     private void loadAsteroidSprite(GraphicsFW graphicsFW)

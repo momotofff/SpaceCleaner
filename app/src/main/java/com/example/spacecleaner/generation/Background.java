@@ -1,6 +1,7 @@
 package com.example.spacecleaner.generation;
 
 import android.graphics.Point;
+
 import com.example.my_framework.GraphicsFW;
 import com.example.my_framework.IDrawable;
 import com.example.spacecleaner.objects.Asteroid;
@@ -10,7 +11,7 @@ import java.util.ArrayList;
 public class Background implements IDrawable
 {
     final public ArrayList<Star> stars = new ArrayList<>();
-    final public ArrayList<Asteroid> asteroids = new ArrayList<>();
+    public ArrayList<Asteroid> asteroids = new ArrayList<>();
 
     public Background(Point displaySize, int height)
     {
@@ -38,6 +39,7 @@ public class Background implements IDrawable
             asteroid.update();
     }
 
+
     @Override
     public void drawing(GraphicsFW graphicsFW)
     {
@@ -46,5 +48,12 @@ public class Background implements IDrawable
 
         for (Asteroid asteroid: asteroids)
             asteroid.drawing(graphicsFW);
+    }
+
+    public void hitPlayer(Asteroid asteroid)
+    {
+        Asteroid ast = Asteroid.aster(asteroid);
+        asteroids.remove(asteroid);
+        asteroids.add(ast);
     }
 }

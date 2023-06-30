@@ -68,10 +68,7 @@ public class GraphicsFW
     {
         return frameBuffer.getWidth();
     }
-    public int getHeightFrameBuffer()
-    {
-        return frameBuffer.getHeight();
-    }
+    public int getHeightFrameBuffer() { return frameBuffer.getHeight(); }
 
     public Bitmap newTexture(String fileName)
     {

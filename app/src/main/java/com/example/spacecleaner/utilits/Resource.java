@@ -8,7 +8,5 @@ public class Resource
     public static Bitmap textureAtlas;
     public static ArrayList<Bitmap> playerSprite = new ArrayList<>();
     public static  ArrayList<Bitmap> playerSpriteUp = new ArrayList<>();
-    public static  ArrayList<Bitmap> playerSpriteDown = new ArrayList<>();
-    public static ArrayList<Bitmap> playerSpriteBoost = new ArrayList<>();
     public static ArrayList<Bitmap> asteroidSprite = new ArrayList<>();
 }

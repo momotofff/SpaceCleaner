@@ -23,11 +23,10 @@ public class Asteroid extends ObjectFW implements IDrawable
         this.asteroidAnim = new AnimationFW(Resource.asteroidSprite);
     }
 
-    public static Asteroid aster(Asteroid asteroid)
+    public void restartFromInitialPosition()
     {
-        asteroid.position.x = asteroid.screen.right;
-        asteroid.position.y = (int) (asteroid.screen.bottom * Math.random()) + Resource.asteroidSprite.get(0).getHeight() * 2;
-        return asteroid;
+        position.x = screen.right;
+        position.y = (int) (screen.bottom * Math.random()) + Resource.asteroidSprite.get(0).getHeight() * 2;
     }
 
     @Override

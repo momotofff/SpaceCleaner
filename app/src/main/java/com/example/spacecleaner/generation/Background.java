@@ -52,8 +52,6 @@ public class Background implements IDrawable
 
     public void hitPlayer(Asteroid asteroid)
     {
-        Asteroid ast = Asteroid.aster(asteroid);
-        asteroids.remove(asteroid);
-        asteroids.add(ast);
+        asteroid.restartFromInitialPosition();
     }
 }

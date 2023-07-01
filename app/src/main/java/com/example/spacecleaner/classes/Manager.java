@@ -20,36 +20,29 @@ public class Manager
     Player player;
     Hud hud;
 
-    private int passedDistance;
-    private int currentSpeedPlayer;
-    private int currentShieldsPlayer;
-
     // If addition of entities will be needed, use TreeMap instead
     List<IDrawable> zOrder = new ArrayList<>();
 
     public Manager(CoreFW coreFW, Point sizeDisplay)
     {
-        this.maxScreen = sizeDisplay;
-        hud = new Hud(coreFW);
-        background = new Background(sizeDisplay, hud.getHeight());
+        // TODO: Use screen dimensions to calculate it
+        final int HUD_HEIGHT = 100;
 
-        player = new Player(coreFW, maxScreen, hud.getHeight());
-        hud = new Hud(coreFW);
+        this.maxScreen = sizeDisplay;
+
+        background = new Background(sizeDisplay, HUD_HEIGHT);
+        player = new Player(coreFW, maxScreen, HUD_HEIGHT);
+        hud = new Hud(coreFW, player, HUD_HEIGHT);
 
         zOrder.add(background);
         zOrder.add(player);
+        zOrder.add(hud);
     }
 
     public void update()
     {
-        passedDistance += player.speed;
-        currentSpeedPlayer = player.speed;
-        currentShieldsPlayer = player.getShieldsPlayer();
-
         for (IDrawable drawable: zOrder)
             drawable.update();
-
-        hud.update(passedDistance, currentSpeedPlayer, currentShieldsPlayer);
 
         checkHit();
     }
@@ -71,7 +64,5 @@ public class Manager
     {
         for (IDrawable drawable: zOrder)
             drawable.drawing(graphicsFW);
-
-        hud.drawing(graphicsFW);
     }
 }

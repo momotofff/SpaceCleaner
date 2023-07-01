@@ -8,16 +8,21 @@ import com.example.my_framework.CoreFW;
 import com.example.my_framework.GraphicsFW;
 import com.example.my_framework.IDrawable;
 import com.example.my_framework.ObjectFW;
+import com.example.spacecleaner.R;
 import com.example.spacecleaner.utilits.Resource;
+
+import java.util.Locale;
 
 public class Player extends ObjectFW implements IDrawable
 {
     final int GRAVITY = 10;
     AnimationFW spritePlayer;
     AnimationFW spritePlayerUp;
-    AnimationFW spritePlayerDown;
     CoreFW coreFW;
+
     private int shields;
+    private int passedDistance;
+    private int speed;
 
     boolean isUp = false;;
 
@@ -41,10 +46,10 @@ public class Player extends ObjectFW implements IDrawable
     public void update()
     {
         if (coreFW.getTouchListenerFW().getTouchDown(screen))
-            startPlayerUp();
+            start();
 
         if (coreFW.getTouchListenerFW().getTouchUp(screen))
-            stopPlayerUp();
+            stop();
 
         if (isUp)
             position.y -= speed;
@@ -67,11 +72,13 @@ public class Player extends ObjectFW implements IDrawable
         hitBox.left = position.y;
         hitBox.bottom = Resource.playerSprite.get(0).getHeight() + position.x;
         hitBox.right = Resource.playerSprite.get(0).getWidth() + position.y;
+
+        passedDistance += speed;
     }
 
-    private void stopPlayerUp() {isUp = false;}
+    private void stop() { isUp = false; }
 
-    private void startPlayerUp() { isUp = true;}
+    private void start() { isUp = true; }
 
     @Override
     public void drawing(GraphicsFW graphicsFW)
@@ -82,9 +89,19 @@ public class Player extends ObjectFW implements IDrawable
             spritePlayer.drawingAnimation(graphicsFW, position);
     }
 
-    public int getShieldsPlayer()
+    public String getShields()
     {
-        return shields;
+        return String.format(Locale.getDefault(), "%s: %d", coreFW.getString(R.string.txtHudCurrentShieldsPlayer), shields);
+    }
+
+    public String getPassedDistance()
+    {
+        return String.format(Locale.getDefault(), "%s: %d", coreFW.getString(R.string.txtHudPassedDistance), passedDistance);
+    }
+
+    public String getSpeed()
+    {
+        return String.format(Locale.getDefault(), "%s: %d", coreFW.getString(R.string.txtHudCurrentSpeedPlayer), speed);
     }
 
     public void hitAsteroid()

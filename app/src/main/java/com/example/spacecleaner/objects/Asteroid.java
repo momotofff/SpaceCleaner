@@ -13,14 +13,15 @@ public class Asteroid extends ObjectFW implements IDrawable
 {
     AnimationFW asteroidAnim;
 
-    public Asteroid(Point sceneSize, int height)
+    public Asteroid(Point sceneSize, int height, int speed)
     {
-        radius = Resource.asteroidSprite.get(0).getHeight() / 2;
         this.screen = new Rect(0, height, sceneSize.x, sceneSize.y);
-        this.speed = 10;
-        hitBox = new Rect(position.x, position.y, Resource.asteroidSprite.get(0).getHeight() + position.x, Resource.asteroidSprite.get(0).getWidth() + position.y);
+        this.speed = speed;
         this.position = new Point((int) (screen.right * Math.random()), (int) (Math.random() * screen.bottom) + Resource.asteroidSprite.get(0).getHeight() + height);
         this.asteroidAnim = new AnimationFW(Resource.asteroidSprite);
+
+        radius = Resource.asteroidSprite.get(0).getHeight() / 2;
+        hitBox = new Rect(position.x, position.y, Resource.asteroidSprite.get(0).getHeight() + position.x, Resource.asteroidSprite.get(0).getWidth() + position.y);
     }
 
     public void restartFromInitialPosition()

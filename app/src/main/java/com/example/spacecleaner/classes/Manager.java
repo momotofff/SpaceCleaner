@@ -37,16 +37,12 @@ public class Manager
         hud = new Hud(coreFW, player, HUD_HEIGHT);
 
         for (int i = 0; i < ASTEROIDS_COUNT; ++i)
-            asteroids.add(new Asteroid(displaySize, HUD_HEIGHT));
-
-        for (Asteroid asteroid : asteroids)
-            asteroid.speed = (int) (Math.random() * 10) + 10;
+            asteroids.add(new Asteroid(displaySize, HUD_HEIGHT, (int) (Math.random() * 10) + 10));
 
         zOrder.add(background);
         zOrder.addAll(asteroids);
         zOrder.add(player);
         zOrder.add(hud);
-
     }
 
     public void update()

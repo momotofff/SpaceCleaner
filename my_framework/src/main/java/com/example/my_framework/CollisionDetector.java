@@ -1,8 +1,8 @@
 package com.example.my_framework;
 
-public class CollisionDetect
+public class CollisionDetector
 {
-    public static boolean collisionDetect (ObjectFW object1, ObjectFW object2)
+    public static boolean detect(ObjectFW object1, ObjectFW object2)
     {
         int dx = object1.getHitBox().centerX() - object2.getHitBox().centerX();
         int dy = object1.getHitBox().centerY() - object2.getHitBox().centerY();

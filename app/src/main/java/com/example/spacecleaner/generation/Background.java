@@ -33,9 +33,4 @@ public class Background implements IDrawable
         for (Star star: stars)
             star.drawing(graphicsFW);
     }
-
-    public void hitPlayer(Asteroid asteroid)
-    {
-        asteroid.restartFromInitialPosition();
-    }
 }

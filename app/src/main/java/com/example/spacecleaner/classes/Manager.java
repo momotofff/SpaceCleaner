@@ -17,26 +17,36 @@ public class Manager
 {
     private Point maxScreen;
     public static Background background;
-    Player player;
-    Hud hud;
+    private Player player;
+    private Hud hud;
+    private ArrayList<Asteroid> asteroids = new ArrayList<>();
 
     // If addition of entities will be needed, use TreeMap instead
     List<IDrawable> zOrder = new ArrayList<>();
 
-    public Manager(CoreFW coreFW, Point sizeDisplay)
+    public Manager(CoreFW coreFW, Point displaySize)
     {
         // TODO: Use screen dimensions to calculate it
         final int HUD_HEIGHT = 100;
+        final int ASTEROIDS_COUNT = 5;
 
-        this.maxScreen = sizeDisplay;
+        this.maxScreen = displaySize;
 
-        background = new Background(sizeDisplay, HUD_HEIGHT);
+        background = new Background(displaySize, HUD_HEIGHT);
         player = new Player(coreFW, maxScreen, HUD_HEIGHT);
         hud = new Hud(coreFW, player, HUD_HEIGHT);
 
+        for (int i = 0; i < ASTEROIDS_COUNT; ++i)
+            asteroids.add(new Asteroid(displaySize, HUD_HEIGHT));
+
+        for (Asteroid asteroid : asteroids)
+            asteroid.speed = (int) (Math.random() * 10) + 10;
+
         zOrder.add(background);
+        zOrder.addAll(asteroids);
         zOrder.add(player);
         zOrder.add(hud);
+
     }
 
     public void update()
@@ -49,7 +59,7 @@ public class Manager
 
     private void checkHit()
     {
-        for (Asteroid asteroid: background.asteroids)
+        for (Asteroid asteroid: asteroids)
         {
             if (CollisionDetect.collisionDetect(player, asteroid))
             {

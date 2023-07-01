@@ -13,11 +13,10 @@ import java.io.InputStream;
 
 public class GraphicsFW
 {
-    private AssetManager assetManager;
-    private Bitmap frameBuffer;
-    private Bitmap texture;
-    private Canvas canvas;
-    private Paint paint;
+    private final AssetManager assetManager;
+    private final Bitmap frameBuffer;
+    private final Canvas canvas;
+    private final Paint paint;
 
     public GraphicsFW(AssetManager assetManager, Bitmap frameBuffer)
     {
@@ -64,15 +63,16 @@ public class GraphicsFW
         canvas.drawBitmap(bitmap, position.x, position.y, null);
     }
 
-    public int getWidthFrameBuffer()
+    public int getFrameBufferWidth()
     {
         return frameBuffer.getWidth();
     }
-    public int getHeightFrameBuffer() { return frameBuffer.getHeight(); }
+    public int getFrameBufferHeight() { return frameBuffer.getHeight(); }
 
     public Bitmap newTexture(String fileName)
     {
-        InputStream inputStream = null;
+        InputStream inputStream;
+        Bitmap texture;
 
         try
         {

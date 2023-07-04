@@ -1,11 +1,14 @@
 package com.example.spacecleaner.classes;
 
+import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.graphics.Rect;
 
 import com.example.my_framework.CoreFW;
 import com.example.my_framework.GraphicsFW;
 import com.example.spacecleaner.utilits.Resource;
+
+import java.util.ArrayList;
 
 public class Loading
 {
@@ -14,27 +17,28 @@ public class Loading
     public Loading(CoreFW coreFW, GraphicsFW graphicsFW)
     {
         loadTexture(graphicsFW);
-        loadPlayerSprite(graphicsFW);
+        loadSprite(graphicsFW);
         loadAsteroidSprite(graphicsFW);
     }
 
-    private void loadPlayerSprite(GraphicsFW graphicsFW)
+    private void loadSprite(GraphicsFW graphicsFW)
     {
-        Rect sprite = new Rect(0,0, SPRITE_SIZE.x, SPRITE_SIZE.y);
+        readerSprite(graphicsFW, 0, Resource.playerSprite);
+        readerSprite(graphicsFW, 1, Resource.playerSpriteUp);
+        readerSprite(graphicsFW, 3, Resource.asteroidSprite);
+        readerSprite(graphicsFW, 4, Resource.playerSpriteDestruction);
+        readerSprite(graphicsFW, 5, Resource.playerSpriteActionShield);
+    }
+
+    private void readerSprite(GraphicsFW graphicsFW, int top, ArrayList<Bitmap> sprite)
+    {
+        Rect rect = new Rect(0,SPRITE_SIZE.y * top, SPRITE_SIZE.x, SPRITE_SIZE.y);
         final int FRAMES_COUNT = 4;
 
         for (int i = 0; i < FRAMES_COUNT; ++i)
         {
-            Resource.playerSprite.add(graphicsFW.newSprite(Resource.textureAtlas, sprite));
-            sprite.left += SPRITE_SIZE.x;
-        }
-
-        sprite.top += SPRITE_SIZE.y;
-        sprite.left = 0;
-        for (int i = 0; i < FRAMES_COUNT; ++i)
-        {
-            Resource.playerSpriteUp.add(graphicsFW.newSprite(Resource.textureAtlas, sprite));
-            sprite.left += SPRITE_SIZE.x;
+            sprite.add(graphicsFW.newSprite(Resource.textureAtlas, rect));
+            rect.left += SPRITE_SIZE.x;
         }
     }
 

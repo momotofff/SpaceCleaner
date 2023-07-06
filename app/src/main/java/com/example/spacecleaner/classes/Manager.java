@@ -20,6 +20,7 @@ public class Manager
     private final Player player;
     private final Hud hud;
     private final ArrayList<Asteroid> asteroids = new ArrayList<>();
+    public static boolean gameOver;
 
     // If addition of entities will be needed, use TreeMap instead
     List<IDrawable> zOrder = new ArrayList<>();
@@ -29,7 +30,7 @@ public class Manager
         // TODO: Use screen dimensions to calculate it
         final int HUD_HEIGHT = 100;
         final int ASTEROIDS_COUNT = 5;
-
+        gameOver = false;
         this.maxScreen = displaySize;
 
         background = new Background(displaySize, HUD_HEIGHT);
@@ -61,6 +62,10 @@ public class Manager
             {
                 player.hitAsteroid();
                 asteroid.restartFromInitialPosition();
+
+                for (Asteroid ast: asteroids)
+                    ast.speed--;
+
                 break;
             }
         }

@@ -1,5 +1,6 @@
 package com.example.spacecleaner.objects;
 
+import android.app.GameManager;
 import android.graphics.Point;
 import android.graphics.Rect;
 
@@ -10,13 +11,14 @@ import com.example.my_framework.IDrawable;
 import com.example.my_framework.ObjectFW;
 import com.example.my_framework.TimerDelay;
 import com.example.spacecleaner.R;
+import com.example.spacecleaner.classes.Manager;
 import com.example.spacecleaner.utilits.Resource;
 
 import java.util.Locale;
 
 public class Player extends ObjectFW implements IDrawable
 {
-    final int GRAVITY = 20;
+    int gravity;
     AnimationFW spritePlayer;
     AnimationFW spritePlayerUp;
     AnimationFW spritePlayerActionShield;
@@ -27,21 +29,25 @@ public class Player extends ObjectFW implements IDrawable
     private int shields;
     private int passedDistance;
     private int speed;
-    boolean hitAsteroid;
-
+    boolean hitAsteroid = false ;
+    boolean isGameOver = false;
     boolean isUp = false;
-    TimerDelay timerDelay;
+    TimerDelay delay;
+    TimerDelay onGameOver;
 
     public Player(CoreFW coreFW, Point maxScreen, int height)
     {
         radius = Resource.playerSprite.get(0).getHeight() / 2;
         shields = 3;
+        gravity = 20;
 
         position.x = 32;
         position.y = maxScreen.y / 2;
         speed = 20;
         hitBox = new Rect(position.x, position.y, Resource.playerSprite.get(0).getHeight() + position.x, Resource.playerSprite.get(0).getWidth() + position.y);
-        timerDelay = new TimerDelay();
+        delay = new TimerDelay();
+        onGameOver = new TimerDelay();
+
         this.coreFW = coreFW;
         this.screen.right = maxScreen.x;
         this.screen.bottom = maxScreen.y - Resource.playerSprite.get(0).getHeight();
@@ -65,8 +71,7 @@ public class Player extends ObjectFW implements IDrawable
         if (isUp)
             position.y -= speed;
         else
-            position.y += GRAVITY;
-
+            position.y += gravity;
 
         if (position.y < screen.top)
             position.y = screen.top;
@@ -96,6 +101,9 @@ public class Player extends ObjectFW implements IDrawable
         hitBox.right = Resource.playerSprite.get(0).getWidth() + position.y;
 
         passedDistance += speed;
+
+        if (isGameOver)
+            spritePlayerDestruction.runAnimation();
     }
 
     private void stop() { isUp = false; }
@@ -105,25 +113,36 @@ public class Player extends ObjectFW implements IDrawable
     @Override
     public void drawing(GraphicsFW graphicsFW)
     {
-        if (!hitAsteroid)
+        if (!isGameOver)
         {
-            if (isUp)
-                spritePlayerUp.drawingAnimation(graphicsFW, position);
+            if (!hitAsteroid)
+            {
+                if (isUp)
+                    spritePlayerUp.drawingAnimation(graphicsFW, position);
+                else
+                    spritePlayer.drawingAnimation(graphicsFW, position);
+            }
+
             else
-                spritePlayer.drawingAnimation(graphicsFW, position);
+            {
+                if (isUp)
+                    spritePlayerUpActionShield.drawingAnimation(graphicsFW, position);
+
+                else
+                    spritePlayerActionShield.drawingAnimation(graphicsFW, position);
+            }
         }
 
         else
         {
-            if (isUp)
-                spritePlayerUpActionShield.drawingAnimation(graphicsFW, position);
+            spritePlayerDestruction.drawingAnimation(graphicsFW, position);
 
-            else
-                spritePlayerActionShield.drawingAnimation(graphicsFW, position);
-
+            if (onGameOver.delay(1))
+                Manager.gameOver = true;
         }
 
-        if (timerDelay.delay(1))
+
+        if (delay.delay(1))
             hitAsteroid = false;
 
     }
@@ -145,8 +164,15 @@ public class Player extends ObjectFW implements IDrawable
 
     public void hitAsteroid()
     {
+        speed--;
         shields--;
+
+        if (shields < 0)
+        {
+            isGameOver = true;
+            onGameOver.startTimer();
+        }
         hitAsteroid = true;
-        timerDelay.startTimer();
+        delay.startTimer();
     }
 }

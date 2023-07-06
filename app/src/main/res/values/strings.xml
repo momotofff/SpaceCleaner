@@ -9,6 +9,7 @@
 
     <string name="txtGameSceneReady">Вы готовы?</string>
     <string name="txtGameScene">Игровая область</string>
+    <string name="txtGameOver">Конец игры</string>
     <string name="txtHudPassedDistance">Пройдено</string>
     <string name="txtHudCurrentSpeedPlayer">Скорость</string>
     <string name="txtHudCurrentShieldsPlayer">Защита</string>

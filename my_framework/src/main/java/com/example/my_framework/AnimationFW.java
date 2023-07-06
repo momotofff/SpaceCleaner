@@ -9,7 +9,6 @@ public class AnimationFW
 {
     int frameIndex;
     ArrayList<Bitmap> sprite;
-    Thread thread  = new Thread();
 
     public AnimationFW(ArrayList<Bitmap> sprite)
     {

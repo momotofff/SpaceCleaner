@@ -28,6 +28,7 @@ public class Loading
         readerSprite(graphicsFW, 3, Resource.asteroidSprite);
         readerSprite(graphicsFW, 4, Resource.playerSpriteDestruction);
         readerSprite(graphicsFW, 5, Resource.playerSpriteActionShield);
+        readerSprite(graphicsFW, 6, Resource.playerSpriteUpActionShield);
     }
 
     private void readerSprite(GraphicsFW graphicsFW, int top, ArrayList<Bitmap> sprite)

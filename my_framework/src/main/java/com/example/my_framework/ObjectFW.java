@@ -11,6 +11,10 @@ public abstract class ObjectFW
     protected Rect hitBox;
     protected int radius;
 
+    public ObjectFW() {
+        super();
+    }
+
     public Point getPosition() {
         return position;
     }

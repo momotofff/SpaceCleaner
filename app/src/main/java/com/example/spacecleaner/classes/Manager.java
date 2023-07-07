@@ -17,7 +17,7 @@ public class Manager
 {
     private final Point maxScreen;
     public static Background background;
-    private final Player player;
+    public final Player player;
     private final Hud hud;
     private final ArrayList<Asteroid> asteroids = new ArrayList<>();
     public static boolean gameOver;

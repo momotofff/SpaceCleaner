@@ -1,6 +1,5 @@
 package com.example.spacecleaner.objects;
 
-import android.app.GameManager;
 import android.graphics.Point;
 import android.graphics.Rect;
 
@@ -152,9 +151,13 @@ public class Player extends ObjectFW implements IDrawable
         return String.format(Locale.getDefault(), "%s: %d", coreFW.getString(R.string.txtHudCurrentShieldsPlayer), shields);
     }
 
-    public String getPassedDistance()
+    public int getPassedDistance()
     {
-        return String.format(Locale.getDefault(), "%s: %d", coreFW.getString(R.string.txtHudPassedDistance), passedDistance);
+        return passedDistance;
+    }
+    public String getTxtPassedDistance()
+    {
+        return String.format(Locale.getDefault(), "%s: %d", coreFW.getString(R.string.txtHudPassedDistance), getPassedDistance());
     }
 
     public String getSpeed()

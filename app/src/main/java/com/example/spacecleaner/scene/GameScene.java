@@ -7,15 +7,19 @@ import com.example.my_framework.SceneFW;
 import com.example.my_framework.StaticTextFW;
 import com.example.spacecleaner.R;
 import com.example.spacecleaner.classes.Manager;
-import com.example.spacecleaner.generation.Background;
 
 public class GameScene extends SceneFW
 {
     GameState gameState;
     Manager manager;
 
-    private final StaticTextFW SceneReady = new StaticTextFW(coreFW.getString(R.string.txtGameSceneReady),new Point(250,300),Color.WHITE, 60, null);
-    private final StaticTextFW SceneGameOver = new StaticTextFW(coreFW.getString(R.string.txtGameOver),new Point(250,300),Color.WHITE, 60, null);
+    private final StaticTextFW Ready = new StaticTextFW(coreFW.getString(R.string.txtGameSceneReady),new Point(300,200),Color.WHITE, 100, null);
+    private final StaticTextFW GameOver = new StaticTextFW(coreFW.getString(R.string.txtGameOver),new Point(300,200),Color.WHITE, 100, null);
+    private final StaticTextFW Restart = new StaticTextFW(coreFW.getString(R.string.txtRestart),new Point(300,350),Color.WHITE, 50, null);
+    private final StaticTextFW ExitMenu = new StaticTextFW(coreFW.getString(R.string.txtExitMenu),new Point(300,450),Color.WHITE, 50, null);
+    private final StaticTextFW txtResult = new StaticTextFW(coreFW.getString(R.string.txtResult),new Point(300,550),Color.WHITE, 50, null);
+    private StaticTextFW Result;
+
     enum GameState
     {
         READY, RUNNING, PAUSE, GAMEOVER
@@ -45,7 +49,13 @@ public class GameScene extends SceneFW
 
     }
 
-    private void updateStateGameOver() {
+    private void updateStateGameOver()
+    {
+        if (coreFW.getTouchListenerFW().getTouchUp(Restart.getTouchArea(graphicsFW)))
+            coreFW.setScene(new GameScene(coreFW));
+
+        if (coreFW.getTouchListenerFW().getTouchUp(ExitMenu.getTouchArea(graphicsFW)))
+            coreFW.setScene(new MainMenuScene(coreFW));
     }
 
     private void updateStateRunning()
@@ -62,8 +72,7 @@ public class GameScene extends SceneFW
 
     private void updateStateReady()
     {
-
-        if (coreFW.getTouchListenerFW().getTouchUp(SceneReady.getTouchArea(graphicsFW)))
+        if (coreFW.getTouchListenerFW().getTouchUp(Ready.getTouchArea(graphicsFW)))
         {
             gameState = GameState.RUNNING;
         }
@@ -89,8 +98,14 @@ public class GameScene extends SceneFW
 
     private void drawingStateGameOver()
     {
+        Result = new StaticTextFW(manager.player.getPassedDistance() + "", new Point(600,550), Color.WHITE, 50, null);
         graphicsFW.clearScene(Color.BLACK);
-        graphicsFW.drawText(SceneGameOver);
+        graphicsFW.drawText(GameOver);
+        graphicsFW.drawText(ExitMenu);
+        graphicsFW.drawText(Restart);
+        graphicsFW.drawText(txtResult) ;
+        graphicsFW.drawText(Result) ;
+
     }
 
     private void drawingStateRunning()
@@ -102,7 +117,7 @@ public class GameScene extends SceneFW
     private void drawingStateReady()
     {
         graphicsFW.clearScene(Color.BLACK);
-        graphicsFW.drawText(SceneReady);
+        graphicsFW.drawText(Ready);
     }
 
     private void drawingStatePause() {

@@ -1,5 +1,8 @@
 <resources>
+    //Game name
     <string name="app_name">SpaceCleaner</string>
+
+    //Menu
     <string name="txtMainMenuNameGame">Космос</string>
     <string name="txtMainMenuStartGame">Начать</string>
     <string name="txtMainMenuNewGame">Новая игра</string>
@@ -7,11 +10,19 @@
     <string name="txtMainMenuResult">Результат</string>
     <string name="txtMainMenuExitGame">Выход из игры</string>
 
+    //Ready
     <string name="txtGameSceneReady">Вы готовы?</string>
-    <string name="txtGameScene">Игровая область</string>
+
+    //Game Scene
+        //HUD
+        <string name="txtHudPassedDistance">Пройдено</string>
+        <string name="txtHudCurrentSpeedPlayer">Скорость</string>
+        <string name="txtHudCurrentShieldsPlayer">Защита</string>
+
+    //Game Over scene
     <string name="txtGameOver">Конец игры</string>
-    <string name="txtHudPassedDistance">Пройдено</string>
-    <string name="txtHudCurrentSpeedPlayer">Скорость</string>
-    <string name="txtHudCurrentShieldsPlayer">Защита</string>
+    <string name="txtRestart">Повторить</string>
+    <string name="txtExitMenu">Выход в меню</string>
+    <string name="txtResult">Результат: </string>
 
 </resources>

@@ -13,16 +13,14 @@ public class GameScene extends SceneFW
     GameState gameState;
     Manager manager;
 
-    private final StaticTextFW Ready = new StaticTextFW(coreFW.getString(R.string.txtGameSceneReady),new Point(300,200),Color.WHITE, 100, null);
-    private final StaticTextFW GameOver = new StaticTextFW(coreFW.getString(R.string.txtGameOver),new Point(300,200),Color.WHITE, 100, null);
-    private final StaticTextFW Restart = new StaticTextFW(coreFW.getString(R.string.txtRestart),new Point(300,350),Color.WHITE, 50, null);
-    private final StaticTextFW ExitMenu = new StaticTextFW(coreFW.getString(R.string.txtExitMenu),new Point(300,450),Color.WHITE, 50, null);
-    private final StaticTextFW txtResult = new StaticTextFW(coreFW.getString(R.string.txtResult),new Point(300,550),Color.WHITE, 50, null);
-    private StaticTextFW Result;
+    private final StaticTextFW Ready = new StaticTextFW(coreFW.getString(R.string.txtGameSceneReady), new Point(300,200), Color.WHITE, 100, null);
+    private final StaticTextFW GameOver = new StaticTextFW(coreFW.getString(R.string.txtGameOver), new Point(300,200), Color.WHITE, 100, null);
+    private final StaticTextFW Restart = new StaticTextFW(coreFW.getString(R.string.txtRestart), new Point(300,350), Color.WHITE, 50, null);
+    private final StaticTextFW ExitMenu = new StaticTextFW(coreFW.getString(R.string.txtExitMenu), new Point(300,450), Color.WHITE, 50, null);
 
     enum GameState
     {
-        READY, RUNNING, PAUSE, GAMEOVER
+        READY, RUNNING, PAUSE, GAME_OVER
     }
 
     public GameScene(CoreFW coreFW)
@@ -35,18 +33,13 @@ public class GameScene extends SceneFW
     @Override
     public void update()
     {
-        if (gameState == GameState.READY)
-            updateStateReady();
-
-        else if (gameState == GameState.PAUSE)
-            updateStatePause();
-
-        else if (gameState == GameState.RUNNING)
-            updateStateRunning();
-
-        else if (gameState == GameState.GAMEOVER)
-            updateStateGameOver();
-
+        switch(gameState)
+        {
+            case READY:       updateStateReady(); break;
+            case PAUSE:       updateStatePause(); break;
+            case RUNNING:     updateStateRunning(); break;
+            case GAME_OVER:   updateStateGameOver(); break;
+        }
     }
 
     private void updateStateGameOver()
@@ -63,8 +56,8 @@ public class GameScene extends SceneFW
         gameState = GameState.RUNNING;
         manager.update();
 
-        if (Manager.gameOver)
-            gameState = GameState.GAMEOVER;
+        if (manager.gameOver)
+            gameState = GameState.GAME_OVER;
     }
 
     private void updateStatePause() {
@@ -73,39 +66,30 @@ public class GameScene extends SceneFW
     private void updateStateReady()
     {
         if (coreFW.getTouchListenerFW().getTouchUp(Ready.getTouchArea(graphicsFW)))
-        {
             gameState = GameState.RUNNING;
-        }
     }
 
     @Override
     public void drawing()
     {
-
-        if (gameState == GameState.READY)
-            drawingStateReady();
-
-        else if (gameState == GameState.PAUSE)
-            drawingStatePause();
-
-        else if (gameState == GameState.RUNNING)
-            drawingStateRunning();
-
-        else if (gameState == GameState.GAMEOVER)
-            drawingStateGameOver();
-
+        switch(gameState)
+        {
+            case READY:       drawingStateReady(); break;
+            case PAUSE:       drawingStatePause(); break;
+            case RUNNING:     drawingStateRunning(); break;
+            case GAME_OVER:   drawingStateGameOver(); break;
+        }
     }
 
     private void drawingStateGameOver()
     {
-        Result = new StaticTextFW(manager.player.getPassedDistance() + "", new Point(600,550), Color.WHITE, 50, null);
         graphicsFW.clearScene(Color.BLACK);
         graphicsFW.drawText(GameOver);
         graphicsFW.drawText(ExitMenu);
         graphicsFW.drawText(Restart);
-        graphicsFW.drawText(txtResult) ;
-        graphicsFW.drawText(Result) ;
 
+        StaticTextFW result = new StaticTextFW(manager.player.getTxtPassedDistance(), new Point(300,550), Color.WHITE, 50, null);
+        graphicsFW.drawText(result);
     }
 
     private void drawingStateRunning()

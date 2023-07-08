@@ -23,6 +23,5 @@
     <string name="txtGameOver">Конец игры</string>
     <string name="txtRestart">Повторить</string>
     <string name="txtExitMenu">Выход в меню</string>
-    <string name="txtResult">Результат: </string>
 
 </resources>

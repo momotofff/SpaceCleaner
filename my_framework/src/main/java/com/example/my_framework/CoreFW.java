@@ -54,7 +54,7 @@ public class CoreFW extends AppCompatActivity
 
     public  CoreFW() {}
 
-    public  void  onResume()
+    public void onResume()
     {
         super.onResume();
         sceneFW.resume();

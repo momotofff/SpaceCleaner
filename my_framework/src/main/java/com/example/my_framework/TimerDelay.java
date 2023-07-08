@@ -2,21 +2,19 @@ package com.example.my_framework;
 
 public class TimerDelay
 {
-    long start;
-    long end;
-    long difference;
-    final int SECOND = 1000000000;
+    long startNs;
+    boolean isStarted = false;
+    final long NS_IN_SECOND = 1000000000;
 
-    public void startTimer()
+    public void start()
     {
-        start = System.nanoTime() / SECOND;
+        startNs = System.nanoTime();
+        isStarted = true;
     }
 
-    public boolean delay(int second)
+    public boolean isElapsed(int second)
     {
-        end = System.nanoTime() / SECOND;
-        difference = end - start;
-
-        return difference > second;
+        long difference = System.nanoTime() - startNs;
+        return isStarted && (difference > second * NS_IN_SECOND);
     }
 }

@@ -28,24 +28,22 @@ public class Player extends ObjectFW implements IDrawable
     private int shields;
     private int passedDistance;
     private int speed;
-    boolean hitAsteroid = false ;
-    boolean isGameOver = false;
-    boolean isUp = false;
-    TimerDelay delay;
-    TimerDelay onGameOver;
+    private boolean hitAsteroid = false;
+    private boolean isGameOver = false;
+    private boolean isUp = false;
+
+    TimerDelay shieldEnabled = new TimerDelay();
 
     public Player(CoreFW coreFW, Point maxScreen, int height)
     {
         radius = Resource.playerSprite.get(0).getHeight() / 2;
         shields = 3;
-        gravity = 20;
+        gravity = 15;
 
         position.x = 32;
         position.y = maxScreen.y / 2;
-        speed = 20;
+        speed = 15;
         hitBox = new Rect(position.x, position.y, Resource.playerSprite.get(0).getHeight() + position.x, Resource.playerSprite.get(0).getWidth() + position.y);
-        delay = new TimerDelay();
-        onGameOver = new TimerDelay();
 
         this.coreFW = coreFW;
         this.screen.right = maxScreen.x;
@@ -85,7 +83,6 @@ public class Player extends ObjectFW implements IDrawable
             else
                 spritePlayer.runAnimation();
         }
-
         else
         {
             if (isUp)
@@ -103,6 +100,9 @@ public class Player extends ObjectFW implements IDrawable
 
         if (isGameOver)
             spritePlayerDestruction.runAnimation();
+
+        if (shieldEnabled.isElapsed(1))
+            hitAsteroid = false;
     }
 
     private void stop() { isUp = false; }
@@ -112,38 +112,26 @@ public class Player extends ObjectFW implements IDrawable
     @Override
     public void drawing(GraphicsFW graphicsFW)
     {
-        if (!isGameOver)
-        {
-            if (!hitAsteroid)
-            {
-                if (isUp)
-                    spritePlayerUp.drawingAnimation(graphicsFW, position);
-                else
-                    spritePlayer.drawingAnimation(graphicsFW, position);
-            }
-
-            else
-            {
-                if (isUp)
-                    spritePlayerUpActionShield.drawingAnimation(graphicsFW, position);
-
-                else
-                    spritePlayerActionShield.drawingAnimation(graphicsFW, position);
-            }
-        }
-
-        else
+        if (isGameOver)
         {
             spritePlayerDestruction.drawingAnimation(graphicsFW, position);
-
-            if (onGameOver.delay(1))
-                Manager.gameOver = true;
+            return;
         }
 
-
-        if (delay.delay(1))
-            hitAsteroid = false;
-
+        if (!hitAsteroid)
+        {
+            if (isUp)
+                spritePlayerUp.drawingAnimation(graphicsFW, position);
+            else
+                spritePlayer.drawingAnimation(graphicsFW, position);
+        }
+        else
+        {
+            if (isUp)
+                spritePlayerUpActionShield.drawingAnimation(graphicsFW, position);
+            else
+                spritePlayerActionShield.drawingAnimation(graphicsFW, position);
+        }
     }
 
     public String getShields()
@@ -151,13 +139,9 @@ public class Player extends ObjectFW implements IDrawable
         return String.format(Locale.getDefault(), "%s: %d", coreFW.getString(R.string.txtHudCurrentShieldsPlayer), shields);
     }
 
-    public int getPassedDistance()
-    {
-        return passedDistance;
-    }
     public String getTxtPassedDistance()
     {
-        return String.format(Locale.getDefault(), "%s: %d", coreFW.getString(R.string.txtHudPassedDistance), getPassedDistance());
+        return String.format(Locale.getDefault(), "%s: %d", coreFW.getString(R.string.txtHudPassedDistance), passedDistance);
     }
 
     public String getSpeed()
@@ -167,15 +151,19 @@ public class Player extends ObjectFW implements IDrawable
 
     public void hitAsteroid()
     {
-        speed--;
-        shields--;
+        --speed;
+        --shields;
 
-        if (shields < 0)
-        {
+        if (!isAlive())
             isGameOver = true;
-            onGameOver.startTimer();
-        }
+
         hitAsteroid = true;
-        delay.startTimer();
+        shieldEnabled.start();
     }
+
+    public boolean isAlive()
+    {
+        return shields >= 0;
+    }
+
 }

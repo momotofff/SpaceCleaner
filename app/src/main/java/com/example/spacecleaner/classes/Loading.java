@@ -19,6 +19,7 @@ public class Loading
         loadTexture(graphicsFW);
         loadSprite(graphicsFW);
         loadAsteroidSprite(graphicsFW);
+        loadSettings();
     }
 
     private void loadSprite(GraphicsFW graphicsFW)
@@ -59,4 +60,10 @@ public class Loading
     {
         Resource.textureAtlas = graphicsFW.newTexture("textureAtlas.png");
     }
+
+    private void loadSettings()
+    {
+
+    }
+
 }

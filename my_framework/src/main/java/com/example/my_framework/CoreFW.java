@@ -1,5 +1,6 @@
 package com.example.my_framework;
 
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.graphics.PointF;
@@ -12,8 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class CoreFW extends AppCompatActivity
 {
-    private final int FRAME_BUFFER_WIDTH = 1280;
-    private final int FRAME_BUFFER_HEIGHT = 720;
+    private final Point FRAME_BUFFER= new Point(1280, 720);
 
     private LoopFW loopFW;
     private GraphicsFW graphicsFW;
@@ -22,6 +22,9 @@ public class CoreFW extends AppCompatActivity
     private Point sizeDisplay;
     private Bitmap frameBuffer;
     private SceneFW sceneFW;
+
+    private SharedPreferences sharedPreferences;
+    private final String SETTINGS = "Settings";
 
     private final PointF scale = new PointF();
 
@@ -32,14 +35,15 @@ public class CoreFW extends AppCompatActivity
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        sharedPreferences = getSharedPreferences(SETTINGS, MODE_PRIVATE);
 
         sizeDisplay = new Point();
         display = getWindowManager().getDefaultDisplay();
         display.getSize(sizeDisplay);
 
-        frameBuffer = Bitmap.createBitmap(FRAME_BUFFER_WIDTH, FRAME_BUFFER_HEIGHT, Bitmap.Config.ARGB_8888);
-        scale.x = (float) FRAME_BUFFER_WIDTH / sizeDisplay.x;
-        scale.y = (float) FRAME_BUFFER_HEIGHT / sizeDisplay.y;
+        frameBuffer = Bitmap.createBitmap(FRAME_BUFFER.x, FRAME_BUFFER.y, Bitmap.Config.ARGB_8888);
+        scale.x = (float) FRAME_BUFFER.x / sizeDisplay.x;
+        scale.y = (float) FRAME_BUFFER.y / sizeDisplay.y;
 
         loopFW = new LoopFW(this, frameBuffer);
         graphicsFW = new GraphicsFW(getAssets(), frameBuffer);
@@ -74,16 +78,6 @@ public class CoreFW extends AppCompatActivity
         }
     }
 
-    public GraphicsFW getGraphicsFW()
-    {
-        return graphicsFW;
-    }
-
-    public TouchListenerFW getTouchListenerFW()
-    {
-        return touchListenerFW;
-    }
-
     public void setScene(SceneFW sceneFW)
     {
         if (sceneFW == null)
@@ -95,6 +89,18 @@ public class CoreFW extends AppCompatActivity
         sceneFW.update();
         this.sceneFW = sceneFW;
     }
+
+    public GraphicsFW getGraphicsFW()
+    {
+        return graphicsFW;
+    }
+
+    public TouchListenerFW getTouchListenerFW()
+    {
+        return touchListenerFW;
+    }
+
+    public SharedPreferences getSharedPreferences() { return sharedPreferences; }
 
     public SceneFW getCurrentScene()
     {

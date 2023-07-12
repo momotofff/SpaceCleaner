@@ -9,7 +9,7 @@ import android.view.SurfaceView;
 
 public class LoopFW extends SurfaceView implements Runnable
 {
-    private final int FPS = 60;
+    private final int FPS = 30;
     private final int SECOND = 1000;
 
     private boolean running = false;

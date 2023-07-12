@@ -12,6 +12,7 @@ public class Main extends CoreFW
     public SceneFW getStartScene()
     {
         loading = new Loading(this, this.getGraphicsFW());
+
         return new MainMenuScene(this);
     }
 }

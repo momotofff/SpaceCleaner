@@ -144,6 +144,11 @@ public class Player extends ObjectFW implements IDrawable
         return String.format(Locale.getDefault(), "%s: %d", coreFW.getString(R.string.txtHudPassedDistance), passedDistance);
     }
 
+    public int getPassedDistance()
+    {
+        return passedDistance;
+    }
+
     public String getSpeed()
     {
         return String.format(Locale.getDefault(), "%s: %d", coreFW.getString(R.string.txtHudCurrentSpeedPlayer), speed);

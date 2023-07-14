@@ -24,4 +24,8 @@
     <string name="txtRestart">Повторить</string>
     <string name="txtExitMenu">Выход в меню</string>
 
+    //Results
+    <string name="txtBestResults">Лучшие результаты</string>
+    <string name="txtBack">Назад</string>
+
 </resources>

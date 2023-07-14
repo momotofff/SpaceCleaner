@@ -3,7 +3,7 @@ package com.example.spacecleaner;
 import  com.example.my_framework.CoreFW;
 import com.example.my_framework.SceneFW;
 import com.example.spacecleaner.classes.Loading;
-import com.example.spacecleaner.scene.MainMenuScene;
+import com.example.spacecleaner.scene.MainMenu;
 
 public class Main extends CoreFW
 {
@@ -13,6 +13,6 @@ public class Main extends CoreFW
     {
         loading = new Loading(this, this.getGraphicsFW());
 
-        return new MainMenuScene(this);
+        return new MainMenu(this);
     }
 }

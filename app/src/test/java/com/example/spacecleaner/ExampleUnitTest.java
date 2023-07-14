@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-import com.example.spacecleaner.utilits.Settings;
+import com.example.spacecleaner.classes.Saves;
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -21,27 +21,27 @@ public class ExampleUnitTest
     @Test
     public void testAddDistanceMethod()
     {
-        Settings.distance = new int[]{25, 20, 15, 10, 5};
+        Saves.distance = new int[]{25, 20, 15, 10, 5};
 
-        Settings.addDistance(13);
+        Saves.addDistance(13);
         int[] test1 = {25,20,15,13,10};
-        for (int i = 0; i < Settings.distance.length; ++i)
+        for (int i = 0; i < Saves.distance.length; ++i)
         {
-            assertEquals(test1[i], Settings.distance[i]);
+            assertEquals(test1[i], Saves.distance[i]);
         }
 
-        Settings.addDistance(9);
+        Saves.addDistance(9);
         int[] test2 = {25,20,15,13,10};
-        for (int i = 0; i < Settings.distance.length; ++i)
+        for (int i = 0; i < Saves.distance.length; ++i)
         {
-            assertEquals(test2[i], Settings.distance[i]);
+            assertEquals(test2[i], Saves.distance[i]);
         }
 
-        Settings.addDistance(100);
+        Saves.addDistance(100);
         int[] test3 = {100,25,20,15,13};
-        for (int i = 0; i < Settings.distance.length; ++i)
+        for (int i = 0; i < Saves.distance.length; ++i)
         {
-            assertEquals(test3[i], Settings.distance[i]);
+            assertEquals(test3[i], Saves.distance[i]);
         }
     }
 }

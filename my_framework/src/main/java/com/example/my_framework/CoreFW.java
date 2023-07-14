@@ -90,6 +90,10 @@ public class CoreFW extends AppCompatActivity
         this.sceneFW = sceneFW;
     }
 
+    public void close()
+    {
+        //метод закрытия приложения
+    }
     public GraphicsFW getGraphicsFW()
     {
         return graphicsFW;

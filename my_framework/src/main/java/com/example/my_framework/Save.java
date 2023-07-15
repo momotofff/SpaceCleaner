@@ -1,14 +1,21 @@
-package com.example.spacecleaner.classes;
+package com.example.my_framework;
 
 import android.content.SharedPreferences;
 
 import com.example.my_framework.CoreFW;
 
-public class Saves
+public class Save
 {
-    public static int[] distance = {0, 0, 0, 0, 0};
+    private int[] distance = {0, 0, 0, 0, 0};
 
-    public static void addDistance(int value)
+    public Save(int[] distance)
+    {
+        this.distance = distance;
+    }
+
+    public Save(){}
+
+    public void addDistance(int value)
     {
         for (int i = 0; i < distance.length; ++i)
         {
@@ -21,7 +28,7 @@ public class Saves
         }
     }
 
-    public static void save(CoreFW coreFW)
+    public void save(CoreFW coreFW)
     {
         SharedPreferences.Editor editor = coreFW.getSharedPreferences().edit();
         editor.clear();
@@ -32,11 +39,13 @@ public class Saves
         editor.apply();
     }
 
-    public static void load(CoreFW coreFW)
+    public void load(CoreFW coreFW)
     {
         for (int i = 0; i < distance.length; ++i)
         {
             distance[i] = coreFW.getSharedPreferences().getInt("PassedDistance" + i, 0 );
         }
     }
+
+    public int[] getDistance() { return distance; }
 }

@@ -7,7 +7,6 @@ import com.example.my_framework.CoreFW;
 import com.example.my_framework.SceneFW;
 import com.example.my_framework.StaticTextFW;
 import com.example.spacecleaner.R;
-import com.example.spacecleaner.classes.Saves;
 
 import java.util.Locale;
 
@@ -27,7 +26,7 @@ public class Results extends SceneFW
 
         for (int  i = 0; i < numbers.length; ++i)
         {
-            this.numbers[i] = new StaticTextFW(String.format(Locale.getDefault(), "%d. %d", i + 1, Saves.distance[i]),new Point(BestResults.position.x, lead), Color.BLUE, 50, null);
+            this.numbers[i] = new StaticTextFW(String.format(Locale.getDefault(), "%d. %d", i + 1, coreFW.getSave().getDistance()[i]),new Point(BestResults.position.x, lead), Color.BLUE, 50, null);
             lead += leading;
         }
     }

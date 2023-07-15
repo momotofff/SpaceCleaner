@@ -31,9 +31,6 @@ public class MainMenu extends SceneFW
 
         if (coreFW.getTouchListenerFW().getTouchUp(MenuExit.getTouchArea(graphicsFW)))
             coreFW.close();
-
-
-
     }
 
     @Override

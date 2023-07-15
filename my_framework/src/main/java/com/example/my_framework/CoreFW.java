@@ -25,6 +25,7 @@ public class CoreFW extends AppCompatActivity
 
     private SharedPreferences sharedPreferences;
     private final String SETTINGS = "Settings";
+    private final Save save = new Save();
 
     private final PointF scale = new PointF();
 
@@ -111,5 +112,7 @@ public class CoreFW extends AppCompatActivity
         return sceneFW;
     }
 
-    public SceneFW getStartScene() { return sceneFW;}
+    public SceneFW getStartScene() { return sceneFW; }
+
+    public Save getSave() { return save; }
 }

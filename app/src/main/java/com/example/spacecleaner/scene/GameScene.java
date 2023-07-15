@@ -7,7 +7,6 @@ import com.example.my_framework.SceneFW;
 import com.example.my_framework.StaticTextFW;
 import com.example.spacecleaner.R;
 import com.example.spacecleaner.classes.Manager;
-import com.example.spacecleaner.classes.Saves;
 
 public class GameScene extends SceneFW
 {
@@ -45,7 +44,6 @@ public class GameScene extends SceneFW
 
     private void updateStateGameOver()
     {
-        Saves.addDistance(manager.player.getPassedDistance());
         if (coreFW.getTouchListenerFW().getTouchUp(Restart.getTouchArea(graphicsFW)))
             coreFW.setScene(new GameScene(coreFW));
 
@@ -59,7 +57,10 @@ public class GameScene extends SceneFW
         manager.update();
 
         if (manager.gameOver)
+        {
+            coreFW.getSave().addDistance(manager.player.getPassedDistance());
             gameState = GameState.GAME_OVER;
+        }
     }
 
     private void updateStatePause() {

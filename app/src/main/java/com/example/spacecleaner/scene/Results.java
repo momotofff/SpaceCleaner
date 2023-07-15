@@ -12,9 +12,7 @@ import java.util.Locale;
 
 public class Results extends SceneFW
 {
-    StaticTextFW[] numbers = new StaticTextFW[5];
-    private int leading = 70;
-
+    private final StaticTextFW[] Numbers = new StaticTextFW[5];
     private final StaticTextFW BestResults = new StaticTextFW(coreFW.getString(R.string.txtBestResults), new Point(50, 100), Color.BLUE, 100, null);
     private final StaticTextFW Back = new StaticTextFW(coreFW.getString(R.string.txtBack), new Point(50, 650), Color.BLUE, 70, null);
 
@@ -22,12 +20,16 @@ public class Results extends SceneFW
     {
         super(coreFW);
 
-        int lead = 200;
+        final int RESULT_START_Y = 200;
+        final int RESULT_STEP_Y = 70;
 
-        for (int  i = 0; i < numbers.length; ++i)
+        Point position = new Point(BestResults.position.x, RESULT_START_Y);
+
+        for (int i = 0; i < Numbers.length; ++i)
         {
-            this.numbers[i] = new StaticTextFW(String.format(Locale.getDefault(), "%d. %d", i + 1, coreFW.getSave().getDistance()[i]),new Point(BestResults.position.x, lead), Color.BLUE, 50, null);
-            lead += leading;
+            String text = String.format(Locale.getDefault(), "%d. %d", i + 1, coreFW.getSave().getDistance()[i]);
+            this.Numbers[i] = new StaticTextFW(text, new Point(position), Color.BLUE, 50, null);
+            position.y += RESULT_STEP_Y;
         }
     }
 
@@ -44,8 +46,9 @@ public class Results extends SceneFW
         graphicsFW.clearScene(Color.GREEN);
         graphicsFW.drawText(BestResults);
         graphicsFW.drawText(Back);
-        for (int i = 0; i < numbers.length; ++i)
-            graphicsFW.drawText(numbers[i]);
+
+        for (StaticTextFW number: Numbers)
+            graphicsFW.drawText(number);
     }
 
     @Override

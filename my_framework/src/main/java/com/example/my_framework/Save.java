@@ -6,6 +6,7 @@ import com.example.my_framework.CoreFW;
 
 public class Save
 {
+    // TODO: Think about PriorityQueue
     private int[] distance = {0, 0, 0, 0, 0};
 
     public Save(int[] distance)
@@ -28,23 +29,22 @@ public class Save
         }
     }
 
-    public void save(CoreFW coreFW)
+    public void save(SharedPreferences preferences)
     {
-        SharedPreferences.Editor editor = coreFW.getSharedPreferences().edit();
+        SharedPreferences.Editor editor = preferences.edit();
         editor.clear();
 
+        // TODO: Use serialization
         for (int i = 0; i < distance.length; ++i)
             editor.putInt("PassedDistance" + i, distance[i]);
 
         editor.apply();
     }
 
-    public void load(CoreFW coreFW)
+    public void load(SharedPreferences preferences)
     {
         for (int i = 0; i < distance.length; ++i)
-        {
-            distance[i] = coreFW.getSharedPreferences().getInt("PassedDistance" + i, 0 );
-        }
+            distance[i] = preferences.getInt("PassedDistance" + i, 0 );
     }
 
     public int[] getDistance() { return distance; }

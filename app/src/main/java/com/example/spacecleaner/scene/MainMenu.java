@@ -30,7 +30,7 @@ public class MainMenu extends SceneFW
             coreFW.setScene(new Results(coreFW));
 
         if (coreFW.getTouchListenerFW().getTouchUp(MenuExit.getTouchArea(graphicsFW)))
-            coreFW.close();
+            coreFW.onBackPressed();
     }
 
     @Override
@@ -45,17 +45,11 @@ public class MainMenu extends SceneFW
     }
 
     @Override
-    public void pause() {
-
-    }
+    public void pause() {}
 
     @Override
-    public void resume() {
-
-    }
+    public void resume() {}
 
     @Override
-    public void dispose() {
-
-    }
+    public void dispose() {}
 }

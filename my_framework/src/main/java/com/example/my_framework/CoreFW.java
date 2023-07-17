@@ -25,7 +25,7 @@ public class CoreFW extends AppCompatActivity
 
     private SharedPreferences sharedPreferences;
     private final String SETTINGS = "Settings";
-    private final Save save = new Save();
+    private Save save;
 
     private final PointF scale = new PointF();
 
@@ -33,7 +33,8 @@ public class CoreFW extends AppCompatActivity
     private boolean stateOnResume;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         sharedPreferences = getSharedPreferences(SETTINGS, MODE_PRIVATE);
@@ -41,6 +42,7 @@ public class CoreFW extends AppCompatActivity
         sizeDisplay = new Point();
         display = getWindowManager().getDefaultDisplay();
         display.getSize(sizeDisplay);
+        save.load();
 
         frameBuffer = Bitmap.createBitmap(FRAME_BUFFER.x, FRAME_BUFFER.y, Bitmap.Config.ARGB_8888);
         scale.x = (float) FRAME_BUFFER.x / sizeDisplay.x;
@@ -74,9 +76,7 @@ public class CoreFW extends AppCompatActivity
         stateOnPause = true;
 
         if (isFinishing())
-        {
             sceneFW.dispose();
-        }
     }
 
     public void setScene(SceneFW sceneFW)
@@ -91,26 +91,16 @@ public class CoreFW extends AppCompatActivity
         this.sceneFW = sceneFW;
     }
 
-    public void close()
-    {
-        //метод закрытия приложения
-    }
-    public GraphicsFW getGraphicsFW()
-    {
-        return graphicsFW;
-    }
+    @Override
+    public void onBackPressed() { save.save(); finish(); }
 
-    public TouchListenerFW getTouchListenerFW()
-    {
-        return touchListenerFW;
-    }
+    public GraphicsFW getGraphicsFW() { return graphicsFW; }
+
+    public TouchListenerFW getTouchListenerFW() { return touchListenerFW; }
 
     public SharedPreferences getSharedPreferences() { return sharedPreferences; }
 
-    public SceneFW getCurrentScene()
-    {
-        return sceneFW;
-    }
+    public SceneFW getCurrentScene() { return sceneFW; }
 
     public SceneFW getStartScene() { return sceneFW; }
 

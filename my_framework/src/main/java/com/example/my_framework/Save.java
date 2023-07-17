@@ -1,10 +1,14 @@
 package com.example.my_framework;
 
-import android.content.SharedPreferences;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 
-import com.example.my_framework.CoreFW;
-
-public class Save
+public class Save implements Serializable
 {
     // TODO: Think about PriorityQueue
     private int[] distance = {0, 0, 0, 0, 0};
@@ -29,22 +33,37 @@ public class Save
         }
     }
 
-    public void save(SharedPreferences preferences)
+    public void save()
     {
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.clear();
-
-        // TODO: Use serialization
-        for (int i = 0; i < distance.length; ++i)
-            editor.putInt("PassedDistance" + i, distance[i]);
-
-        editor.apply();
+        try
+        {
+            FileOutputStream fos = new FileOutputStream("save");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(distance);
+        }
+        catch(IOException e)
+        {
+            e.printStackTrace();
+        }
     }
 
-    public void load(SharedPreferences preferences)
+    public Save load()
     {
-        for (int i = 0; i < distance.length; ++i)
-            distance[i] = preferences.getInt("PassedDistance" + i, 0 );
+        try
+        {
+            FileInputStream fis = new FileInputStream("save");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+
+            Save save = (Save) ois.readObject();
+            return save;
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     public int[] getDistance() { return distance; }

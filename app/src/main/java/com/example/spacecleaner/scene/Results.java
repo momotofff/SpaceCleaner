@@ -52,17 +52,11 @@ public class Results extends SceneFW
     }
 
     @Override
-    public void pause() {
-
-    }
+    public void pause() {}
 
     @Override
-    public void resume() {
-
-    }
+    public void resume() {}
 
     @Override
-    public void dispose() {
-
-    }
+    public void dispose() {}
 }

@@ -3,6 +3,7 @@ package com.example.spacecleaner;
 import  com.example.my_framework.CoreFW;
 import com.example.my_framework.SceneFW;
 import com.example.spacecleaner.classes.Loading;
+import com.example.spacecleaner.classes.Manager;
 import com.example.spacecleaner.scene.MainMenu;
 
 public class Main extends CoreFW

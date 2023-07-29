@@ -51,6 +51,7 @@ public class GameScene extends SceneFW
         if (manager.gameOver)
         {
             save.addDistance(manager.player.getPassedDistance());
+            save.save(coreFW.getSharedPreferences());
             gameState = GameState.GAME_OVER;
         }
     }

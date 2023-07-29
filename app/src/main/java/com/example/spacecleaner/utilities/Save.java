@@ -1,10 +1,16 @@
 package com.example.spacecleaner.utilities;
 
+import android.content.SharedPreferences;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.Base64;
 
 public class Save implements Serializable
 {
-    // TODO: Think about PriorityQueue
     private int[] distance = {0, 0, 0, 0, 0};
 
     public Save(int[] distance)
@@ -27,14 +33,43 @@ public class Save implements Serializable
         }
     }
 
-    public void save()
+    public void save(SharedPreferences preferences)
     {
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.clear();
 
+        String result = "";
+
+        try
+        {
+            ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
+            ObjectOutputStream objStream = new ObjectOutputStream(byteStream);
+            objStream.writeObject(this);
+            objStream.close();
+            result = Base64.getEncoder().encodeToString(byteStream.toByteArray());
+        }
+        catch (Exception e)
+        {
+        }
+
+        editor.putString(this.getClass().getSimpleName(), result);
+        editor.apply();
     }
 
-    public void load()
+    public void load(SharedPreferences preferences)
     {
+        String serialized = preferences.getString(this.getClass().getSimpleName(), "");
+        byte[] data = Base64.getDecoder().decode(serialized);
 
+        try
+        {
+            ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(data));
+            this.distance = ((Save) ois.readObject()).distance;
+            ois.close();
+        }
+        catch (Exception e)
+        {
+        }
     }
 
     public int[] getDistance() { return distance; }

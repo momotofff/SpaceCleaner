@@ -1,6 +1,7 @@
 package com.example.spacecleaner.utilities;
 
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -50,6 +51,7 @@ public class Save implements Serializable
         }
         catch (Exception e)
         {
+            Log.w(this.getClass().getSimpleName(), "Error while storing save data");
         }
 
         editor.putString(this.getClass().getSimpleName(), result);
@@ -69,6 +71,7 @@ public class Save implements Serializable
         }
         catch (Exception e)
         {
+            Log.w(this.getClass().getSimpleName(), "Error while deserializing save data");
         }
     }
 

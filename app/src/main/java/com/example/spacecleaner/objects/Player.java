@@ -10,8 +10,7 @@ import com.example.my_framework.IDrawable;
 import com.example.my_framework.ObjectFW;
 import com.example.my_framework.TimerDelay;
 import com.example.spacecleaner.R;
-import com.example.spacecleaner.classes.Manager;
-import com.example.spacecleaner.utilits.Resource;
+import com.example.spacecleaner.utilities.Resource;
 
 import java.util.Locale;
 

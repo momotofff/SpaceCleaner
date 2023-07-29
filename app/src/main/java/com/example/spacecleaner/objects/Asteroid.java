@@ -7,7 +7,7 @@ import com.example.my_framework.AnimationFW;
 import com.example.my_framework.GraphicsFW;
 import com.example.my_framework.IDrawable;
 import com.example.my_framework.ObjectFW;
-import com.example.spacecleaner.utilits.Resource;
+import com.example.spacecleaner.utilities.Resource;
 
 public class Asteroid extends ObjectFW implements IDrawable
 {

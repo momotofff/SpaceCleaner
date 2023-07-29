@@ -6,7 +6,7 @@ import android.graphics.Rect;
 
 import com.example.my_framework.CoreFW;
 import com.example.my_framework.GraphicsFW;
-import com.example.spacecleaner.utilits.Resource;
+import com.example.spacecleaner.utilities.Resource;
 
 import java.util.ArrayList;
 

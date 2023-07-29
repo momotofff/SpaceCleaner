@@ -1,4 +1,4 @@
-package com.example.spacecleaner.utilits;
+package com.example.spacecleaner.utilities;
 
 import android.graphics.Bitmap;
 import java.util.ArrayList;

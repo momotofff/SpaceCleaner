@@ -7,11 +7,13 @@ import com.example.my_framework.SceneFW;
 import com.example.my_framework.StaticTextFW;
 import com.example.spacecleaner.R;
 import com.example.spacecleaner.classes.Manager;
+import com.example.spacecleaner.utilities.Save;
 
 public class GameScene extends SceneFW
 {
     GameState gameState;
     Manager manager;
+    private Save save;
 
     private final StaticTextFW Ready = new StaticTextFW(coreFW.getString(R.string.txtGameSceneReady), new Point(300,200), Color.WHITE, 100, null);
 
@@ -20,9 +22,11 @@ public class GameScene extends SceneFW
         READY, RUNNING, PAUSE, GAME_OVER
     }
 
-    public GameScene(CoreFW coreFW)
+    public GameScene(CoreFW coreFW, Save save)
     {
         super(coreFW);
+
+        this.save = save;
         gameState = GameState.READY;
         manager = new Manager(coreFW, sceneSize);
     }
@@ -35,7 +39,7 @@ public class GameScene extends SceneFW
             case READY:       updateStateReady(); break;
             case PAUSE:       updateStatePause(); break;
             case RUNNING:     updateStateRunning(); break;
-            case GAME_OVER:   coreFW.setScene(new GameOver(coreFW, manager));
+            case GAME_OVER:   coreFW.setScene(new GameOver(coreFW, manager, save));
         }
     }
 
@@ -46,7 +50,7 @@ public class GameScene extends SceneFW
 
         if (manager.gameOver)
         {
-            coreFW.getSave().addDistance(manager.player.getPassedDistance());
+            save.addDistance(manager.player.getPassedDistance());
             gameState = GameState.GAME_OVER;
         }
     }

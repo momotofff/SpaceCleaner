@@ -8,28 +8,32 @@ import com.example.my_framework.SceneFW;
 import com.example.my_framework.StaticTextFW;
 import com.example.spacecleaner.R;
 import com.example.spacecleaner.classes.Manager;
+import com.example.spacecleaner.utilities.Save;
 
 public class GameOver extends SceneFW
 {
     private final StaticTextFW GameOver = new StaticTextFW(coreFW.getString(R.string.txtGameOver), new Point(300,200), Color.WHITE, 100, null);
     private final StaticTextFW Restart = new StaticTextFW(coreFW.getString(R.string.txtRestart), new Point(300,350), Color.WHITE, 50, null);
     private final StaticTextFW ExitMenu = new StaticTextFW(coreFW.getString(R.string.txtExitMenu), new Point(300,450), Color.WHITE, 50, null);
-    Manager manager;
 
-    public GameOver(CoreFW coreFW, Manager manager)
+    Manager manager;
+    Save save;
+
+    public GameOver(CoreFW coreFW, Manager manager, Save save)
     {
         super(coreFW);
         this.manager = manager;
+        this.save = save;
     }
 
     @Override
     public void update()
     {
         if (coreFW.getTouchListenerFW().getTouchUp(Restart.getTouchArea(graphicsFW)))
-            coreFW.setScene(new GameScene(coreFW));
+            coreFW.setScene(new GameScene(coreFW, save));
 
         if (coreFW.getTouchListenerFW().getTouchUp(ExitMenu.getTouchArea(graphicsFW)))
-            coreFW.setScene(new MainMenu(coreFW));
+            coreFW.setScene(new MainMenu(coreFW, save));
     }
 
     @Override

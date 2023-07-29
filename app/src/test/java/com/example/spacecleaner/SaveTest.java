@@ -1,9 +1,10 @@
-package com.example.my_framework;
+package com.example.spacecleaner;
+
+import static org.junit.Assert.assertArrayEquals;
 
 import org.junit.Test;
-import static org.junit.Assert.*;
 
-import com.example.my_framework.Save;
+import com.example.spacecleaner.utilities.Save;
 
 /**
  * Example local unit test, which will execute on the development machine (host).

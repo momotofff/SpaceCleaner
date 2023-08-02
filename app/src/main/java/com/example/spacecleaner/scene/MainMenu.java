@@ -7,6 +7,7 @@ import com.example.my_framework.CoreFW;
 import com.example.my_framework.SceneFW;
 import com.example.my_framework.StaticTextFW;
 import com.example.spacecleaner.R;
+import com.example.spacecleaner.utilities.Save;
 
 public class MainMenu extends SceneFW
 {
@@ -16,18 +17,22 @@ public class MainMenu extends SceneFW
     private final StaticTextFW MenuResults = new StaticTextFW(coreFW.getString(R.string.txtMainMenuResult), new Point(50, 500), Color.BLUE, 60, null);
     private final StaticTextFW MenuExit = new StaticTextFW(coreFW.getString(R.string.txtMainMenuExitGame), new Point(50, 600), Color.BLUE, 60, null);
 
-    public MainMenu(CoreFW coreFW) {
+    private Save save;
+
+    public MainMenu(CoreFW coreFW, Save save)
+    {
         super(coreFW);
+        this.save = save;
     }
 
     @Override
     public void update()
     {
         if (coreFW.getTouchListenerFW().getTouchUp(MenuStart.getTouchArea(graphicsFW)))
-            coreFW.setScene(new GameScene(coreFW));
+            coreFW.setScene(new GameScene(coreFW, save));
 
         if (coreFW.getTouchListenerFW().getTouchUp(MenuResults.getTouchArea(graphicsFW)))
-            coreFW.setScene(new Results(coreFW));
+            coreFW.setScene(new Results(coreFW, save));
 
         if (coreFW.getTouchListenerFW().getTouchUp(MenuExit.getTouchArea(graphicsFW)))
             coreFW.onBackPressed();

@@ -8,12 +8,11 @@ import android.os.Bundle;
 import android.view.Display;
 import android.view.WindowManager;
 
-import org.jetbrains.annotations.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class CoreFW extends AppCompatActivity
 {
-    private final Point FRAME_BUFFER= new Point(1280, 720);
+    private final Point FRAME_BUFFER = new Point(1280, 720);
 
     private LoopFW loopFW;
     private GraphicsFW graphicsFW;
@@ -25,7 +24,6 @@ public class CoreFW extends AppCompatActivity
 
     private SharedPreferences sharedPreferences;
     private final String SETTINGS = "Settings";
-    private Save save;
 
     private final PointF scale = new PointF();
 
@@ -33,7 +31,7 @@ public class CoreFW extends AppCompatActivity
     private boolean stateOnResume;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState)
+    protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
@@ -42,7 +40,6 @@ public class CoreFW extends AppCompatActivity
         sizeDisplay = new Point();
         display = getWindowManager().getDefaultDisplay();
         display.getSize(sizeDisplay);
-        save.load();
 
         frameBuffer = Bitmap.createBitmap(FRAME_BUFFER.x, FRAME_BUFFER.y, Bitmap.Config.ARGB_8888);
         scale.x = (float) FRAME_BUFFER.x / sizeDisplay.x;
@@ -92,7 +89,7 @@ public class CoreFW extends AppCompatActivity
     }
 
     @Override
-    public void onBackPressed() { save.save(); finish(); }
+    public void onBackPressed() { finish(); }
 
     public GraphicsFW getGraphicsFW() { return graphicsFW; }
 
@@ -103,6 +100,4 @@ public class CoreFW extends AppCompatActivity
     public SceneFW getCurrentScene() { return sceneFW; }
 
     public SceneFW getStartScene() { return sceneFW; }
-
-    public Save getSave() { return save; }
 }

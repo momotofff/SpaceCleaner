@@ -1,4 +1,4 @@
-package com.example.spacecleaner.utilits;
+package com.example.spacecleaner.utilities;
 
 import android.content.SharedPreferences;
 import com.example.my_framework.CoreFW;

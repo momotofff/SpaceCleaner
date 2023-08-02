@@ -7,6 +7,7 @@ import com.example.my_framework.CoreFW;
 import com.example.my_framework.SceneFW;
 import com.example.my_framework.StaticTextFW;
 import com.example.spacecleaner.R;
+import com.example.spacecleaner.utilities.Save;
 
 import java.util.Locale;
 
@@ -16,9 +17,12 @@ public class Results extends SceneFW
     private final StaticTextFW BestResults = new StaticTextFW(coreFW.getString(R.string.txtBestResults), new Point(50, 100), Color.BLUE, 100, null);
     private final StaticTextFW Back = new StaticTextFW(coreFW.getString(R.string.txtBack), new Point(50, 650), Color.BLUE, 70, null);
 
-    public Results(CoreFW coreFW)
+    private Save save;
+
+    public Results(CoreFW coreFW, Save save)
     {
         super(coreFW);
+        this.save = save;
 
         final int RESULT_START_Y = 200;
         final int RESULT_STEP_Y = 70;
@@ -27,7 +31,7 @@ public class Results extends SceneFW
 
         for (int i = 0; i < Numbers.length; ++i)
         {
-            String text = String.format(Locale.getDefault(), "%d. %d", i + 1, coreFW.getSave().getDistance()[i]);
+            String text = String.format(Locale.getDefault(), "%d. %d", i + 1, save.getDistance()[i]);
             this.Numbers[i] = new StaticTextFW(text, new Point(position), Color.BLUE, 50, null);
             position.y += RESULT_STEP_Y;
         }
@@ -37,7 +41,7 @@ public class Results extends SceneFW
     public void update()
     {
         if (coreFW.getTouchListenerFW().getTouchUp(Back.getTouchArea(graphicsFW)))
-            coreFW.setScene(new MainMenu(coreFW));
+            coreFW.setScene(new MainMenu(coreFW, save));
     }
 
     @Override

@@ -27,12 +27,10 @@ public class Manager
     TimerDelay gameOverDelay = new TimerDelay();
     public boolean gameOver = false;
 
-    // If addition of entities will be needed, use TreeMap instead
     List<IDrawable> zOrder = new ArrayList<>();
 
     public Manager(CoreFW coreFW, Point displaySize)
     {
-        // TODO: Use screen dimensions to calculate it
         final int HUD_HEIGHT = 100;
         final int ASTEROIDS_COUNT = 5;
 

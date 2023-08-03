@@ -16,7 +16,7 @@ import java.util.Locale;
 
 public class Player extends ObjectFW implements IDrawable
 {
-    int gravity;
+    public int gravity = 10;
     AnimationFW spritePlayer;
     AnimationFW spritePlayerUp;
     AnimationFW spritePlayerActionShield;
@@ -24,9 +24,9 @@ public class Player extends ObjectFW implements IDrawable
     AnimationFW spritePlayerDestruction;
     CoreFW coreFW;
 
-    private int shields;
+    public int shields = 3;
     private int passedDistance;
-    private int speed;
+    public int speed;
     private boolean hitAsteroid = false;
     private boolean isGameOver = false;
     private boolean isUp = false;
@@ -37,11 +37,10 @@ public class Player extends ObjectFW implements IDrawable
     {
         radius = Resource.playerSprite.get(0).getHeight() / 2;
         shields = 3;
-        gravity = 15;
 
         position.x = 32;
         position.y = maxScreen.y / 2;
-        speed = 15;
+        speed = 20;
         hitBox = new Rect(position.x, position.y, Resource.playerSprite.get(0).getHeight() + position.x, Resource.playerSprite.get(0).getWidth() + position.y);
 
         this.coreFW = coreFW;
@@ -157,6 +156,7 @@ public class Player extends ObjectFW implements IDrawable
     {
         --speed;
         --shields;
+        --gravity;
 
         if (!isAlive())
             isGameOver = true;

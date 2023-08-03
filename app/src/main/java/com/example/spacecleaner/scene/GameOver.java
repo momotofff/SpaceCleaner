@@ -3,6 +3,7 @@ package com.example.spacecleaner.scene;
 import android.graphics.Color;
 import android.graphics.Point;
 
+import com.example.my_framework.AudioFW;
 import com.example.my_framework.CoreFW;
 import com.example.my_framework.SceneFW;
 import com.example.my_framework.StaticTextFW;
@@ -18,22 +19,31 @@ public class GameOver extends SceneFW
 
     Manager manager;
     Save save;
+    AudioFW audioFW;
 
     public GameOver(CoreFW coreFW, Manager manager, Save save)
     {
         super(coreFW);
         this.manager = manager;
         this.save = save;
+        audioFW = new AudioFW(coreFW, com.example.my_framework.R.raw.game_over);
     }
 
     @Override
     public void update()
     {
         if (coreFW.getTouchListenerFW().getTouchUp(Restart.getTouchArea(graphicsFW)))
+        {
             coreFW.setScene(new GameScene(coreFW, save));
+            audioFW.mediaPlayer.release();
+        }
 
         if (coreFW.getTouchListenerFW().getTouchUp(ExitMenu.getTouchArea(graphicsFW)))
+
+        {
             coreFW.setScene(new MainMenu(coreFW, save));
+            audioFW.mediaPlayer.release();
+        }
     }
 
     @Override

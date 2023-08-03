@@ -4,6 +4,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.graphics.PointF;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.Display;
 import android.view.WindowManager;
@@ -12,6 +13,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class CoreFW extends AppCompatActivity
 {
+    int menuTrack = R.raw.menu;
+    public int gameTrack = R.raw.game1;
+    int gameOverTrack = R.raw.game_over;
+
     private final Point FRAME_BUFFER = new Point(1280, 720);
 
     private LoopFW loopFW;
@@ -100,4 +105,5 @@ public class CoreFW extends AppCompatActivity
     public SceneFW getCurrentScene() { return sceneFW; }
 
     public SceneFW getStartScene() { return sceneFW; }
+
 }

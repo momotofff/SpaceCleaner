@@ -32,7 +32,6 @@ public class Manager
     public Manager(CoreFW coreFW, Point displaySize)
     {
         int ASTEROIDS_COUNT = 2;
-
         this.maxScreen = displaySize;
 
         background = new Background(displaySize, HUD_HEIGHT);

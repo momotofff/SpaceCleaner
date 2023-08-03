@@ -69,5 +69,5 @@ public class GameOver extends SceneFW
     }
 
     @Override
-    public void dispose() { audioFW.mediaPlayer.release(); }
+    public void dispose() {}
 }

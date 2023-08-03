@@ -121,7 +121,7 @@ public class GameScene extends SceneFW
     public void resume() {}
 
     @Override
-    public void dispose() { audioFW.mediaPlayer.release(); }
+    public void dispose() {}
 
 
 }

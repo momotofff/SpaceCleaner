@@ -36,7 +36,6 @@ public class Player extends ObjectFW implements IDrawable
     public Player(CoreFW coreFW, Point maxScreen, int height)
     {
         radius = Resource.playerSprite.get(0).getHeight() / 2;
-        shields = 3;
 
         position.x = 32;
         position.y = maxScreen.y / 2;
@@ -169,5 +168,4 @@ public class Player extends ObjectFW implements IDrawable
     {
         return shields >= 0;
     }
-
 }

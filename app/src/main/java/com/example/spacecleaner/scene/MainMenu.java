@@ -67,5 +67,5 @@ public class MainMenu extends SceneFW
     public void resume() {}
 
     @Override
-    public void dispose() {}
+    public void dispose() { audioFW.mediaPlayer.release(); }
 }

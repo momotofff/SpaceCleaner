@@ -18,21 +18,20 @@ import java.util.Optional;
 
 public class Manager
 {
-    private final Point maxScreen;
+    public final Point maxScreen;
     public static Background background;
-    public final Player player;
-    private final Hud hud;
-    private final ArrayList<Asteroid> asteroids = new ArrayList<>();
-
+    public Player player;
+    public final Hud hud;
+    public ArrayList<Asteroid> asteroids = new ArrayList<>();
+    public int HUD_HEIGHT = 100;
     TimerDelay gameOverDelay = new TimerDelay();
     public boolean gameOver = false;
 
-    List<IDrawable> zOrder = new ArrayList<>();
+    public List<IDrawable> zOrder = new ArrayList<>();
 
     public Manager(CoreFW coreFW, Point displaySize)
     {
-        final int HUD_HEIGHT = 100;
-        final int ASTEROIDS_COUNT = 5;
+        int ASTEROIDS_COUNT = 2;
 
         this.maxScreen = displaySize;
 
@@ -41,7 +40,7 @@ public class Manager
         hud = new Hud(coreFW, player, HUD_HEIGHT);
 
         for (int i = 0; i < ASTEROIDS_COUNT; ++i)
-            asteroids.add(new Asteroid(displaySize, HUD_HEIGHT, (int) (Math.random() * 10) + 10));
+            asteroids.add(new Asteroid(displaySize, HUD_HEIGHT));
 
         zOrder.add(background);
         zOrder.addAll(asteroids);

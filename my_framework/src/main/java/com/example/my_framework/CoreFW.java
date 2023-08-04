@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.graphics.PointF;
 import android.media.AudioManager;
-import android.media.MediaPlayer;
 import android.media.SoundPool;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,6 +24,7 @@ public class CoreFW extends AppCompatActivity implements SoundPool.OnLoadComplet
     private Point sizeDisplay;
     private Bitmap frameBuffer;
     private SceneFW sceneFW;
+    private BackgroundAudioFW backgroundAudioFW;
 
     private SharedPreferences sharedPreferences;
     private final String SETTINGS = "Settings";
@@ -51,6 +51,8 @@ public class CoreFW extends AppCompatActivity implements SoundPool.OnLoadComplet
         scale.x = (float) FRAME_BUFFER.x / sizeDisplay.x;
         scale.y = (float) FRAME_BUFFER.y / sizeDisplay.y;
 
+        backgroundAudioFW = new BackgroundAudioFW(this);
+
         loopFW = new LoopFW(this, frameBuffer);
         graphicsFW = new GraphicsFW(getAssets(), frameBuffer);
         touchListenerFW = new TouchListenerFW(loopFW, scale);
@@ -67,7 +69,7 @@ public class CoreFW extends AppCompatActivity implements SoundPool.OnLoadComplet
         Log.d("Норм", "soundIdShot = " + soundIdShot);
     }
 
-    public  CoreFW() {}
+    public CoreFW() {}
 
     public void onResume()
     {
@@ -111,6 +113,8 @@ public class CoreFW extends AppCompatActivity implements SoundPool.OnLoadComplet
     public SceneFW getCurrentScene() { return sceneFW; }
 
     public SceneFW getStartScene() { return sceneFW; }
+
+    public BackgroundAudioFW getBackgroundAudioFW() { return backgroundAudioFW; }
 
     @Override
     public void onLoadComplete(SoundPool soundPool, int sampleId, int status)

@@ -3,7 +3,6 @@ package com.example.spacecleaner.scene;
 import android.graphics.Color;
 import android.graphics.Point;
 
-import com.example.my_framework.AudioFW;
 import com.example.my_framework.CoreFW;
 import com.example.my_framework.SceneFW;
 import com.example.my_framework.StaticTextFW;
@@ -19,13 +18,12 @@ public class Results extends SceneFW
     private final StaticTextFW Back = new StaticTextFW(coreFW.getString(R.string.txtBack), new Point(50, 650), Color.BLUE, 70, null);
 
     private Save save;
-    AudioFW audioFW;
 
-    public Results(CoreFW coreFW, Save save, AudioFW audioFW)
+    public Results(CoreFW coreFW, Save save)
     {
         super(coreFW);
         this.save = save;
-        this.audioFW = audioFW;
+
         final int RESULT_START_Y = 200;
         final int RESULT_STEP_Y = 70;
 
@@ -44,8 +42,8 @@ public class Results extends SceneFW
     {
         if (coreFW.getTouchListenerFW().getTouchUp(Back.getTouchArea(graphicsFW)))
         {
+            coreFW.getBackgroundAudioFW().stop();
             coreFW.setScene(new MainMenu(coreFW, save));
-            audioFW.mediaPlayer.release();
         }
     }
 
@@ -61,7 +59,7 @@ public class Results extends SceneFW
     }
 
     @Override
-    public void pause() {audioFW.mediaPlayer.pause(); }
+    public void pause() {}
 
     @Override
     public void resume() {}

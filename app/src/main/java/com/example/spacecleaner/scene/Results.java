@@ -61,7 +61,7 @@ public class Results extends SceneFW
     }
 
     @Override
-    public void pause() {}
+    public void pause() {audioFW.mediaPlayer.pause(); }
 
     @Override
     public void resume() {}

@@ -15,19 +15,13 @@ public class Loading
 {
     private final Point SPRITE_SIZE = new Point(128, 64);
 
-    public Loading(CoreFW coreFW, GraphicsFW graphicsFW)
-    {
+    public Loading(CoreFW coreFW, GraphicsFW graphicsFW) {
         loadTexture(graphicsFW);
         loadSprite(graphicsFW);
         loadAsteroidSprite(graphicsFW);
         loadSettings();
-        loadAudio(coreFW);
     }
 
-    private void loadAudio(CoreFW coreFW)
-    {
-
-    }
 
     private void loadSprite(GraphicsFW graphicsFW)
     {

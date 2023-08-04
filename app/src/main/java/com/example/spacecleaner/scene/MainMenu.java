@@ -2,10 +2,13 @@ package com.example.spacecleaner.scene;
 
 import android.graphics.Color;
 import android.graphics.Point;
+import android.media.AudioManager;
+import android.media.SoundPool;
 
 import com.example.my_framework.AudioFW;
 import com.example.my_framework.CoreFW;
 import com.example.my_framework.SceneFW;
+import com.example.my_framework.SoundFW;
 import com.example.my_framework.StaticTextFW;
 import com.example.spacecleaner.R;
 import com.example.spacecleaner.utilities.Resource;
@@ -18,15 +21,15 @@ public class MainMenu extends SceneFW
     private final StaticTextFW MenuSettings = new StaticTextFW(coreFW.getString(R.string.txtMainMenuMenuSettings), new Point(50, 400), Color.BLUE, 60, null);
     private final StaticTextFW MenuResults = new StaticTextFW(coreFW.getString(R.string.txtMainMenuResult), new Point(50, 500), Color.BLUE, 60, null);
     private final StaticTextFW MenuExit = new StaticTextFW(coreFW.getString(R.string.txtMainMenuExitGame), new Point(50, 600), Color.BLUE, 60, null);
-    private AudioFW audioFW;
+    //private AudioFW audioFW;
     private Save save;
 
     public MainMenu(CoreFW coreFW, Save save)
     {
         super(coreFW);
         this.save = save;
+        //audioFW = new AudioFW(coreFW, com.example.my_framework.R.raw.menu);
 
-        audioFW = new AudioFW(coreFW, com.example.my_framework.R.raw.menu);
     }
 
     @Override
@@ -34,18 +37,21 @@ public class MainMenu extends SceneFW
     {
         if (coreFW.getTouchListenerFW().getTouchUp(MenuStart.getTouchArea(graphicsFW))) {
             coreFW.setScene(new GameScene(coreFW, save));
-            audioFW.mediaPlayer.release();
+            //audioFW.mediaPlayer.release();
+            coreFW.soundPool.play(coreFW.soundIdShot, 1, 1, 0, 0, 1);
         }
 
         if (coreFW.getTouchListenerFW().getTouchUp(MenuResults.getTouchArea(graphicsFW)))
         {
-            coreFW.setScene(new Results(coreFW, save, audioFW));
+            //coreFW.setScene(new Results(coreFW, save, audioFW));
+            coreFW.soundPool.play(coreFW.soundIdShot, 1, 1, 0, 0, 1);
         }
 
         if (coreFW.getTouchListenerFW().getTouchUp(MenuExit.getTouchArea(graphicsFW)))
         {
             coreFW.onBackPressed();
-            audioFW.mediaPlayer.release();
+            //audioFW.mediaPlayer.release();
+            coreFW.soundPool.play(coreFW.soundIdShot, 1, 1, 0, 0, 1);
         }
     }
 
@@ -61,11 +67,11 @@ public class MainMenu extends SceneFW
     }
 
     @Override
-    public void pause() {}
-
+    public void pause() { //audioFW.mediaPlayer.pause(); }
+    }
     @Override
     public void resume() {}
 
     @Override
-    public void dispose() { audioFW.mediaPlayer.release(); }
+    public void dispose() {}
 }

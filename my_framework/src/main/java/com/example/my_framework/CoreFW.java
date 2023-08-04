@@ -4,14 +4,17 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.graphics.PointF;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.media.SoundPool;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Display;
 import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class CoreFW extends AppCompatActivity
+public class CoreFW extends AppCompatActivity implements SoundPool.OnLoadCompleteListener
 {
     private final Point FRAME_BUFFER = new Point(1280, 720);
 
@@ -30,6 +33,8 @@ public class CoreFW extends AppCompatActivity
 
     private boolean stateOnPause;
     private boolean stateOnResume;
+    public SoundPool soundPool;
+    public int soundIdShot;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -55,6 +60,11 @@ public class CoreFW extends AppCompatActivity
         stateOnResume = false;
 
         setContentView(loopFW);
+
+        soundPool = new SoundPool(5, AudioManager.STREAM_MUSIC, 100);
+        soundPool.setOnLoadCompleteListener(this);
+        soundIdShot = soundPool.load(this, R.raw.tap, 1);
+        Log.d("Норм", "soundIdShot = " + soundIdShot);
     }
 
     public  CoreFW() {}
@@ -102,4 +112,9 @@ public class CoreFW extends AppCompatActivity
 
     public SceneFW getStartScene() { return sceneFW; }
 
+    @Override
+    public void onLoadComplete(SoundPool soundPool, int sampleId, int status)
+    {
+        Log.d("Все норм", "onLoadComplete, sampleId = " + sampleId + ", status = " + status);
+    }
 }

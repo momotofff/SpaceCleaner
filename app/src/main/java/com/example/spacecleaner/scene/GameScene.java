@@ -115,7 +115,7 @@ public class GameScene extends SceneFW
     private void drawingStatePause() {}
 
     @Override
-    public void pause() {}
+    public void pause() {audioFW.mediaPlayer.pause(); }
 
     @Override
     public void resume() {}

@@ -58,5 +58,4 @@ public class Asteroid extends ObjectFW implements IDrawable
     {
         return hitBox;
     }
-
 }

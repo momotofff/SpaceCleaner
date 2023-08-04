@@ -51,7 +51,7 @@ public class Save implements Serializable
         }
         catch (Exception e)
         {
-            Log.w(this.getClass().getSimpleName(), "Error while storing save data");
+            Log.w(this.getClass().getSimpleName(), "Error while storing save data. Exception says: " + e.getMessage());
         }
 
         editor.putString(this.getClass().getSimpleName(), result);
@@ -71,7 +71,7 @@ public class Save implements Serializable
         }
         catch (Exception e)
         {
-            Log.w(this.getClass().getSimpleName(), "Error while deserializing save data");
+            Log.w(this.getClass().getSimpleName(), "Error while deserializing save data. Exception says: " + e.getMessage());
         }
     }
 

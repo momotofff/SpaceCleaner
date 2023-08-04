@@ -11,6 +11,7 @@ public class Main extends CoreFW
     Loading loading;
     private final Save save = new Save();
 
+    @Override
     public SceneFW getStartScene()
     {
         loading = new Loading(this, this.getGraphicsFW());

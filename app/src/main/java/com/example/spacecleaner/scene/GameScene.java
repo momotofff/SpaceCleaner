@@ -3,7 +3,6 @@ package com.example.spacecleaner.scene;
 import android.graphics.Color;
 import android.graphics.Point;
 
-import com.example.my_framework.AudioFW;
 import com.example.my_framework.CoreFW;
 import com.example.my_framework.SceneFW;
 import com.example.my_framework.StaticTextFW;
@@ -23,7 +22,6 @@ public class GameScene extends SceneFW
     TimerDelay powerUpDelay = new TimerDelay();
 
     private final StaticTextFW Ready = new StaticTextFW(coreFW.getString(R.string.txtGameSceneReady), new Point(300,200), Color.WHITE, 100, null);
-    AudioFW audioFW;
 
     enum GameState
     {
@@ -37,7 +35,10 @@ public class GameScene extends SceneFW
         this.save = save;
         gameState = GameState.READY;
         manager = new Manager(coreFW, sceneSize);
-        audioFW = new AudioFW(coreFW, com.example.my_framework.R.raw.game1);
+
+        coreFW.getBackgroundAudioFW().setTrack(com.example.my_framework.R.raw.game1);
+        coreFW.getBackgroundAudioFW().start();
+
         powerUpDelay.start();
     }
 
@@ -76,7 +77,7 @@ public class GameScene extends SceneFW
             save.addDistance(manager.player.getPassedDistance());
             save.save(coreFW.getSharedPreferences());
             gameState = GameState.GAME_OVER;
-            audioFW.mediaPlayer.release();
+            coreFW.getBackgroundAudioFW().stop();
         }
     }
 
@@ -115,7 +116,7 @@ public class GameScene extends SceneFW
     private void drawingStatePause() {}
 
     @Override
-    public void pause() {audioFW.mediaPlayer.pause(); }
+    public void pause() {}
 
     @Override
     public void resume() {}

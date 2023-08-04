@@ -57,8 +57,8 @@ public class LoopFW extends SurfaceView implements Runnable
 
             if (System.currentTimeMillis() - timer > 1000)
             {
-                Log.d(this.getClass().getSimpleName(), String.format("Updates: %d / 1 sec", updates));
-                Log.d(this.getClass().getSimpleName(), String.format("Redraws: %d / 1 sec", draws));
+//                Log.d(this.getClass().getSimpleName(), String.format("Updates: %d / 1 sec", updates));
+//                Log.d(this.getClass().getSimpleName(), String.format("Redraws: %d / 1 sec", draws));
 
                 updates = 0;
                 draws = 0;

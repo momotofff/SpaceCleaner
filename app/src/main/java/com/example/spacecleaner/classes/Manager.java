@@ -19,7 +19,7 @@ import java.util.Optional;
 public class Manager
 {
     public final Point maxScreen;
-    public static Background background;
+    public Background background;
     public Player player;
     public final Hud hud;
     public ArrayList<Asteroid> asteroids = new ArrayList<>();

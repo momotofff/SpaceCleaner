@@ -18,6 +18,7 @@
         <string name="txtHudPassedDistance">Пройдено</string>
         <string name="txtHudCurrentSpeedPlayer">Скорость</string>
         <string name="txtHudCurrentShieldsPlayer">Защита</string>
+        <string name="txtLevel">Сложность</string>
 
     //Game Over scene
     <string name="txtGameOver">Конец игры</string>

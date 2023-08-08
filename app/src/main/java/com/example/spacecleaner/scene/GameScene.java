@@ -10,6 +10,7 @@ import com.example.my_framework.TimerDelay;
 import com.example.spacecleaner.R;
 import com.example.spacecleaner.classes.Manager;
 import com.example.spacecleaner.objects.Asteroid;
+import com.example.spacecleaner.objects.Star;
 import com.example.spacecleaner.utilities.Save;
 
 import java.util.stream.IntStream;
@@ -20,6 +21,7 @@ public class GameScene extends SceneFW
     Manager manager;
     private Save save;
     TimerDelay powerUpDelay = new TimerDelay();
+    TimerDelay shieldTime = new TimerDelay();
 
     private final StaticTextFW Ready = new StaticTextFW(coreFW.getString(R.string.txtGameSceneReady), new Point(300,200), Color.WHITE, 100, null);
 
@@ -53,9 +55,10 @@ public class GameScene extends SceneFW
             case GAME_OVER:   coreFW.setScene(new GameOver(coreFW, manager, save));
         }
 
-        if (powerUpDelay.isElapsed(15))
+        if (powerUpDelay.isElapsed(20))
         {
             coreFW.getSoundFW().start(LEVEL_UP);
+            ++manager.player.level;
             ++manager.player.speed;
             ++manager.player.gravity;
             ++manager.player.shields;
@@ -65,7 +68,20 @@ public class GameScene extends SceneFW
             manager.zOrder.add(asteroid);
             manager.asteroids.add(asteroid);
 
-            IntStream.range(0, manager.asteroids.size()).forEach(i -> ++manager.asteroids.get(i).speed);
+            for (Star star : manager.background.stars)
+                ++star.speed;
+
+            for (Asteroid ast: manager.asteroids)
+                ast.speed = manager.player.speed;
+
+
+            shieldTime.start();
+            manager.player.shieldActivied = true;
+        }
+
+        if (shieldTime.isElapsed(5))
+        {
+            manager.player.shieldActivied = false;
         }
     }
 

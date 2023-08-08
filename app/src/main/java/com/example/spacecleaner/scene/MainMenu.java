@@ -33,22 +33,22 @@ public class MainMenu extends SceneFW
         if (coreFW.getTouchListenerFW().getTouchUp(MenuStart.getTouchArea(graphicsFW)))
         {
             coreFW.getBackgroundAudioFW().stop();
+            coreFW.getSoundFW().start(TAP);
             coreFW.setScene(new GameScene(coreFW, save));
-            coreFW.soundPool.play(coreFW.soundIdShot, 1, 1, 0, 0, 1);
+
         }
 
         if (coreFW.getTouchListenerFW().getTouchUp(MenuResults.getTouchArea(graphicsFW)))
         {
-            coreFW.getBackgroundAudioFW().stop();
+            coreFW.getSoundFW().start(TAP);
             coreFW.setScene(new Results(coreFW, save));
-            coreFW.soundPool.play(coreFW.soundIdShot, 1, 1, 0, 0, 1);
         }
 
         if (coreFW.getTouchListenerFW().getTouchUp(MenuExit.getTouchArea(graphicsFW)))
         {
+            coreFW.getSoundFW().start(TAP);
             coreFW.getBackgroundAudioFW().stop();
             coreFW.onBackPressed();
-            coreFW.soundPool.play(coreFW.soundIdShot, 1, 1, 0, 0, 1);
         }
     }
 

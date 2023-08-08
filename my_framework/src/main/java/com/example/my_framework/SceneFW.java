@@ -8,6 +8,11 @@ public abstract class SceneFW
     public Point sceneSize;
     public GraphicsFW graphicsFW;
 
+    public final String TAP = "tap";
+    public final String DAMAGE = "damage";
+    public final String LEVEL_UP = "level_up";
+    public final String DESTROY = "destroy";
+
     public SceneFW(CoreFW coreFW)
     {
         this.coreFW = coreFW;

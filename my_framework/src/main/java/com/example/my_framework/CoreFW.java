@@ -13,7 +13,7 @@ import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class CoreFW extends AppCompatActivity implements SoundPool.OnLoadCompleteListener
+public class CoreFW extends AppCompatActivity
 {
     private final Point FRAME_BUFFER = new Point(1280, 720);
 
@@ -25,6 +25,7 @@ public class CoreFW extends AppCompatActivity implements SoundPool.OnLoadComplet
     private Bitmap frameBuffer;
     private SceneFW sceneFW;
     private BackgroundAudioFW backgroundAudioFW;
+    private SoundFW soundFW;
 
     private SharedPreferences sharedPreferences;
     private final String SETTINGS = "Settings";
@@ -33,8 +34,6 @@ public class CoreFW extends AppCompatActivity implements SoundPool.OnLoadComplet
 
     private boolean stateOnPause;
     private boolean stateOnResume;
-    public SoundPool soundPool;
-    public int soundIdShot;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -52,6 +51,7 @@ public class CoreFW extends AppCompatActivity implements SoundPool.OnLoadComplet
         scale.y = (float) FRAME_BUFFER.y / sizeDisplay.y;
 
         backgroundAudioFW = new BackgroundAudioFW(this);
+        soundFW = new SoundFW(this);
 
         loopFW = new LoopFW(this, frameBuffer);
         graphicsFW = new GraphicsFW(getAssets(), frameBuffer);
@@ -62,11 +62,6 @@ public class CoreFW extends AppCompatActivity implements SoundPool.OnLoadComplet
         stateOnResume = false;
 
         setContentView(loopFW);
-
-        soundPool = new SoundPool(5, AudioManager.STREAM_MUSIC, 100);
-        soundPool.setOnLoadCompleteListener(this);
-        soundIdShot = soundPool.load(this, R.raw.tap, 1);
-        Log.d("Норм", "soundIdShot = " + soundIdShot);
     }
 
     public CoreFW() {}
@@ -116,9 +111,5 @@ public class CoreFW extends AppCompatActivity implements SoundPool.OnLoadComplet
 
     public BackgroundAudioFW getBackgroundAudioFW() { return backgroundAudioFW; }
 
-    @Override
-    public void onLoadComplete(SoundPool soundPool, int sampleId, int status)
-    {
-        Log.d("Все норм", "onLoadComplete, sampleId = " + sampleId + ", status = " + status);
-    }
+    public SoundFW getSoundFW() { return soundFW; }
 }

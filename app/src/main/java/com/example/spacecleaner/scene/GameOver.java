@@ -34,14 +34,17 @@ public class GameOver extends SceneFW
     {
         if (coreFW.getTouchListenerFW().getTouchUp(Restart.getTouchArea(graphicsFW)))
         {
-            coreFW.setScene(new GameScene(coreFW, save));
+            coreFW.getSoundFW().start(TAP);
             coreFW.getBackgroundAudioFW().stop();
+            coreFW.setScene(new GameScene(coreFW, save));
+
         }
 
         if (coreFW.getTouchListenerFW().getTouchUp(ExitMenu.getTouchArea(graphicsFW)))
         {
-            coreFW.setScene(new MainMenu(coreFW, save));
+            coreFW.getSoundFW().start(TAP);
             coreFW.getBackgroundAudioFW().stop();
+            coreFW.setScene(new MainMenu(coreFW, save));
         }
     }
 

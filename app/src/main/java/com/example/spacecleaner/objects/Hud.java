@@ -14,6 +14,7 @@ public class Hud extends ObjectFW implements IDrawable
     private final StaticTextFW txtPassedDistance;
     private final StaticTextFW txtCurrentSpeedPlayer;
     private final StaticTextFW txtCurrentShieldsPlayer;
+    private final StaticTextFW txtLevel;
 
     private final CoreFW coreFW;
     private final Player player;
@@ -29,6 +30,7 @@ public class Hud extends ObjectFW implements IDrawable
         txtPassedDistance = new StaticTextFW(player.getTxtPassedDistance(), new Point(10, 70), Color.WHITE, 40, null);
         txtCurrentSpeedPlayer = new StaticTextFW(player.getSpeed(), new Point(400, 70), Color.WHITE, 40, null);
         txtCurrentShieldsPlayer = new StaticTextFW(player.getShields(), new Point(700, 70), Color.WHITE, 40, null);
+        txtLevel = new StaticTextFW(player.getLevel(), new Point(1000,70), Color.WHITE, 40, null);
     }
 
     @Override
@@ -37,6 +39,7 @@ public class Hud extends ObjectFW implements IDrawable
         txtPassedDistance.text = player.getTxtPassedDistance();
         txtCurrentSpeedPlayer.text = player.getSpeed();
         txtCurrentShieldsPlayer.text = player.getShields();
+        txtLevel.text = player.getLevel();
     }
 
     @Override
@@ -46,5 +49,6 @@ public class Hud extends ObjectFW implements IDrawable
         graphicsFW.drawText(txtPassedDistance);
         graphicsFW.drawText(txtCurrentSpeedPlayer);
         graphicsFW.drawText(txtCurrentShieldsPlayer);
+        graphicsFW.drawText(txtLevel);
     }
 }

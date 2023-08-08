@@ -12,7 +12,7 @@ public class Star extends ObjectFW implements IDrawable
     public Star(Point sceneSize, int height)
     {
         this.screen = new Rect(0, height, sceneSize.x, sceneSize.y);
-        this.speed = 4;
+        this.speed = 5;
         this.position = new Point((int) (Math.random() * screen.right), (int) (Math.random() * screen.bottom) + height);
     }
 

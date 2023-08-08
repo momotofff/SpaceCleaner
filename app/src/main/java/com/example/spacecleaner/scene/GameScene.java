@@ -55,11 +55,13 @@ public class GameScene extends SceneFW
 
         if (powerUpDelay.isElapsed(15))
         {
+            coreFW.getSoundFW().start(LEVEL_UP);
             ++manager.player.speed;
             ++manager.player.gravity;
             ++manager.player.shields;
             powerUpDelay.start();
             Asteroid asteroid = new Asteroid(manager.maxScreen, manager.HUD_HEIGHT);
+            asteroid.restartFromInitialPosition();
             manager.zOrder.add(asteroid);
             manager.asteroids.add(asteroid);
 
@@ -81,13 +83,15 @@ public class GameScene extends SceneFW
         }
     }
 
-    private void updateStatePause() {
-    }
+    private void updateStatePause() {}
 
     private void updateStateReady()
     {
         if (coreFW.getTouchListenerFW().getTouchUp(Ready.getTouchArea(graphicsFW)))
+        {
+            coreFW.getSoundFW().start(TAP);
             gameState = GameState.RUNNING;
+        }
     }
 
     @Override

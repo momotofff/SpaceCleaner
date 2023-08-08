@@ -42,6 +42,7 @@ public class Results extends SceneFW
     {
         if (coreFW.getTouchListenerFW().getTouchUp(Back.getTouchArea(graphicsFW)))
         {
+            coreFW.getSoundFW().start(TAP);
             coreFW.getBackgroundAudioFW().stop();
             coreFW.setScene(new MainMenu(coreFW, save));
         }

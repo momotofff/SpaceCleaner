@@ -46,7 +46,7 @@ public class GameScene extends SceneFW
     @Override
     public void update()
     {
-        switch(gameState)
+        switch (gameState)
         {
             case READY:       updateStateReady(); break;
             case PAUSE:       updateStatePause(); break;
@@ -56,7 +56,7 @@ public class GameScene extends SceneFW
 
         if (powerUpDelay.isElapsed(20))
         {
-            coreFW.getSoundFW().start(LEVEL_UP);
+            coreFW.getSoundFW().start(R.raw.level_up);
             ++manager.player.level;
             ++manager.player.speed;
             ++manager.player.shields;
@@ -94,7 +94,7 @@ public class GameScene extends SceneFW
     {
         if (coreFW.getTouchListenerFW().getTouchUp(Ready.getTouchArea(graphicsFW)))
         {
-            coreFW.getSoundFW().start(TAP);
+            coreFW.getSoundFW().start(R.raw.tap);
             gameState = GameState.RUNNING;
         }
     }

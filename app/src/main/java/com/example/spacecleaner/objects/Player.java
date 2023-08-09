@@ -1,7 +1,6 @@
 package com.example.spacecleaner.objects;
 
 import android.graphics.Point;
-import android.graphics.Rect;
 
 import com.example.my_framework.AnimationFW;
 import com.example.my_framework.CoreFW;
@@ -25,13 +24,14 @@ public class Player extends ObjectFW implements IDrawable
     CoreFW coreFW;
 
     private int passedDistance;
-    public int speed;
+    public int level = 1;
+    public int shields = 3;
+
     private boolean hitAsteroid = false;
     private boolean isGameOver = false;
     public boolean isSpeed = false;
     public boolean isShield = false;
     private boolean isUp = false;
-
 
     TimerDelay shieldEnabled = new TimerDelay();
     public TimerDelay speedDelay = new TimerDelay();
@@ -41,10 +41,7 @@ public class Player extends ObjectFW implements IDrawable
     {
         radius = Resource.playerSprite.get(0).getHeight() / 2;
 
-        position.x = 32;
-        position.y = maxScreen.y / 2;
-        speed = 20;
-        hitBox = new Rect(position.x, position.y, Resource.playerSprite.get(0).getHeight() + position.x, Resource.playerSprite.get(0).getWidth() + position.y);
+        updatePosition(new Point(32, maxScreen.y / 2), Resource.playerSprite.get(0));
 
         this.coreFW = coreFW;
         this.screen.right = maxScreen.x;
@@ -113,12 +110,9 @@ public class Player extends ObjectFW implements IDrawable
                 spritePlayer.runAnimation();
         }
 
-        hitBox.top = position.x;
-        hitBox.left = position.y;
-        hitBox.bottom = Resource.playerSprite.get(0).getHeight() + position.x;
-        hitBox.right = Resource.playerSprite.get(0).getWidth() + position.y;
-
         passedDistance += speed;
+
+        updatePosition(position, Resource.playerSprite.get(0));
 
         if (isGameOver)
             spritePlayerDestruction.runAnimation();
@@ -165,14 +159,14 @@ public class Player extends ObjectFW implements IDrawable
             --shields;
         }
 
-        if (!isAlive())
+        if (isDead())
         {
             isGameOver = true;
-            coreFW.getSoundFW().start("destroy");
+            coreFW.getSoundFW().start(R.raw.destroy);
         }
         else
         {
-            coreFW.getSoundFW().start("damage");
+            coreFW.getSoundFW().start(R.raw.damage);
         }
 
         hitAsteroid = true;
@@ -193,9 +187,7 @@ public class Player extends ObjectFW implements IDrawable
     {
         return passedDistance;
     }
-    public boolean isAlive() { return shields >= 0; }
+    public boolean isDead() { return shields < 0; }
     private void stop() { isUp = false; }
     private void start() { isUp = true; }
-
-
 }

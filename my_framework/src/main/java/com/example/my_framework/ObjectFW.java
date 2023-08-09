@@ -1,5 +1,6 @@
 package com.example.my_framework;
 
+import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.graphics.Rect;
 
@@ -7,19 +8,23 @@ public abstract class ObjectFW
 {
     public Rect screen = new Rect();
     public Point position = new Point();
-    public int speed = 20;
-    public int level = 1;
-    public int shields = 3;
-    protected Rect hitBox;
+    public int speed = 10;
+    protected Rect hitBox = new Rect();
     protected int radius;
-
-    public ObjectFW() {
-        super();
-    }
 
     public Point getPosition() {
         return position;
     }
-    public Rect getHitBox() {return hitBox;}
-    public int getRadius() {return radius;}
+    public Rect getHitBox() { return hitBox; }
+    public int getRadius() { return radius; }
+
+    public void updatePosition(Point position, Bitmap sprite)
+    {
+        this.position = position;
+
+        hitBox.left = position.x;
+        hitBox.top = position.y;
+        hitBox.right = sprite.getWidth() + hitBox.left;
+        hitBox.bottom = sprite.getHeight() + hitBox.top;
+    }
 }

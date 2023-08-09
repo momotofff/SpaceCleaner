@@ -6,6 +6,7 @@ import android.graphics.Rect;
 
 import com.example.my_framework.CoreFW;
 import com.example.my_framework.GraphicsFW;
+import com.example.spacecleaner.R;
 import com.example.spacecleaner.utilities.Resource;
 
 import java.util.ArrayList;
@@ -18,9 +19,9 @@ public class Loading
         loadTexture(graphicsFW);
         loadSprite(graphicsFW);
         loadAsteroidSprite(graphicsFW);
+        loadSounds(coreFW);
         loadSettings();
     }
-
 
     private void loadSprite(GraphicsFW graphicsFW)
     {
@@ -33,6 +34,14 @@ public class Loading
         readerSprite(graphicsFW, 7, Resource.playerSpriteShield);
         readerSprite(graphicsFW, 8, Resource.bonusSpeedSprite);
         readerSprite(graphicsFW, 9, Resource.bonusShieldSprite);
+    }
+
+    private void loadSounds(CoreFW coreFW)
+    {
+        coreFW.getSoundFW().load(R.raw.tap);
+        coreFW.getSoundFW().load(R.raw.damage);
+        coreFW.getSoundFW().load(R.raw.destroy);
+        coreFW.getSoundFW().load(R.raw.level_up);
     }
 
     private void readerSprite(GraphicsFW graphicsFW, int top, ArrayList<Bitmap> sprite)

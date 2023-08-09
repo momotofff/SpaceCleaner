@@ -12,16 +12,16 @@ import com.example.spacecleaner.utilities.Resource;
 public class Asteroid extends ObjectFW implements IDrawable
 {
     AnimationFW asteroidAnim;
-    public int speed = 20;
 
     public Asteroid(Point sceneSize, int height)
     {
         this.screen = new Rect(0, height, sceneSize.x, sceneSize.y);
-        this.position = new Point((int) (screen.right * Math.random()), (int) (Math.random() * screen.bottom) + Resource.asteroidSprite.get(0).getHeight() + height);
         this.asteroidAnim = new AnimationFW(Resource.asteroidSprite);
 
+        Point position = new Point((int) (screen.right * Math.random()), (int) (Math.random() * screen.bottom) + Resource.asteroidSprite.get(0).getHeight() + height);
+        updatePosition(position, Resource.asteroidSprite.get(0));
+
         radius = Resource.asteroidSprite.get(0).getHeight() / 2;
-        hitBox = new Rect(position.x, position.y, Resource.asteroidSprite.get(0).getHeight() + position.x, Resource.asteroidSprite.get(0).getWidth() + position.y);
     }
 
     public void restartFromInitialPosition()
@@ -41,11 +41,8 @@ public class Asteroid extends ObjectFW implements IDrawable
             position.y = (int) (Math.random() * screen.bottom) + screen.top;
         }
 
+        updatePosition(position, Resource.asteroidSprite.get(0));
         asteroidAnim.runAnimation();
-        hitBox.top = position.x;
-        hitBox.left = position.y;
-        hitBox.bottom = Resource.asteroidSprite.get(0).getHeight() + position.x;
-        hitBox.right = Resource.asteroidSprite.get(0).getWidth() + position.y;
     }
 
     @Override

@@ -79,7 +79,7 @@ public class Manager
             asteroid.restartFromInitialPosition();
             asteroids.forEach(object -> --object.speed);
 
-            if (!player.isAlive())
+            if (player.isDead())
                 gameOverDelay.start();
         });
 

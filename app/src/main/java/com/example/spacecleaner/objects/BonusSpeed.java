@@ -16,11 +16,12 @@ public class BonusSpeed extends ObjectFW implements IDrawable
     public BonusSpeed(Point sceneSize, int height)
     {
         this.screen = new Rect(0, height, sceneSize.x, sceneSize.y);
-        this.position = new Point((int) (screen.right * Math.random()), (int) (Math.random() * screen.bottom) + Resource.bonusSpeedSprite.get(0).getHeight() + height);
         this.bonusSpeedAnim = new AnimationFW(Resource.bonusSpeedSprite);
 
+        Point position = new Point((int) (screen.right * Math.random()), (int) (Math.random() * screen.bottom) + Resource.bonusSpeedSprite.get(0).getHeight() + height);
+        updatePosition(position, Resource.bonusSpeedSprite.get(0));
+
         radius = Resource.bonusSpeedSprite.get(0).getHeight() / 2;
-        hitBox = new Rect(position.x, position.y, Resource.bonusSpeedSprite.get(0).getHeight() + position.x, Resource.bonusSpeedSprite.get(0).getWidth() + position.y);
     }
 
     public void restartFromInitialPosition()
@@ -40,11 +41,8 @@ public class BonusSpeed extends ObjectFW implements IDrawable
             position.y = (int) (Math.random() * screen.bottom) + screen.top;
         }
 
+        updatePosition(position, Resource.bonusSpeedSprite.get(0));
         bonusSpeedAnim.runAnimation();
-        hitBox.top = position.x;
-        hitBox.left = position.y;
-        hitBox.bottom = Resource.bonusSpeedSprite.get(0).getHeight() + position.x;
-        hitBox.right = Resource.bonusSpeedSprite.get(0).getWidth() + position.y;
     }
 
     @Override

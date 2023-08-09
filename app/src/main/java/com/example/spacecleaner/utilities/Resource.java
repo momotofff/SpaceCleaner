@@ -14,4 +14,6 @@ public class Resource
     public static ArrayList<Bitmap> playerSpriteDestruction = new ArrayList<>();
     public static ArrayList<Bitmap> playerSpriteShield = new ArrayList<>();
     public static ArrayList<Bitmap> asteroidSprite = new ArrayList<>();
+    public static ArrayList<Bitmap> bonusShieldSprite = new ArrayList<>();
+    public static ArrayList<Bitmap> bonusSpeedSprite = new ArrayList<>();
 }

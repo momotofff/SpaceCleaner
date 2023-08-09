@@ -21,7 +21,6 @@ public class GameScene extends SceneFW
     Manager manager;
     private Save save;
     TimerDelay powerUpDelay = new TimerDelay();
-    TimerDelay shieldTime = new TimerDelay();
 
     private final StaticTextFW Ready = new StaticTextFW(coreFW.getString(R.string.txtGameSceneReady), new Point(300,200), Color.WHITE, 100, null);
 
@@ -60,7 +59,6 @@ public class GameScene extends SceneFW
             coreFW.getSoundFW().start(LEVEL_UP);
             ++manager.player.level;
             ++manager.player.speed;
-            ++manager.player.gravity;
             ++manager.player.shields;
             powerUpDelay.start();
             Asteroid asteroid = new Asteroid(manager.maxScreen, manager.HUD_HEIGHT);
@@ -73,15 +71,6 @@ public class GameScene extends SceneFW
 
             for (Asteroid ast: manager.asteroids)
                 ast.speed = manager.player.speed;
-
-
-            shieldTime.start();
-            manager.player.shieldActivied = true;
-        }
-
-        if (shieldTime.isElapsed(5))
-        {
-            manager.player.shieldActivied = false;
         }
     }
 
@@ -124,7 +113,7 @@ public class GameScene extends SceneFW
     private void drawingStateRunning()
     {
         graphicsFW.clearScene(Color.BLACK);
-        manager.drawing(coreFW, graphicsFW);
+        manager.drawing(graphicsFW);
     }
 
     private void drawingStateReady()

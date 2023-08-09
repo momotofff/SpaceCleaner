@@ -9,6 +9,8 @@ import com.example.my_framework.IDrawable;
 import com.example.my_framework.TimerDelay;
 import com.example.spacecleaner.generation.Background;
 import com.example.spacecleaner.objects.Asteroid;
+import com.example.spacecleaner.objects.BonusShield;
+import com.example.spacecleaner.objects.BonusSpeed;
 import com.example.spacecleaner.objects.Hud;
 import com.example.spacecleaner.objects.Player;
 
@@ -18,16 +20,20 @@ import java.util.Optional;
 
 public class Manager
 {
+    public int HUD_HEIGHT = 100;
     public final Point maxScreen;
     public Background background;
     public Player player;
     public final Hud hud;
     public ArrayList<Asteroid> asteroids = new ArrayList<>();
-    public int HUD_HEIGHT = 100;
+    public BonusSpeed bonusSpeed;
+    public BonusShield bonusShield;
+    public List<IDrawable> zOrder = new ArrayList<>();
+
     TimerDelay gameOverDelay = new TimerDelay();
+
     public boolean gameOver = false;
 
-    public List<IDrawable> zOrder = new ArrayList<>();
 
     public Manager(CoreFW coreFW, Point displaySize)
     {
@@ -37,12 +43,16 @@ public class Manager
         background = new Background(displaySize, HUD_HEIGHT);
         player = new Player(coreFW, maxScreen, HUD_HEIGHT);
         hud = new Hud(coreFW, player, HUD_HEIGHT);
+        bonusSpeed = new BonusSpeed(displaySize, HUD_HEIGHT);
+        bonusShield = new BonusShield(displaySize, HUD_HEIGHT);
 
         for (int i = 0; i < ASTEROIDS_COUNT; ++i)
             asteroids.add(new Asteroid(displaySize, HUD_HEIGHT));
 
         zOrder.add(background);
         zOrder.addAll(asteroids);
+        zOrder.add(bonusSpeed);
+        zOrder.add(bonusShield);
         zOrder.add(player);
         zOrder.add(hud);
     }
@@ -61,8 +71,8 @@ public class Manager
     private void checkHit()
     {
         Optional<Asteroid> optional = asteroids.stream()
-                                               .filter(asteroid -> CollisionDetector.detect(player, asteroid))
-                                               .findFirst();
+                .filter(asteroid -> CollisionDetector.detect(player, asteroid))
+                .findFirst();
 
         optional.ifPresent(asteroid -> {
             player.hitAsteroid();
@@ -72,6 +82,23 @@ public class Manager
             if (!player.isAlive())
                 gameOverDelay.start();
         });
+
+        if (CollisionDetector.detect(player, bonusShield))
+        {
+            player.hitBonusShield();
+            bonusShield.restartFromInitialPosition();
+            player.shieldDelay.start();
+            player.isShield = true;
+        }
+
+        if (CollisionDetector.detect(player, bonusSpeed))
+        {
+            player.hitBonusSpeed();
+            bonusSpeed.restartFromInitialPosition();
+            player.speedDelay.start();
+            player.isSpeed = true;
+            player.speed += 10;
+        }
 
         /* Old fashion
         for (Asteroid asteroid: asteroids)
@@ -90,7 +117,7 @@ public class Manager
         */
     }
 
-    public void drawing(CoreFW coreFW, GraphicsFW graphicsFW)
+    public void drawing(GraphicsFW graphicsFW)
     {
         for (IDrawable drawable: zOrder)
             drawable.drawing(graphicsFW);

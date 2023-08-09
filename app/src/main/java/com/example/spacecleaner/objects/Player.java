@@ -16,7 +16,6 @@ import java.util.Locale;
 
 public class Player extends ObjectFW implements IDrawable
 {
-    public int gravity = 10;
     AnimationFW spritePlayer;
     AnimationFW spritePlayerUp;
     AnimationFW spritePlayerDamage;
@@ -25,16 +24,18 @@ public class Player extends ObjectFW implements IDrawable
     AnimationFW spritePlayerShield;
     CoreFW coreFW;
 
-    public int shields = 3;
     private int passedDistance;
     public int speed;
     private boolean hitAsteroid = false;
     private boolean isGameOver = false;
+    public boolean isSpeed = false;
+    public boolean isShield = false;
     private boolean isUp = false;
-    public int level = 1;
-    public boolean shieldActivied = false;
+
 
     TimerDelay shieldEnabled = new TimerDelay();
+    public TimerDelay speedDelay = new TimerDelay();
+    public TimerDelay shieldDelay = new TimerDelay();
 
     public Player(CoreFW coreFW, Point maxScreen, int height)
     {
@@ -66,10 +67,23 @@ public class Player extends ObjectFW implements IDrawable
         if (coreFW.getTouchListenerFW().getTouchUp(screen))
             stop();
 
+        if (speedDelay.isElapsed(3))
+        {
+            isSpeed = false;
+            speed -= 10;
+            speedDelay.stop();
+        }
+
+        if (shieldDelay.isElapsed(3))
+        {
+            isShield = false;
+            hitAsteroid = true;
+        }
+
         if (isUp)
             position.y -= speed;
         else
-            position.y += gravity;
+            position.y += speed;
 
         if (position.y < screen.top)
             position.y = screen.top;
@@ -77,7 +91,7 @@ public class Player extends ObjectFW implements IDrawable
         if (position.y > screen.bottom)
             position.y = screen.bottom;
 
-        if (shieldActivied)
+        if (isShield)
         {
             spritePlayerShield.runAnimation();
             hitAsteroid = false;
@@ -86,19 +100,18 @@ public class Player extends ObjectFW implements IDrawable
         if (!hitAsteroid)
         {
             if (isUp)
-                spritePlayerUp.runAnimation();
+                spritePlayerUpActionShield.runAnimation();
             else
-                spritePlayer.runAnimation();
+                spritePlayerDamage.runAnimation();
+
         }
         else
         {
             if (isUp)
-                spritePlayerUpActionShield.runAnimation();
+                spritePlayerUp.runAnimation();
             else
-                spritePlayerDamage.runAnimation();
+                spritePlayer.runAnimation();
         }
-
-
 
         hitBox.top = position.x;
         hitBox.left = position.y;
@@ -123,7 +136,7 @@ public class Player extends ObjectFW implements IDrawable
             return;
         }
 
-        if (shieldActivied)
+        if (isShield)
         {
             spritePlayerShield.drawingAnimation(graphicsFW, position);
         }
@@ -146,11 +159,10 @@ public class Player extends ObjectFW implements IDrawable
 
     public void hitAsteroid()
     {
-        if (!shieldActivied)
+        if (!isShield)
         {
             --speed;
             --shields;
-            --gravity;
         }
 
         if (!isAlive())
@@ -167,6 +179,12 @@ public class Player extends ObjectFW implements IDrawable
         shieldEnabled.start();
     }
 
+    public void hitBonusShield() {
+    }
+
+    public void hitBonusSpeed() {
+    }
+
     public String getShields() { return String.format(Locale.getDefault(), "%s: %d", coreFW.getString(R.string.txtHudCurrentShieldsPlayer), shields); }
     public String getTxtPassedDistance() { return String.format(Locale.getDefault(), "%s: %d", coreFW.getString(R.string.txtHudPassedDistance), passedDistance); }
     public String getSpeed() { return String.format(Locale.getDefault(), "%s: %d", coreFW.getString(R.string.txtHudCurrentSpeedPlayer), speed); }
@@ -178,4 +196,6 @@ public class Player extends ObjectFW implements IDrawable
     public boolean isAlive() { return shields >= 0; }
     private void stop() { isUp = false; }
     private void start() { isUp = true; }
+
+
 }

@@ -7,7 +7,9 @@ public abstract class ObjectFW
 {
     public Rect screen = new Rect();
     public Point position = new Point();
-    public int speed;
+    public int speed = 20;
+    public int level = 1;
+    public int shields = 3;
     protected Rect hitBox;
     protected int radius;
 

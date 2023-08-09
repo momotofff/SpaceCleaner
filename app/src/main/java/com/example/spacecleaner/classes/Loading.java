@@ -31,6 +31,8 @@ public class Loading
         readerSprite(graphicsFW, 5, Resource.playerSpriteDamage);
         readerSprite(graphicsFW, 6, Resource.playerSpriteUpDamage);
         readerSprite(graphicsFW, 7, Resource.playerSpriteShield);
+        readerSprite(graphicsFW, 8, Resource.bonusSpeedSprite);
+        readerSprite(graphicsFW, 9, Resource.bonusShieldSprite);
     }
 
     private void readerSprite(GraphicsFW graphicsFW, int top, ArrayList<Bitmap> sprite)

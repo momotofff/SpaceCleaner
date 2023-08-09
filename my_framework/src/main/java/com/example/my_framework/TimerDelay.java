@@ -17,4 +17,7 @@ public class TimerDelay
         long difference = System.nanoTime() - startNs;
         return isStarted && (difference > second * NS_IN_SECOND);
     }
+
+    public void stop() {isStarted = false;
+    }
 }

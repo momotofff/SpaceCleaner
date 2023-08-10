@@ -7,6 +7,7 @@ import com.example.my_framework.CoreFW;
 import com.example.my_framework.GraphicsFW;
 import com.example.my_framework.IDrawable;
 import com.example.my_framework.TimerDelay;
+import com.example.spacecleaner.R;
 import com.example.spacecleaner.generation.Background;
 import com.example.spacecleaner.objects.Asteroid;
 import com.example.spacecleaner.objects.BonusShield;
@@ -75,7 +76,7 @@ public class Manager
                 .findFirst();
 
         optional.ifPresent(asteroid -> {
-            player.hitAsteroid();
+            player.hitObject();
             asteroid.restartFromInitialPosition();
             asteroids.forEach(object -> --object.speed);
 
@@ -85,19 +86,18 @@ public class Manager
 
         if (CollisionDetector.detect(player, bonusShield))
         {
-            player.hitBonusShield();
             bonusShield.restartFromInitialPosition();
             player.shieldDelay.start();
-            player.isShield = true;
+            player.hitShield = true;
         }
 
         if (CollisionDetector.detect(player, bonusSpeed))
         {
-            player.hitBonusSpeed();
             bonusSpeed.restartFromInitialPosition();
             player.speedDelay.start();
             player.isSpeed = true;
             player.speed += 10;
+            player.dexterity += 2;
         }
 
         /* Old fashion

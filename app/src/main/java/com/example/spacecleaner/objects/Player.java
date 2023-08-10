@@ -15,25 +15,26 @@ import java.util.Locale;
 
 public class Player extends ObjectFW implements IDrawable
 {
-    AnimationFW spritePlayer;
-    AnimationFW spritePlayerUp;
-    AnimationFW spritePlayerDamage;
-    AnimationFW spritePlayerUpActionShield;
-    AnimationFW spritePlayerDestruction;
-    AnimationFW spritePlayerShield;
+    AnimationFW playerSprite;
+    AnimationFW playerSpriteUp;
+    AnimationFW playerSpriteDamage;
+    AnimationFW playerSpriteUpDamage;
+    AnimationFW playerSpriteDestruction;
+    AnimationFW playerSpriteShield;
     CoreFW coreFW;
 
     private int passedDistance;
     public int level = 1;
     public int shields = 3;
+    public int dexterity = 10;
 
-    private boolean hitAsteroid = false;
+    public boolean hitAsteroid = false;
     private boolean isGameOver = false;
     public boolean isSpeed = false;
-    public boolean isShield = false;
+    public boolean hitShield = false;
     private boolean isUp = false;
 
-    TimerDelay shieldEnabled = new TimerDelay();
+    public TimerDelay damageDelay = new TimerDelay();
     public TimerDelay speedDelay = new TimerDelay();
     public TimerDelay shieldDelay = new TimerDelay();
 
@@ -42,40 +43,45 @@ public class Player extends ObjectFW implements IDrawable
         radius = Resource.playerSprite.get(0).getHeight() / 2;
 
         updatePosition(new Point(32, maxScreen.y / 2), Resource.playerSprite.get(0));
-
         this.coreFW = coreFW;
         this.screen.right = maxScreen.x;
         this.screen.bottom = maxScreen.y - Resource.playerSprite.get(0).getHeight();
         this.screen.top = height;
-        this.spritePlayer = new AnimationFW(Resource.playerSprite);
-        this.spritePlayerUp = new AnimationFW(Resource.playerSpriteUp);
-        this.spritePlayerUpActionShield = new AnimationFW(Resource.playerSpriteUpDamage);
-        this.spritePlayerDamage = new AnimationFW(Resource.playerSpriteDamage);
-        this.spritePlayerDestruction = new AnimationFW(Resource.playerSpriteDestruction);
-        this.spritePlayerShield = new AnimationFW(Resource.playerSpriteShield);
+        this.playerSprite = new AnimationFW(Resource.playerSprite);
+        this.playerSpriteUp = new AnimationFW(Resource.playerSpriteUp);
+        this.playerSpriteUpDamage = new AnimationFW(Resource.playerSpriteUpDamage);
+        this.playerSpriteDamage = new AnimationFW(Resource.playerSpriteDamage);
+        this.playerSpriteDestruction = new AnimationFW(Resource.playerSpriteDestruction);
+        this.playerSpriteShield = new AnimationFW(Resource.playerSpriteShield);
     }
 
     @Override
     public void update()
     {
+        passedDistance += speed;
+        updatePosition(position, Resource.playerSprite.get(0));
+
         if (coreFW.getTouchListenerFW().getTouchDown(screen))
             start();
 
         if (coreFW.getTouchListenerFW().getTouchUp(screen))
             stop();
 
-        if (speedDelay.isElapsed(3))
+        if (speedDelay.isElapsed(5))
         {
             isSpeed = false;
             speed -= 10;
+            dexterity -= 2;
             speedDelay.stop();
         }
 
         if (shieldDelay.isElapsed(3))
         {
-            isShield = false;
-            hitAsteroid = true;
+            hitShield = false;
         }
+
+        if (damageDelay.isElapsed(1))
+            hitAsteroid = false;
 
         if (isUp)
             position.y -= speed;
@@ -88,75 +94,85 @@ public class Player extends ObjectFW implements IDrawable
         if (position.y > screen.bottom)
             position.y = screen.bottom;
 
-        if (isShield)
-        {
-            spritePlayerShield.runAnimation();
-            hitAsteroid = false;
-        }
+       if (hitAsteroid)
+       {
+           if (isUp)
+               playerSpriteUpDamage.runAnimation();
+           else
+               playerSpriteDamage.runAnimation();
+       }
 
-        if (!hitAsteroid)
+       else
+       {
+           if (isUp)
+               playerSpriteUp.runAnimation();
+           else
+               playerSprite.runAnimation();
+       }
+
+        if (hitShield)
         {
             if (isUp)
-                spritePlayerUpActionShield.runAnimation();
+                playerSpriteShield.runAnimation();
             else
-                spritePlayerDamage.runAnimation();
-
+                playerSpriteShield.runAnimation();
         }
-        else
-        {
-            if (isUp)
-                spritePlayerUp.runAnimation();
-            else
-                spritePlayer.runAnimation();
-        }
-
-        passedDistance += speed;
-
-        updatePosition(position, Resource.playerSprite.get(0));
 
         if (isGameOver)
-            spritePlayerDestruction.runAnimation();
-
-        if (shieldEnabled.isElapsed(1))
-            hitAsteroid = false;
+            playerSpriteDestruction.runAnimation();
     }
 
     @Override
     public void drawing(GraphicsFW graphicsFW)
     {
-        if (isGameOver)
+        if (hitShield)
         {
-            spritePlayerDestruction.drawingAnimation(graphicsFW, position);
+            if (isUp)
+                playerSpriteShield.drawingAnimation(graphicsFW, position);
+
+            else
+                playerSpriteShield.drawingAnimation(graphicsFW, position);
             return;
         }
 
-        if (isShield)
-        {
-            spritePlayerShield.drawingAnimation(graphicsFW, position);
-        }
-
-        if (!hitAsteroid)
+        if (hitAsteroid)
         {
             if (isUp)
-                spritePlayerUp.drawingAnimation(graphicsFW, position);
+                playerSpriteUpDamage.drawingAnimation(graphicsFW, position);
             else
-                spritePlayer.drawingAnimation(graphicsFW, position);
+                playerSpriteDamage.drawingAnimation(graphicsFW, position);
         }
+
         else
         {
             if (isUp)
-                spritePlayerUpActionShield.drawingAnimation(graphicsFW, position);
+                playerSpriteUp.drawingAnimation(graphicsFW, position);
             else
-                spritePlayerDamage.drawingAnimation(graphicsFW, position);
+                playerSprite.drawingAnimation(graphicsFW, position);
+        }
+
+        if (isGameOver)
+        {
+            playerSpriteDestruction.drawingAnimation(graphicsFW, position);
         }
     }
 
-    public void hitAsteroid()
+    public void hitObject()
     {
-        if (!isShield)
+        if (hitShield)
+        {
+            hitAsteroid = false;
+            coreFW.getSoundFW().start(R.raw.tap);
+            return;
+        }
+
+        else
         {
             --speed;
             --shields;
+            hitAsteroid = true;
+            damageDelay.start();
+            coreFW.getSoundFW().start(R.raw.damage);
         }
 
         if (isDead())
@@ -164,19 +180,6 @@ public class Player extends ObjectFW implements IDrawable
             isGameOver = true;
             coreFW.getSoundFW().start(R.raw.destroy);
         }
-        else
-        {
-            coreFW.getSoundFW().start(R.raw.damage);
-        }
-
-        hitAsteroid = true;
-        shieldEnabled.start();
-    }
-
-    public void hitBonusShield() {
-    }
-
-    public void hitBonusSpeed() {
     }
 
     public String getShields() { return String.format(Locale.getDefault(), "%s: %d", coreFW.getString(R.string.txtHudCurrentShieldsPlayer), shields); }

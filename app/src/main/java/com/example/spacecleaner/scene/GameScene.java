@@ -54,12 +54,14 @@ public class GameScene extends SceneFW
             case GAME_OVER:   coreFW.setScene(new GameOver(coreFW, manager, save));
         }
 
-        if (powerUpDelay.isElapsed(20))
+        if (powerUpDelay.isElapsed(5))
         {
             coreFW.getSoundFW().start(R.raw.level_up);
             ++manager.player.level;
-            ++manager.player.speed;
+            ++manager.player.dexterity;
             ++manager.player.shields;
+            manager.player.speed += 2;
+
             powerUpDelay.start();
             Asteroid asteroid = new Asteroid(manager.maxScreen, manager.HUD_HEIGHT);
             asteroid.restartFromInitialPosition();

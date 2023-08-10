@@ -18,7 +18,6 @@ public class Loading
     public Loading(CoreFW coreFW, GraphicsFW graphicsFW) {
         loadTexture(graphicsFW);
         loadSprite(graphicsFW);
-        loadAsteroidSprite(graphicsFW);
         loadSounds(coreFW);
         loadSettings();
     }
@@ -53,18 +52,6 @@ public class Loading
         {
             sprite.add(graphicsFW.newSprite(Resource.textureAtlas, rect));
             rect.left += SPRITE_SIZE.x;
-        }
-    }
-
-    private void loadAsteroidSprite(GraphicsFW graphicsFW)
-    {
-        Rect sprite = new Rect(0,3 * SPRITE_SIZE.y, SPRITE_SIZE.x, SPRITE_SIZE.y);
-        final int FRAMES_COUNT = 4;
-
-        for (int i = 0; i < FRAMES_COUNT; ++i)
-        {
-            Resource.asteroidSprite.add(graphicsFW.newSprite(Resource.textureAtlas, sprite));
-            sprite.left += SPRITE_SIZE.x;
         }
     }
 

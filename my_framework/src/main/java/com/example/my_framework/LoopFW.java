@@ -10,7 +10,6 @@ import android.view.SurfaceView;
 public class LoopFW extends SurfaceView implements Runnable
 {
     private final int FPS = 30;
-    private final int SECOND = 1000;
 
     private boolean running = false;
 
@@ -31,38 +30,32 @@ public class LoopFW extends SurfaceView implements Runnable
         canvas = new Canvas();
     }
 
-    //temp
-    int updates = 0;
-    int draws = 0;
-    long timer = 0;
-
     @Override
     public void run()
     {
-        timer = System.currentTimeMillis();
-        final long UPDATE_TIME = (long) SECOND / FPS;
+        long drawInterval = 1000 / FPS;
+        long nextDrawTime = System.currentTimeMillis() + drawInterval;
 
-        while (running)
+        while (gameThread != null)
         {
+            updateGame();
+            drawingGame();
+
             try
             {
-                Thread.sleep(UPDATE_TIME);
-                updateGame();
-                drawingGame();
+                long remainingTime = nextDrawTime - System.currentTimeMillis();
+
+                if (remainingTime < 0)
+                    remainingTime = 0;
+
+                Thread.sleep( remainingTime);
+
+                nextDrawTime += drawInterval;
+
             }
             catch (InterruptedException e)
             {
                 throw new RuntimeException(e);
-            }
-
-            if (System.currentTimeMillis() - timer > 1000)
-            {
-//                Log.d(this.getClass().getSimpleName(), String.format("Updates: %d / 1 sec", updates));
-//                Log.d(this.getClass().getSimpleName(), String.format("Redraws: %d / 1 sec", draws));
-
-                updates = 0;
-                draws = 0;
-                timer += 1000;
             }
         }
     }
@@ -90,13 +83,11 @@ public class LoopFW extends SurfaceView implements Runnable
 
     private void updateGame()
     {
-        ++updates;
         coreFW.getCurrentScene().update();
     }
 
     private void drawingGame()
     {
-        ++draws;
         if (surfaceHolder.getSurface().isValid())
         {
             canvas = surfaceHolder.lockCanvas();

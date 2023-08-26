@@ -3,7 +3,6 @@ package com.example.my_framework;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
-import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -41,22 +40,19 @@ public class LoopFW extends SurfaceView implements Runnable
             updateGame();
             drawingGame();
 
+            long remainingTime = nextDrawTime - System.currentTimeMillis();
+
             try
             {
-                long remainingTime = nextDrawTime - System.currentTimeMillis();
-
-                if (remainingTime < 0)
-                    remainingTime = 0;
-
-                Thread.sleep( remainingTime);
-
-                nextDrawTime += drawInterval;
-
+                if (remainingTime > 0)
+                    Thread.sleep(remainingTime);
             }
             catch (InterruptedException e)
             {
                 throw new RuntimeException(e);
             }
+
+            nextDrawTime += drawInterval;
         }
     }
 

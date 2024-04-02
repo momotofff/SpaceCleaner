@@ -24,7 +24,7 @@ public class Star extends ObjectFW implements IDrawable
     @Override
     public void update()
     {
-        position.x -= speed;
+        position.x -= speed * Math.random();
 
         if (position.x < -100)
         {

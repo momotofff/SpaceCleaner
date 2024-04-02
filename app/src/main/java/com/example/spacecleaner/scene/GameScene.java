@@ -60,6 +60,7 @@ public class GameScene extends SceneFW
             ++manager.player.level;
             ++manager.player.shields;
             ++manager.player.speed;
+            ++manager.player.dexterity;
 
 
             powerUpDelay.start();
@@ -71,9 +72,10 @@ public class GameScene extends SceneFW
 
             for (Star star : manager.background.stars)
                 ++star.speed;
-
-            for (Asteroid ast: manager.asteroids)
-                ast.speed = ast.speed + 2;
+            for (Star star : manager.background.bigStars1)
+                ++star.speed;
+            for (Star star : manager.background.bigStars2)
+                ++star.speed;
         }
     }
 

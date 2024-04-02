@@ -42,4 +42,8 @@ public class BackgroundAudioFW
     {
         mediaPlayer.stop();
     }
+
+    public MediaPlayer getMediaPlayer() {
+        return mediaPlayer;
+    }
 }

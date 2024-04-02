@@ -72,6 +72,7 @@ public class CoreFW extends AppCompatActivity
         super.onPause();
         sceneFW.pause();
         loopFW.stopGame();
+        backgroundAudioFW.getMediaPlayer().release();
 
         if (isFinishing())
             sceneFW.dispose();
@@ -87,6 +88,17 @@ public class CoreFW extends AppCompatActivity
         sceneFW.resume();
         sceneFW.update();
         this.sceneFW = sceneFW;
+    }
+
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
+    public void onStop()
+    {
+        super.onStop();
+        loopFW.stopGame();
+        backgroundAudioFW.getMediaPlayer().release();
     }
 
     @Override

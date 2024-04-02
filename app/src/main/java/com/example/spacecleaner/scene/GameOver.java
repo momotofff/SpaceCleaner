@@ -12,12 +12,12 @@ import com.example.spacecleaner.utilities.Save;
 
 public class GameOver extends SceneFW
 {
-    private final StaticTextFW GameOver = new StaticTextFW(coreFW.getString(R.string.txtGameOver), new Point(300,200), Color.WHITE, 100, null);
-    private final StaticTextFW Restart = new StaticTextFW(coreFW.getString(R.string.txtRestart), new Point(300,350), Color.WHITE, 50, null);
-    private final StaticTextFW ExitMenu = new StaticTextFW(coreFW.getString(R.string.txtExitMenu), new Point(300,450), Color.WHITE, 50, null);
+    private final StaticTextFW GameOver = new StaticTextFW(coreFW.getString(R.string.txtGameOver), new Point(300,200), Color.WHITE, 100);
+    private final StaticTextFW Restart = new StaticTextFW(coreFW.getString(R.string.txtRestart), new Point(300,350), Color.WHITE, 50);
+    private final StaticTextFW ExitMenu = new StaticTextFW(coreFW.getString(R.string.txtExitMenu), new Point(300,450), Color.WHITE, 50);
 
-    Manager manager;
-    Save save;
+    private Manager manager;
+    private Save save;
 
     public GameOver(CoreFW coreFW, Manager manager, Save save)
     {
@@ -56,7 +56,7 @@ public class GameOver extends SceneFW
         graphicsFW.drawText(ExitMenu);
         graphicsFW.drawText(Restart);
 
-        StaticTextFW result = new StaticTextFW(manager.player.getTxtPassedDistance(), new Point(300,550), Color.WHITE, 50, null);
+        StaticTextFW result = new StaticTextFW(manager.player.getTxtPassedDistance(), new Point(300,550), Color.WHITE, 50);
         graphicsFW.drawText(result);
     }
 

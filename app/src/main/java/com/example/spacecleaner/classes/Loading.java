@@ -33,6 +33,7 @@ public class Loading
         readerSprite(graphicsFW, 7, Resource.playerSpriteShield);
         readerSprite(graphicsFW, 8, Resource.bonusSpeedSprite);
         readerSprite(graphicsFW, 9, Resource.bonusShieldSprite);
+        readerSprite(graphicsFW, 2, Resource.bigStarSprite);
     }
 
     private void loadSounds(CoreFW coreFW)
@@ -58,6 +59,8 @@ public class Loading
     private void loadTexture(GraphicsFW graphicsFW)
     {
         Resource.textureAtlas = graphicsFW.newTexture("textureAtlas.png");
+        Resource.menuImage = graphicsFW.newTexture("menuImage.jpg");
+        Resource.starSky = graphicsFW.newTexture("starSky.jpg");
     }
 
     private void loadSettings()

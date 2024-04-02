@@ -8,16 +8,15 @@ import android.view.SurfaceView;
 
 public class LoopFW extends SurfaceView implements Runnable
 {
-    private final int FPS = 30;
-
+    private final int FPS = 40;
     private boolean running = false;
 
-    Thread gameThread = null;
-    CoreFW coreFW;
-    Bitmap frameBuffer;
-    SurfaceHolder surfaceHolder;
-    Canvas canvas;
-    Rect rect;
+    private Thread gameThread = null;
+    private CoreFW coreFW;
+    private Bitmap frameBuffer;
+    private SurfaceHolder surfaceHolder;
+    private Canvas canvas;
+    private Rect rect;
 
     public LoopFW(CoreFW coreFW, Bitmap frameBuffer)
     {

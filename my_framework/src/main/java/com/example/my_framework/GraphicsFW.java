@@ -46,7 +46,6 @@ public class GraphicsFW
     public int measureText(StaticTextFW text)
     {
         paint.setTextSize(text.size);
-        paint.setTypeface(text.font);
         return (int) paint.measureText(text.text);
     }
 
@@ -54,7 +53,6 @@ public class GraphicsFW
     {
         paint.setColor(text.color);
         paint.setTextSize(text.size);
-        paint.setTypeface(text.font);
         canvas.drawText(text.text, text.position.x, text.position.y, paint);
     }
 

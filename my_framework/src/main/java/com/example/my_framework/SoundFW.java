@@ -12,7 +12,7 @@ public class SoundFW
 {
     private final SoundPool soundPool;
     private final Context context;
-    Map<Integer, Integer> sounds = new HashMap<>();
+    private Map<Integer, Integer> sounds = new HashMap<>();
 
     public SoundFW(CoreFW coreFW)
     {

@@ -26,7 +26,7 @@ public class Star extends ObjectFW implements IDrawable
     {
         position.x -= speed;
 
-        if (position.x < 0)
+        if (position.x < -100)
         {
             position.x = screen.right;
             position.y = (int) (Math.random() * screen.bottom) + screen.top;

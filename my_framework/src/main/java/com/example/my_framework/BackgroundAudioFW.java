@@ -1,6 +1,5 @@
 package com.example.my_framework;
 
-
 import android.content.Context;
 import android.media.MediaPlayer;
 import android.net.Uri;

@@ -17,12 +17,12 @@ import java.util.stream.IntStream;
 
 public class GameScene extends SceneFW
 {
-    GameState gameState;
-    Manager manager;
+    private GameState gameState;
+    private Manager manager;
     private Save save;
-    TimerDelay powerUpDelay = new TimerDelay();
+    private TimerDelay powerUpDelay = new TimerDelay();
 
-    private final StaticTextFW Ready = new StaticTextFW(coreFW.getString(R.string.txtGameSceneReady), new Point(300,200), Color.WHITE, 100, null);
+    private final StaticTextFW Ready = new StaticTextFW(coreFW.getString(R.string.txtGameSceneReady), new Point(300,200), Color.WHITE, 100);
 
     enum GameState
     {
@@ -58,21 +58,22 @@ public class GameScene extends SceneFW
         {
             coreFW.getSoundFW().start(R.raw.level_up);
             ++manager.player.level;
-            ++manager.player.dexterity;
             ++manager.player.shields;
             ++manager.player.speed;
 
+
             powerUpDelay.start();
-            Asteroid asteroid = new Asteroid(manager.maxScreen, manager.HUD_HEIGHT);
+
+            Asteroid asteroid = new Asteroid(manager.maxScreen, manager.getHUD_HEIGHT());
             asteroid.restartFromInitialPosition();
-            manager.zOrder.add(asteroid);
+            manager.getzOrder().add(asteroid);
             manager.asteroids.add(asteroid);
 
             for (Star star : manager.background.stars)
                 ++star.speed;
 
             for (Asteroid ast: manager.asteroids)
-                ast.speed = manager.player.speed;
+                ast.speed = ast.speed + 2;
         }
     }
 

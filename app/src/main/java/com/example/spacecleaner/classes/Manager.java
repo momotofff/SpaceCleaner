@@ -7,7 +7,6 @@ import com.example.my_framework.CoreFW;
 import com.example.my_framework.GraphicsFW;
 import com.example.my_framework.IDrawable;
 import com.example.my_framework.TimerDelay;
-import com.example.spacecleaner.R;
 import com.example.spacecleaner.generation.Background;
 import com.example.spacecleaner.objects.Asteroid;
 import com.example.spacecleaner.objects.BonusShield;
@@ -21,15 +20,15 @@ import java.util.Optional;
 
 public class Manager
 {
-    public int HUD_HEIGHT = 100;
+    private final int HUD_HEIGHT = 100;
     public final Point maxScreen;
     public Background background;
     public Player player;
-    public final Hud hud;
+    private final Hud hud;
     public ArrayList<Asteroid> asteroids = new ArrayList<>();
-    public BonusSpeed bonusSpeed;
-    public BonusShield bonusShield;
-    public List<IDrawable> zOrder = new ArrayList<>();
+    private BonusSpeed bonusSpeed;
+    private BonusShield bonusShield;
+    private List<IDrawable> zOrder = new ArrayList<>();
 
     TimerDelay gameOverDelay = new TimerDelay();
 
@@ -51,7 +50,6 @@ public class Manager
             asteroids.add(new Asteroid(displaySize, HUD_HEIGHT));
 
         zOrder.add(background);
-        zOrder.addAll(asteroids);
         zOrder.add(bonusSpeed);
         zOrder.add(bonusShield);
         zOrder.add(player);
@@ -60,8 +58,13 @@ public class Manager
 
     public void update()
     {
-        for (IDrawable drawable: zOrder)
-            drawable.update();
+        for(IDrawable entry : zOrder)
+        {
+            entry.update();
+        }
+
+        for(IDrawable ast: asteroids)
+            ast.update();
 
         checkHit();
 
@@ -94,32 +97,28 @@ public class Manager
         if (CollisionDetector.detect(player, bonusSpeed))
         {
             bonusSpeed.restartFromInitialPosition();
+
             player.speedDelay.start();
             player.isSpeed = true;
-            player.speed += 10;
-            player.dexterity += 2;
+            player.speed += 2;
+            ++player.dexterity;
         }
-
-        /* Old fashion
-        for (Asteroid asteroid: asteroids)
-        {
-            if (CollisionDetector.detect(player, asteroid))
-            {
-                player.hitAsteroid();
-                asteroid.restartFromInitialPosition();
-
-                for (Asteroid ast: asteroids)
-                    ast.speed--;
-
-                break;
-            }
-        }
-        */
     }
 
     public void drawing(GraphicsFW graphicsFW)
     {
-        for (IDrawable drawable: zOrder)
-            drawable.drawing(graphicsFW);
+        for(IDrawable entry : zOrder)
+            entry.drawing(graphicsFW);
+
+        for (IDrawable ast: asteroids)
+            ast.drawing(graphicsFW);
+    }
+
+    public int getHUD_HEIGHT() {
+        return HUD_HEIGHT;
+    }
+
+    public List<IDrawable> getzOrder() {
+        return zOrder;
     }
 }

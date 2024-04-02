@@ -7,8 +7,9 @@ import java.util.ArrayList;
 
 public class AnimationFW
 {
-    int frameIndex;
+    private int frameIndex;
     private final  ArrayList<Bitmap> sprite;
+    private int speedAnimation = 2;
 
     public AnimationFW(ArrayList<Bitmap> sprite)
     {
@@ -17,14 +18,17 @@ public class AnimationFW
 
     public void runAnimation()
     {
-        if (++frameIndex >= sprite.size())
+        if (--speedAnimation > 0)
         {
-            frameIndex = 0;
+            if (++frameIndex >= sprite.size())
+                frameIndex = 0;
         }
+        else
+            speedAnimation = 2;
     }
 
     public void drawingAnimation(GraphicsFW graphicsFW, Point position)
     {
-       graphicsFW.drawTexture(sprite.get(frameIndex), position);
+            graphicsFW.drawTexture(sprite.get(frameIndex), position);
     }
 }

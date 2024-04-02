@@ -37,7 +37,7 @@ public class Manager
 
     public Manager(CoreFW coreFW, Point displaySize)
     {
-        int ASTEROIDS_COUNT = 2;
+        int ASTEROIDS_COUNT = 3;
         this.maxScreen = displaySize;
 
         background = new Background(displaySize, HUD_HEIGHT);
@@ -81,7 +81,6 @@ public class Manager
         optional.ifPresent(asteroid -> {
             player.hitObject();
             asteroid.restartFromInitialPosition();
-            asteroids.forEach(object -> --object.speed);
 
             if (player.isDead())
                 gameOverDelay.start();
@@ -98,10 +97,8 @@ public class Manager
         {
             bonusSpeed.restartFromInitialPosition();
 
-            player.speedDelay.start();
-            player.isSpeed = true;
             player.speed += 2;
-            ++player.dexterity;
+            --player.dexterity;
         }
     }
 

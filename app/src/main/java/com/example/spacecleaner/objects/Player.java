@@ -30,12 +30,10 @@ public class Player extends ObjectFW implements IDrawable
 
     private boolean hitAsteroid = false;
     private boolean isGameOver = false;
-    public boolean isSpeed = false;
     public boolean hitShield = false;
     private boolean isUp = false;
 
     private TimerDelay damageDelay = new TimerDelay();
-    public TimerDelay speedDelay = new TimerDelay();
     public TimerDelay shieldDelay = new TimerDelay();
 
     public Player(CoreFW coreFW, Point maxScreen, int height)
@@ -67,14 +65,7 @@ public class Player extends ObjectFW implements IDrawable
         if (coreFW.getTouchListenerFW().getTouchUp(screen))
             stop();
 
-        if (speedDelay.isElapsed(5))
-        {
-            isSpeed = false;
-            --speed;
-            speedDelay.stop();
-        }
-
-        if (shieldDelay.isElapsed(3))
+        if (shieldDelay.isElapsed(2))
         {
             hitShield = false;
         }
@@ -169,6 +160,7 @@ public class Player extends ObjectFW implements IDrawable
         {
             --speed;
             --shields;
+            ++dexterity;
             hitAsteroid = true;
             damageDelay.start();
             coreFW.getSoundFW().start(R.raw.damage);

@@ -1,5 +1,6 @@
 package com.example.spacecleaner.scene;
 
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Point;
 
@@ -7,16 +8,18 @@ import com.example.my_framework.CoreFW;
 import com.example.my_framework.SceneFW;
 import com.example.my_framework.StaticTextFW;
 import com.example.spacecleaner.R;
+import com.example.spacecleaner.utilities.Resource;
 import com.example.spacecleaner.utilities.Save;
 
 public class MainMenu extends SceneFW
 {
-    private final StaticTextFW Title = new StaticTextFW(coreFW.getString(R.string.txtMainMenuNameGame), new Point(50, 100), Color.BLUE, 100);
-    private final StaticTextFW MenuStart = new StaticTextFW(coreFW.getString(R.string.txtMainMenuStartGame), new Point(50, 300), Color.BLUE, 60);
-    private final StaticTextFW MenuSettings = new StaticTextFW(coreFW.getString(R.string.txtMainMenuMenuSettings), new Point(50, 400), Color.BLUE, 60);
-    private final StaticTextFW MenuResults = new StaticTextFW(coreFW.getString(R.string.txtMainMenuResult), new Point(50, 500), Color.BLUE, 60);
-    private final StaticTextFW MenuExit = new StaticTextFW(coreFW.getString(R.string.txtMainMenuExitGame), new Point(50, 600), Color.BLUE, 60);
+    private final StaticTextFW Title = new StaticTextFW(coreFW.getString(R.string.txtMainMenuNameGame), new Point(50, 100), Color.WHITE, 100);
+    private final StaticTextFW MenuStart = new StaticTextFW(coreFW.getString(R.string.txtMainMenuStartGame), new Point(50, 300), Color.WHITE, 60);
+    private final StaticTextFW MenuSettings = new StaticTextFW(coreFW.getString(R.string.txtMainMenuMenuSettings), new Point(50, 400), Color.WHITE, 60);
+    private final StaticTextFW MenuResults = new StaticTextFW(coreFW.getString(R.string.txtMainMenuResult), new Point(50, 500), Color.WHITE, 60);
+    private final StaticTextFW MenuExit = new StaticTextFW(coreFW.getString(R.string.txtMainMenuExitGame), new Point(50, 600), Color.WHITE, 60);
     private Save save;
+
 
     public MainMenu(CoreFW coreFW, Save save)
     {
@@ -55,7 +58,7 @@ public class MainMenu extends SceneFW
     @Override
     public void drawing()
     {
-        graphicsFW.clearScene(Color.GREEN);
+        graphicsFW.drawTexture(Resource.menuImage, new Point(0, 0));
         graphicsFW.drawText(Title);
         graphicsFW.drawText(MenuStart);
         graphicsFW.drawText(MenuSettings);

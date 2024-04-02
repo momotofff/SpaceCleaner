@@ -15,26 +15,26 @@ import java.util.Locale;
 
 public class Player extends ObjectFW implements IDrawable
 {
-    AnimationFW playerSprite;
-    AnimationFW playerSpriteUp;
-    AnimationFW playerSpriteDamage;
-    AnimationFW playerSpriteUpDamage;
-    AnimationFW playerSpriteDestruction;
-    AnimationFW playerSpriteShield;
-    CoreFW coreFW;
+    private AnimationFW playerSprite;
+    private AnimationFW playerSpriteUp;
+    private AnimationFW playerSpriteDamage;
+    private AnimationFW playerSpriteUpDamage;
+    private AnimationFW playerSpriteDestruction;
+    private AnimationFW playerSpriteShield;
+    private CoreFW coreFW;
 
     private int passedDistance;
     public int level = 1;
     public int shields = 3;
     public int dexterity = 10;
 
-    public boolean hitAsteroid = false;
+    private boolean hitAsteroid = false;
     private boolean isGameOver = false;
     public boolean isSpeed = false;
     public boolean hitShield = false;
     private boolean isUp = false;
 
-    public TimerDelay damageDelay = new TimerDelay();
+    private TimerDelay damageDelay = new TimerDelay();
     public TimerDelay speedDelay = new TimerDelay();
     public TimerDelay shieldDelay = new TimerDelay();
 
@@ -70,8 +70,7 @@ public class Player extends ObjectFW implements IDrawable
         if (speedDelay.isElapsed(5))
         {
             isSpeed = false;
-            speed -= 10;
-            dexterity -= 2;
+            --speed;
             speedDelay.stop();
         }
 
@@ -84,9 +83,9 @@ public class Player extends ObjectFW implements IDrawable
             hitAsteroid = false;
 
         if (isUp)
-            position.y -= speed;
+            position.y -= dexterity;
         else
-            position.y += speed;
+            position.y += dexterity;
 
         if (position.y < screen.top)
             position.y = screen.top;

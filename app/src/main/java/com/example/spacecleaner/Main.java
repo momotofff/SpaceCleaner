@@ -8,7 +8,7 @@ import com.example.spacecleaner.utilities.Save;
 
 public class Main extends CoreFW
 {
-    Loading loading;
+    private Loading loading;
     private final Save save = new Save();
 
     @Override

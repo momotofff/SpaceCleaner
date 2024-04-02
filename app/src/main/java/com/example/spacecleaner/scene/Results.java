@@ -14,8 +14,8 @@ import java.util.Locale;
 public class Results extends SceneFW
 {
     private final StaticTextFW[] Numbers = new StaticTextFW[5];
-    private final StaticTextFW BestResults = new StaticTextFW(coreFW.getString(R.string.txtBestResults), new Point(50, 100), Color.BLUE, 100, null);
-    private final StaticTextFW Back = new StaticTextFW(coreFW.getString(R.string.txtBack), new Point(50, 650), Color.BLUE, 70, null);
+    private final StaticTextFW BestResults = new StaticTextFW(coreFW.getString(R.string.txtBestResults), new Point(50, 100), Color.BLUE, 100);
+    private final StaticTextFW Back = new StaticTextFW(coreFW.getString(R.string.txtBack), new Point(50, 650), Color.BLUE, 70);
 
     private Save save;
 
@@ -32,7 +32,7 @@ public class Results extends SceneFW
         for (int i = 0; i < Numbers.length; ++i)
         {
             String text = String.format(Locale.getDefault(), "%d. %d", i + 1, save.getDistance()[i]);
-            this.Numbers[i] = new StaticTextFW(text, new Point(position), Color.BLUE, 50, null);
+            this.Numbers[i] = new StaticTextFW(text, new Point(position), Color.BLUE, 50);
             position.y += RESULT_STEP_Y;
         }
     }

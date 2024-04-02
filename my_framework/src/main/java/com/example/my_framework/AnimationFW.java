@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class AnimationFW
 {
     int frameIndex;
-    ArrayList<Bitmap> sprite;
+    private final  ArrayList<Bitmap> sprite;
 
     public AnimationFW(ArrayList<Bitmap> sprite)
     {

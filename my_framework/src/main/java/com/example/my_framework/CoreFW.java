@@ -32,9 +32,6 @@ public class CoreFW extends AppCompatActivity
 
     private final PointF scale = new PointF();
 
-    private boolean stateOnPause;
-    private boolean stateOnResume;
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -58,9 +55,6 @@ public class CoreFW extends AppCompatActivity
         touchListenerFW = new TouchListenerFW(loopFW, scale);
         sceneFW = getStartScene();
 
-        stateOnPause = false;
-        stateOnResume = false;
-
         setContentView(loopFW);
     }
 
@@ -78,7 +72,6 @@ public class CoreFW extends AppCompatActivity
         super.onPause();
         sceneFW.pause();
         loopFW.stopGame();
-        stateOnPause = true;
 
         if (isFinishing())
             sceneFW.dispose();

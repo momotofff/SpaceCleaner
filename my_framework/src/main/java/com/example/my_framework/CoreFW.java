@@ -67,12 +67,13 @@ public class CoreFW extends AppCompatActivity
         loopFW.startGame();
     }
 
+    @Override
     public void onPause()
     {
         super.onPause();
         sceneFW.pause();
         loopFW.stopGame();
-        backgroundAudioFW.getMediaPlayer().release();
+        backgroundAudioFW.getMediaPlayer().stop();
 
         if (isFinishing())
             sceneFW.dispose();

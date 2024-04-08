@@ -34,7 +34,7 @@ public class LoopFW extends SurfaceView implements Runnable
         long drawInterval = 1000 / FPS;
         long nextDrawTime = System.currentTimeMillis() + drawInterval;
 
-        while (gameThread != null)
+        while (gameThread != null && running)
         {
             updateGame();
             drawingGame();
@@ -72,7 +72,7 @@ public class LoopFW extends SurfaceView implements Runnable
 
         running = false;
 
-        try { gameThread.join();}
+        try { gameThread.join(); }
         catch (InterruptedException e) { e.printStackTrace();}
     }
 

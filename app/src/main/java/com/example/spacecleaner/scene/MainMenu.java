@@ -63,13 +63,4 @@ public class MainMenu extends SceneFW
         graphicsFW.drawText(MenuResults);
         graphicsFW.drawText(MenuExit);
     }
-
-    @Override
-    public void pause() {}
-
-    @Override
-    public void resume() {}
-
-    @Override
-    public void dispose() {}
 }

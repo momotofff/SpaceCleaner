@@ -59,13 +59,4 @@ public class Results extends SceneFW
         for (StaticTextFW number: Numbers)
             graphicsFW.drawText(number);
     }
-
-    @Override
-    public void pause() {}
-
-    @Override
-    public void resume() {}
-
-    @Override
-    public void dispose() {}
 }

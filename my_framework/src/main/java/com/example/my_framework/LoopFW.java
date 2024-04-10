@@ -72,8 +72,19 @@ public class LoopFW extends SurfaceView implements Runnable
 
         running = false;
 
-        try { gameThread.join(); }
-        catch (InterruptedException e) { e.printStackTrace();}
+        try
+        {
+            gameThread.join();
+        }
+        catch (InterruptedException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public void pausedGame()
+    {
+
     }
 
     private void updateGame()

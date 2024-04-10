@@ -9,6 +9,8 @@ public class BackgroundAudioFW
 {
     private final MediaPlayer mediaPlayer;
     private final Context context;
+    private boolean isPlaying = false;
+    private int currentPos = 0;
 
     public BackgroundAudioFW(CoreFW coreFW)
     {
@@ -35,12 +37,37 @@ public class BackgroundAudioFW
 
     public void start()
     {
-        mediaPlayer.start();
+        if(!isPlaying)
+        {
+            try
+            {
+                mediaPlayer.seekTo(currentPos);
+                mediaPlayer.start();
+                isPlaying = true;
+            }
+            catch (Exception e)
+            {
+                System.out.println("ошибка");
+            }
+
+        }
+
     }
 
     public void stop()
     {
         mediaPlayer.stop();
+    }
+
+
+    public void pause()
+    {
+        if (isPlaying)
+        {
+            currentPos = mediaPlayer.getCurrentPosition();
+            mediaPlayer.pause();
+            isPlaying = false;
+        }
     }
 
     public MediaPlayer getMediaPlayer() {

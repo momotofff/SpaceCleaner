@@ -59,13 +59,4 @@ public class GameOver extends SceneFW
         StaticTextFW result = new StaticTextFW(manager.player.getTxtPassedDistance(), new Point(300,550), Color.WHITE, 50);
         graphicsFW.drawText(result);
     }
-
-    @Override
-    public void pause() {}
-
-    @Override
-    public void resume() {}
-
-    @Override
-    public void dispose() {}
 }

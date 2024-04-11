@@ -17,7 +17,4 @@ public abstract class SceneFW
 
     public abstract void update();
     public abstract void drawing();
-    public abstract void pause();
-    public abstract void resume();
-    public abstract void dispose();
 }

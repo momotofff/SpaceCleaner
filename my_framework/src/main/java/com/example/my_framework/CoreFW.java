@@ -63,7 +63,14 @@ public class CoreFW extends AppCompatActivity
     public void onResume()
     {
         super.onResume();
-        sceneFW.resume();
+        backgroundAudioFW.start();
+        loopFW.startGame();
+    }
+
+    @Override
+    public void onStart()
+    {
+        super.onStart();
         loopFW.startGame();
     }
 
@@ -71,12 +78,8 @@ public class CoreFW extends AppCompatActivity
     public void onPause()
     {
         super.onPause();
-        sceneFW.pause();
-        loopFW.stopGame();
-        backgroundAudioFW.getMediaPlayer().stop();
-
-        if (isFinishing())
-            sceneFW.dispose();
+        loopFW.pausedGame();
+        backgroundAudioFW.pause();
     }
 
     public void setScene(SceneFW sceneFW)
@@ -84,9 +87,6 @@ public class CoreFW extends AppCompatActivity
         if (sceneFW == null)
             throw new IllegalArgumentException("scene = null");
 
-        this.sceneFW.pause();
-        this.sceneFW.dispose();
-        sceneFW.resume();
         sceneFW.update();
         this.sceneFW = sceneFW;
     }

@@ -128,15 +128,4 @@ public class GameScene extends SceneFW
     }
 
     private void drawingStatePause() {}
-
-    @Override
-    public void pause() {}
-
-    @Override
-    public void resume() {}
-
-    @Override
-    public void dispose() {}
-
-
 }

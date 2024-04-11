@@ -44,7 +44,7 @@ public class Results extends SceneFW
         if (coreFW.getTouchListenerFW().getTouchUp(Back.getTouchArea(graphicsFW)))
         {
             coreFW.getSoundFW().start(R.raw.tap);
-            coreFW.getBackgroundAudioFW().stop();
+            //coreFW.getBackgroundAudioFW().stop();
             coreFW.setScene(new MainMenu(coreFW, save));
         }
     }
@@ -59,13 +59,4 @@ public class Results extends SceneFW
         for (StaticTextFW number: Numbers)
             graphicsFW.drawText(number);
     }
-
-    @Override
-    public void pause() {}
-
-    @Override
-    public void resume() {}
-
-    @Override
-    public void dispose() {}
 }

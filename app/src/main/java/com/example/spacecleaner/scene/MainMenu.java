@@ -48,7 +48,7 @@ public class MainMenu extends SceneFW
         if (coreFW.getTouchListenerFW().getTouchUp(MenuExit.getTouchArea(graphicsFW)))
         {
             coreFW.getSoundFW().start(R.raw.tap);
-            coreFW.getBackgroundAudioFW().stop();
+            //coreFW.getBackgroundAudioFW().stop();
             coreFW.onBackPressed();
         }
     }
@@ -63,13 +63,4 @@ public class MainMenu extends SceneFW
         graphicsFW.drawText(MenuResults);
         graphicsFW.drawText(MenuExit);
     }
-
-    @Override
-    public void pause() {}
-
-    @Override
-    public void resume() {}
-
-    @Override
-    public void dispose() {}
 }

@@ -26,6 +26,7 @@ public class Loading
     {
         readerSprite(graphicsFW, 0, Resource.playerSprite);
         readerSprite(graphicsFW, 1, Resource.playerSpriteUp);
+        readerSprite(graphicsFW, 2, Resource.bigStarSprite);
         readerSprite(graphicsFW, 3, Resource.asteroidSprite);
         readerSprite(graphicsFW, 4, Resource.playerSpriteDestruction);
         readerSprite(graphicsFW, 5, Resource.playerSpriteDamage);
@@ -33,7 +34,7 @@ public class Loading
         readerSprite(graphicsFW, 7, Resource.playerSpriteShield);
         readerSprite(graphicsFW, 8, Resource.bonusSpeedSprite);
         readerSprite(graphicsFW, 9, Resource.bonusShieldSprite);
-        readerSprite(graphicsFW, 2, Resource.bigStarSprite);
+
     }
 
     private void loadSounds(CoreFW coreFW)

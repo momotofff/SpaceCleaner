@@ -48,7 +48,7 @@ public class MainMenu extends SceneFW
         if (coreFW.getTouchListenerFW().getTouchUp(MenuExit.getTouchArea(graphicsFW)))
         {
             coreFW.getSoundFW().start(R.raw.tap);
-            coreFW.getBackgroundAudioFW().stop();
+            //coreFW.getBackgroundAudioFW().stop();
             coreFW.onBackPressed();
         }
     }

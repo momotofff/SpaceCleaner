@@ -14,7 +14,7 @@ public class LoopFW extends SurfaceView implements Runnable
     private Thread gameThread = null;
     private CoreFW coreFW;
     private Bitmap frameBuffer;
-    private SurfaceHolder surfaceHolder;
+    private final SurfaceHolder surfaceHolder;
     private Canvas canvas;
     private Rect rect;
 
@@ -36,8 +36,11 @@ public class LoopFW extends SurfaceView implements Runnable
 
         while (gameThread != null && running)
         {
-            updateGame();
-            drawingGame();
+            synchronized (surfaceHolder)
+            {
+                updateGame();
+                drawingGame();
+            }
 
             long remainingTime = nextDrawTime - System.currentTimeMillis();
 

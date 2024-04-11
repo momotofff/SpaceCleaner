@@ -28,6 +28,7 @@ public class BackgroundAudioFW
             mediaPlayer.setDataSource(context.getApplicationContext(), mediaPath);
             mediaPlayer.prepare();
             mediaPlayer.setLooping(true);
+            isPlaying = false;
         }
         catch (Exception e)
         {

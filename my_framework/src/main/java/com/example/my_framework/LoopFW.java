@@ -64,6 +64,7 @@ public class LoopFW extends SurfaceView implements Runnable
             return;
 
         running = true;
+
         gameThread = new Thread(this);
         gameThread.start();
     }
@@ -73,6 +74,12 @@ public class LoopFW extends SurfaceView implements Runnable
         if (!running)
             return;
 
+        running = false;
+        gameThread = null;
+    }
+
+    public void pausedGame()
+    {
         running = false;
 
         try
@@ -85,11 +92,6 @@ public class LoopFW extends SurfaceView implements Runnable
         }
     }
 
-    public void pausedGame()
-    {
-
-    }
-
     private void updateGame()
     {
         coreFW.getCurrentScene().update();
@@ -97,7 +99,7 @@ public class LoopFW extends SurfaceView implements Runnable
 
     private void drawingGame()
     {
-        if (surfaceHolder.getSurface().isValid())
+        if (surfaceHolder.getSurface().isValid() && running)
         {
             canvas = surfaceHolder.lockCanvas();
             canvas.getClipBounds(rect);

@@ -40,19 +40,13 @@ public class BackgroundAudioFW
     {
         if(!isPlaying)
         {
-            try
-            {
+            if (currentPos != 0)
                 mediaPlayer.seekTo(currentPos);
-                mediaPlayer.start();
-                isPlaying = true;
-            }
-            catch (Exception e)
-            {
-                System.out.println("ошибка");
-            }
 
+            mediaPlayer.start();
+            currentPos = 0;
+            isPlaying = true;
         }
-
     }
 
     public void stop()

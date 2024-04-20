@@ -4,14 +4,18 @@ plugins {
 
 android {
     namespace 'com.example.my_framework'
-    compileSdk 32
+    compileSdk 34
 
     defaultConfig {
         minSdk 26
-        targetSdk 33
+        targetSdk 34
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
+
+        lintOptions {
+            disable 'MobileAdsSdkOutdatedVersion'
+        }
     }
 
     buildTypes {
@@ -28,6 +32,7 @@ android {
 
 dependencies {
 
+    implementation 'com.yandex.android:mobileads:7.0.1'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.9.0'
     implementation 'org.jetbrains:annotations:15.0'

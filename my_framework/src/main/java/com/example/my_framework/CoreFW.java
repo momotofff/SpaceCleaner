@@ -10,6 +10,9 @@ import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.yandex.mobile.ads.common.MobileAds;
+
+
 public class CoreFW extends AppCompatActivity
 {
     private final Point FRAME_BUFFER = new Point(1280, 720);
@@ -34,6 +37,11 @@ public class CoreFW extends AppCompatActivity
     {
         System.out.println("запустился onCreate");
         super.onCreate(savedInstanceState);
+
+        MobileAds.initialize(this, () -> {
+            // now you can use ads
+        });
+
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         sharedPreferences = getSharedPreferences(SETTINGS, MODE_PRIVATE);
 

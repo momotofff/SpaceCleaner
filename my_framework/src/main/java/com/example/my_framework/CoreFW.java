@@ -4,10 +4,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.graphics.PointF;
-import android.media.AudioManager;
-import android.media.SoundPool;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Display;
 import android.view.WindowManager;
 
@@ -35,6 +32,7 @@ public class CoreFW extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+        System.out.println("запустился onCreate");
         super.onCreate(savedInstanceState);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         sharedPreferences = getSharedPreferences(SETTINGS, MODE_PRIVATE);
@@ -60,23 +58,27 @@ public class CoreFW extends AppCompatActivity
 
     public CoreFW() {}
 
+    @Override
     public void onResume()
     {
+        System.out.println("запустился onResume");
         super.onResume();
         backgroundAudioFW.start();
-        loopFW.startGame();
     }
 
     @Override
     public void onStart()
     {
+        System.out.println("запустился onStart");
         super.onStart();
         loopFW.startGame();
+        backgroundAudioFW.start();
     }
 
     @Override
     public void onPause()
     {
+        System.out.println("запустился onPause");
         super.onPause();
         loopFW.pausedGame();
         backgroundAudioFW.pause();
@@ -91,19 +93,27 @@ public class CoreFW extends AppCompatActivity
         this.sceneFW = sceneFW;
     }
 
-    public void onDestroy() {
+    @Override
+    public void onDestroy()
+    {
+        System.out.println("запустился onDestroy");
         super.onDestroy();
     }
 
+    @Override
     public void onStop()
     {
+        System.out.println("запустился onStop");
         super.onStop();
         loopFW.stopGame();
-        backgroundAudioFW.getMediaPlayer().release();
     }
 
     @Override
-    public void onBackPressed() { finish(); }
+    public void onBackPressed()
+    {
+        System.out.println("запустился onBackPressed");
+        finish();
+    }
 
     public GraphicsFW getGraphicsFW() { return graphicsFW; }
 

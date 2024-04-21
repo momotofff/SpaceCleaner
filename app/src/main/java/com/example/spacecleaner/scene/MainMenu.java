@@ -20,6 +20,7 @@ public class MainMenu extends SceneFW
     private final StaticTextFW MenuExit = new StaticTextFW(coreFW.getString(R.string.txtMainMenuExitGame), new Point(50, 600), Color.WHITE, 60);
     private Save save;
 
+
     public MainMenu(CoreFW coreFW, Save save)
     {
         super(coreFW);
@@ -27,6 +28,7 @@ public class MainMenu extends SceneFW
 
         coreFW.getBackgroundAudioFW().setTrack(com.example.my_framework.R.raw.menu);
         coreFW.getBackgroundAudioFW().start();
+
     }
 
     @Override
@@ -48,7 +50,6 @@ public class MainMenu extends SceneFW
         if (coreFW.getTouchListenerFW().getTouchUp(MenuExit.getTouchArea(graphicsFW)))
         {
             coreFW.getSoundFW().start(R.raw.tap);
-            //coreFW.getBackgroundAudioFW().stop();
             coreFW.onBackPressed();
         }
     }

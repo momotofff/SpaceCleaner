@@ -136,4 +136,8 @@ public class CoreFW extends AppCompatActivity
     public BackgroundAudioFW getBackgroundAudioFW() { return backgroundAudioFW; }
 
     public SoundFW getSoundFW() { return soundFW; }
+
+    public Point getSizeDisplay() {
+        return sizeDisplay;
+    }
 }

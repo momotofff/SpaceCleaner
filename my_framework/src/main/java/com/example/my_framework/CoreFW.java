@@ -21,7 +21,7 @@ public class CoreFW extends AppCompatActivity
     private GraphicsFW graphicsFW;
     private TouchListenerFW touchListenerFW;
     private Display display;
-    private Point sizeDisplay;
+    private Point displaySize;
     private Bitmap frameBuffer;
     private SceneFW sceneFW;
     private BackgroundAudioFW backgroundAudioFW;
@@ -45,13 +45,13 @@ public class CoreFW extends AppCompatActivity
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         sharedPreferences = getSharedPreferences(SETTINGS, MODE_PRIVATE);
 
-        sizeDisplay = new Point();
+        displaySize = new Point();
         display = getWindowManager().getDefaultDisplay();
-        display.getSize(sizeDisplay);
+        display.getSize(displaySize);
 
         frameBuffer = Bitmap.createBitmap(FRAME_BUFFER.x, FRAME_BUFFER.y, Bitmap.Config.ARGB_8888);
-        scale.x = (float) FRAME_BUFFER.x / sizeDisplay.x;
-        scale.y = (float) FRAME_BUFFER.y / sizeDisplay.y;
+        scale.x = (float) FRAME_BUFFER.x / displaySize.x;
+        scale.y = (float) FRAME_BUFFER.y / displaySize.y;
 
         backgroundAudioFW = new BackgroundAudioFW(this);
         soundFW = new SoundFW(this);
@@ -119,6 +119,7 @@ public class CoreFW extends AppCompatActivity
     @Override
     public void onBackPressed()
     {
+        super.onBackPressed();
         System.out.println("запустился onBackPressed");
         finish();
     }
@@ -137,7 +138,5 @@ public class CoreFW extends AppCompatActivity
 
     public SoundFW getSoundFW() { return soundFW; }
 
-    public Point getSizeDisplay() {
-        return sizeDisplay;
-    }
+    public Point getDisplaySize() { return displaySize; }
 }

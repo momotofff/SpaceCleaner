@@ -38,15 +38,15 @@ public class BackgroundAudioFW
 
     public void start()
     {
-        if(!isPlaying)
-        {
-            if (currentPos != 0)
-                mediaPlayer.seekTo(currentPos);
+        if (isPlaying)
+            return;
 
-            mediaPlayer.start();
-            currentPos = 0;
-            isPlaying = true;
-        }
+        if (currentPos != 0)
+            mediaPlayer.seekTo(currentPos);
+
+        mediaPlayer.start();
+        currentPos = 0;
+        isPlaying = true;
     }
 
     public void stop()
@@ -54,18 +54,13 @@ public class BackgroundAudioFW
         mediaPlayer.stop();
     }
 
-
     public void pause()
     {
-        if (isPlaying)
-        {
-            currentPos = mediaPlayer.getCurrentPosition();
-            mediaPlayer.pause();
-            isPlaying = false;
-        }
-    }
+        if (!isPlaying)
+            return;
 
-    public MediaPlayer getMediaPlayer() {
-        return mediaPlayer;
+        currentPos = mediaPlayer.getCurrentPosition();
+        mediaPlayer.pause();
+        isPlaying = false;
     }
 }

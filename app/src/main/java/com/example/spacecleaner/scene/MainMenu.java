@@ -28,7 +28,6 @@ public class MainMenu extends SceneFW
 
         coreFW.getBackgroundAudioFW().setTrack(com.example.my_framework.R.raw.menu);
         coreFW.getBackgroundAudioFW().start();
-
     }
 
     @Override

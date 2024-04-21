@@ -12,11 +12,9 @@ public class LoopFW extends SurfaceView implements Runnable
     private boolean running = false;
 
     private Thread gameThread = null;
-    private CoreFW coreFW;
-    private Bitmap frameBuffer;
+    private final CoreFW coreFW;
+    private final Bitmap frameBuffer;
     private final SurfaceHolder surfaceHolder;
-    private Canvas canvas;
-    private Rect rect;
 
     public LoopFW(CoreFW coreFW, Bitmap frameBuffer)
     {
@@ -24,8 +22,6 @@ public class LoopFW extends SurfaceView implements Runnable
         this.frameBuffer = frameBuffer;
         this.coreFW = coreFW;
         this.surfaceHolder = getHolder();
-        rect = new Rect();
-        canvas = new Canvas();
     }
 
     @Override
@@ -99,13 +95,14 @@ public class LoopFW extends SurfaceView implements Runnable
 
     private void drawingGame()
     {
-        if (surfaceHolder.getSurface().isValid() && running)
-        {
-            canvas = surfaceHolder.lockCanvas();
-            canvas.getClipBounds(rect);
-            canvas.drawBitmap(frameBuffer, null, rect, null);
-            coreFW.getCurrentScene().drawing();
-            surfaceHolder.unlockCanvasAndPost(canvas);
-        }
+        if (!surfaceHolder.getSurface().isValid() || !running)
+            return;
+
+        Rect rect = new Rect();
+        Canvas canvas = surfaceHolder.lockCanvas();
+        canvas.getClipBounds(rect);
+        canvas.drawBitmap(frameBuffer, null, rect, null);
+        coreFW.getCurrentScene().drawing();
+        surfaceHolder.unlockCanvasAndPost(canvas);
     }
 }

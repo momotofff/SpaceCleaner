@@ -6,10 +6,20 @@ import android.graphics.Point;
 import android.graphics.PointF;
 import android.os.Bundle;
 import android.view.Display;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.RelativeLayout;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.yandex.mobile.ads.banner.BannerAdEventListener;
+import com.yandex.mobile.ads.banner.BannerAdSize;
+import com.yandex.mobile.ads.banner.BannerAdView;
+import com.yandex.mobile.ads.common.AdRequest;
+import com.yandex.mobile.ads.common.AdRequestError;
+import com.yandex.mobile.ads.common.ImpressionData;
 import com.yandex.mobile.ads.common.MobileAds;
 
 
@@ -31,16 +41,13 @@ public class CoreFW extends AppCompatActivity
     private final String SETTINGS = "Settings";
 
     private final PointF scale = new PointF();
+    public BannerAdView banner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         System.out.println("запустился onCreate");
         super.onCreate(savedInstanceState);
-
-        MobileAds.initialize(this, () -> {
-            // now you can use ads
-        });
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         sharedPreferences = getSharedPreferences(SETTINGS, MODE_PRIVATE);
@@ -62,6 +69,8 @@ public class CoreFW extends AppCompatActivity
         sceneFW = getStartScene();
 
         setContentView(loopFW);
+
+        bannerInitialize();
     }
 
     public CoreFW() {}
@@ -139,4 +148,33 @@ public class CoreFW extends AppCompatActivity
     public SoundFW getSoundFW() { return soundFW; }
 
     public Point getDisplaySize() { return displaySize; }
+
+    public void bannerInitialize()
+    {
+        MobileAds.initialize(this, () -> {
+            // now you can use ads
+        });
+
+        banner = new BannerAdView(this);
+        banner.setAdSize(BannerAdSize.stickySize(this, 1000 ));
+        banner.setAdUnitId("R-M-7427752-1");
+
+        RelativeLayout layout = new RelativeLayout(this);
+        layout.setLayoutParams(new WindowManager.LayoutParams(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT));
+        final AdRequest adRequest = new AdRequest.Builder().build();
+        banner.loadAd(adRequest);
+        
+        View myView = new CanvasView(this);
+        RelativeLayout.LayoutParams adParams =
+                new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
+                        RelativeLayout.LayoutParams.WRAP_CONTENT);
+        adParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+        adParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
+
+        layout.addView(myView);
+        layout.addView(banner);
+
+        setContentView(layout);
+
+    }
 }

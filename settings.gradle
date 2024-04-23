@@ -15,4 +15,3 @@ dependencyResolutionManagement {
 rootProject.name = "SpaceCleaner"
 include ':app'
 include ':my_framework'
-include ':advertisingmodule'

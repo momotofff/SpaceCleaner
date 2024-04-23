@@ -2,6 +2,7 @@ package com.example.my_framework;
 
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.PointF;
 import android.os.Bundle;
@@ -68,9 +69,11 @@ public class CoreFW extends AppCompatActivity
         touchListenerFW = new TouchListenerFW(loopFW, scale);
         sceneFW = getStartScene();
 
+        bannerInitialize();
+        loopFW.setBanner(banner);
         setContentView(loopFW);
 
-        bannerInitialize();
+
     }
 
     public CoreFW() {}
@@ -90,6 +93,7 @@ public class CoreFW extends AppCompatActivity
         super.onStart();
         loopFW.startGame();
         backgroundAudioFW.start();
+        banner.onDrawForeground(graphicsFW.canvas);
     }
 
     @Override
@@ -156,25 +160,23 @@ public class CoreFW extends AppCompatActivity
         });
 
         banner = new BannerAdView(this);
-        banner.setAdSize(BannerAdSize.stickySize(this, 1000 ));
+
+        banner.setAdSize(BannerAdSize.stickySize(this, displaySize.x ));
         banner.setAdUnitId("R-M-7427752-1");
 
-        RelativeLayout layout = new RelativeLayout(this);
-        layout.setLayoutParams(new WindowManager.LayoutParams(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT));
+       // RelativeLayout layout = new RelativeLayout(this);
+       // layout.setLayoutParams(new WindowManager.LayoutParams(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT));
+
         final AdRequest adRequest = new AdRequest.Builder().build();
         banner.loadAd(adRequest);
-        
-        View myView = new CanvasView(this);
-        RelativeLayout.LayoutParams adParams =
-                new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
-                        RelativeLayout.LayoutParams.WRAP_CONTENT);
-        adParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-        adParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
 
-        layout.addView(myView);
-        layout.addView(banner);
+        //View myView = new CanvasView(this);
 
-        setContentView(layout);
+        //layout.addView(myView);
+        //layout.addView(banner);
+
+
+        //setContentView(layout);
 
     }
 }

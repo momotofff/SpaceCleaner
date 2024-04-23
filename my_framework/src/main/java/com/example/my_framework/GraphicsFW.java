@@ -17,7 +17,7 @@ public class GraphicsFW
 {
     private final AssetManager assetManager;
     private final Bitmap frameBuffer;
-    private final Canvas canvas;
+    public final Canvas canvas;
     private final Paint paint;
 
     public GraphicsFW(AssetManager assetManager, Bitmap frameBuffer)
@@ -37,6 +37,7 @@ public class GraphicsFW
     {
         paint.setColor(color);
         canvas.drawPoint(position.x, position.y, paint);
+
     }
 
     public void drawLine(int startX, int startY, int stopX, int stopY, int color)

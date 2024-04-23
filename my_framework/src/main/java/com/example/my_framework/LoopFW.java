@@ -6,6 +6,8 @@ import android.graphics.Rect;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
+import com.yandex.mobile.ads.banner.BannerAdView;
+
 public class LoopFW extends SurfaceView implements Runnable
 {
     private final int FPS = 30;
@@ -15,6 +17,7 @@ public class LoopFW extends SurfaceView implements Runnable
     private final CoreFW coreFW;
     private final Bitmap frameBuffer;
     private final SurfaceHolder surfaceHolder;
+    private BannerAdView banner;
 
     public LoopFW(CoreFW coreFW, Bitmap frameBuffer)
     {
@@ -103,6 +106,13 @@ public class LoopFW extends SurfaceView implements Runnable
         canvas.getClipBounds(rect);
         canvas.drawBitmap(frameBuffer, null, rect, null);
         coreFW.getCurrentScene().drawing();
+        //if(coreFW.getCurrentScene() == MainMenu.class)
         surfaceHolder.unlockCanvasAndPost(canvas);
+    }
+
+
+    public void setBanner(BannerAdView banner)
+    {
+        this.banner = banner;
     }
 }

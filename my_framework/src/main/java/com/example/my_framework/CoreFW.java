@@ -5,31 +5,15 @@ import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.graphics.PointF;
 import android.os.Bundle;
-import android.util.AttributeSet;
 import android.view.Display;
-import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.FrameLayout;
-import android.widget.RelativeLayout;
-import android.widget.Toolbar;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
-import com.yandex.mobile.ads.banner.BannerAdEventListener;
 import com.yandex.mobile.ads.banner.BannerAdSize;
 import com.yandex.mobile.ads.banner.BannerAdView;
 import com.yandex.mobile.ads.common.AdRequest;
-import com.yandex.mobile.ads.common.AdRequestError;
-import com.yandex.mobile.ads.common.ImpressionData;
 import com.yandex.mobile.ads.common.MobileAds;
-
-import java.util.jar.Attributes;
-
-import javax.crypto.BadPaddingException;
-
 
 public class CoreFW extends AppCompatActivity
 {
@@ -167,15 +151,15 @@ public class CoreFW extends AppCompatActivity
         banner = new BannerAdView(this);
         banner.setAdSize(BannerAdSize.stickySize(this, displaySize.x));
         banner.setAdUnitId("R-M-7427752-1");
-
-        RelativeLayout layout = new RelativeLayout(this);
-        layout.setLayoutParams(new WindowManager.LayoutParams(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT));
-
         final AdRequest adRequest = new AdRequest.Builder().build();
         banner.loadAd(adRequest);
 
+        ConstraintLayout layout = new ConstraintLayout(this);
+
+        layout.setLayoutParams(new WindowManager.LayoutParams(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT));
+
         layout.addView(loopFW);
-        layout.addView(banner);
+        layout.addView(banner, displaySize.x, displaySize.y * 2 - 160);
 
         setContentView(layout);
 

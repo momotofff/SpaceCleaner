@@ -5,10 +5,14 @@ import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.graphics.PointF;
 import android.os.Bundle;
+import android.util.AttributeSet;
 import android.view.Display;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
+import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,6 +25,10 @@ import com.yandex.mobile.ads.common.AdRequest;
 import com.yandex.mobile.ads.common.AdRequestError;
 import com.yandex.mobile.ads.common.ImpressionData;
 import com.yandex.mobile.ads.common.MobileAds;
+
+import java.util.jar.Attributes;
+
+import javax.crypto.BadPaddingException;
 
 
 public class CoreFW extends AppCompatActivity
@@ -70,8 +78,7 @@ public class CoreFW extends AppCompatActivity
         touchListenerFW = new TouchListenerFW(loopFW, scale);
         sceneFW = getStartScene();
 
-        //bannerInitialize();
-        setContentView(loopFW);
+        //setContentView(loopFW);
         bannerInitialize();
     }
 
@@ -158,21 +165,19 @@ public class CoreFW extends AppCompatActivity
         });
 
         banner = new BannerAdView(this);
-
-        banner.setAdSize(BannerAdSize.stickySize(this, displaySize.x ));
+        banner.setAdSize(BannerAdSize.stickySize(this, displaySize.x));
         banner.setAdUnitId("R-M-7427752-1");
 
         RelativeLayout layout = new RelativeLayout(this);
-        layout.setLayoutParams(new WindowManager.LayoutParams(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT));
+        layout.setLayoutParams(new WindowManager.LayoutParams(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT));
 
         final AdRequest adRequest = new AdRequest.Builder().build();
         banner.loadAd(adRequest);
 
-        View myView = new CanvasView(this);
-
-        layout.addView(myView);
+        layout.addView(loopFW);
         layout.addView(banner);
 
         setContentView(layout);
+
     }
 }

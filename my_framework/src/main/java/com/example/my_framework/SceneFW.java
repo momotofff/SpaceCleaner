@@ -13,7 +13,11 @@ public abstract class SceneFW
         this.coreFW = coreFW;
         sceneSize = new Point(coreFW.getGraphicsFW().getFrameBufferWidth(), coreFW.getGraphicsFW().getFrameBufferHeight());
         graphicsFW = coreFW.getGraphicsFW();
+
     }
+
+
+
 
     public abstract void update();
     public abstract void drawing();

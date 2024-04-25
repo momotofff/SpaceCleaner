@@ -2,11 +2,14 @@ package com.example.my_framework;
 
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.PointF;
 import android.os.Bundle;
 import android.view.Display;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -39,6 +42,7 @@ public class CoreFW extends AppCompatActivity
     private final String SETTINGS = "Settings";
 
     private final PointF scale = new PointF();
+    public BannerAdView banner;
 
     public BannerAdView bannerAdView;
 
@@ -47,10 +51,6 @@ public class CoreFW extends AppCompatActivity
     {
         System.out.println("запустился onCreate");
         super.onCreate(savedInstanceState);
-
-        MobileAds.initialize(this, () -> {
-            // now you can use ads
-        });
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         sharedPreferences = getSharedPreferences(SETTINGS, MODE_PRIVATE);
@@ -70,9 +70,7 @@ public class CoreFW extends AppCompatActivity
         graphicsFW = new GraphicsFW(getAssets(), frameBuffer);
         touchListenerFW = new TouchListenerFW(loopFW, scale);
         sceneFW = getStartScene();
-
-
-
+        
         bannerAdView = new BannerAdView(this);
         bannerAdView.setAdUnitId("R-M-7427752-1");
         bannerAdView.setAdSize(BannerAdSize.stickySize(this, 1000 ));
@@ -101,10 +99,8 @@ public class CoreFW extends AppCompatActivity
         });
 
         bannerAdView.loadAd(adRequest);
-        loopFW.setBanner(bannerAdView);
 
         setContentView(loopFW);
-
     }
 
     public CoreFW() {}
@@ -124,6 +120,7 @@ public class CoreFW extends AppCompatActivity
         super.onStart();
         loopFW.startGame();
         backgroundAudioFW.start();
+        banner.onDrawForeground(graphicsFW.canvas);
     }
 
     @Override
@@ -182,4 +179,31 @@ public class CoreFW extends AppCompatActivity
     public SoundFW getSoundFW() { return soundFW; }
 
     public Point getDisplaySize() { return displaySize; }
+
+    public void bannerInitialize()
+    {
+        MobileAds.initialize(this, () -> {
+            // now you can use ads
+        });
+
+        banner = new BannerAdView(this);
+
+        banner.setAdSize(BannerAdSize.stickySize(this, displaySize.x ));
+        banner.setAdUnitId("R-M-7427752-1");
+
+       // RelativeLayout layout = new RelativeLayout(this);
+       // layout.setLayoutParams(new WindowManager.LayoutParams(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT));
+
+        final AdRequest adRequest = new AdRequest.Builder().build();
+        banner.loadAd(adRequest);
+
+        //View myView = new CanvasView(this);
+
+        //layout.addView(myView);
+        //layout.addView(banner);
+
+
+        //setContentView(layout);
+
+    }
 }

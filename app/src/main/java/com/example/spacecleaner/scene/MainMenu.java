@@ -1,6 +1,5 @@
 package com.example.spacecleaner.scene;
 
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Point;
 
@@ -21,7 +20,6 @@ public class MainMenu extends SceneFW
     private final StaticTextFW MenuExit = new StaticTextFW(coreFW.getString(R.string.txtMainMenuExitGame), new Point(50, 600), Color.WHITE, 60);
     private Save save;
     public BannerAdView banner;
-
 
     public MainMenu(CoreFW coreFW, Save save)
     {

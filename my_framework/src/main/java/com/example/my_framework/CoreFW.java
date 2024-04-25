@@ -44,6 +44,8 @@ public class CoreFW extends AppCompatActivity
     private final PointF scale = new PointF();
     public BannerAdView banner;
 
+    public BannerAdView bannerAdView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -68,12 +70,37 @@ public class CoreFW extends AppCompatActivity
         graphicsFW = new GraphicsFW(getAssets(), frameBuffer);
         touchListenerFW = new TouchListenerFW(loopFW, scale);
         sceneFW = getStartScene();
+        
+        bannerAdView = new BannerAdView(this);
+        bannerAdView.setAdUnitId("R-M-7427752-1");
+        bannerAdView.setAdSize(BannerAdSize.stickySize(this, 1000 ));
 
-        bannerInitialize();
-        loopFW.setBanner(banner);
+        final AdRequest adRequest = new AdRequest.Builder().build();
+
+        bannerAdView.setBannerAdEventListener(new BannerAdEventListener()
+        {
+            @Override
+            public void onAdLoaded() {}
+
+            @Override
+            public void onAdFailedToLoad(@NonNull AdRequestError adRequestError) {}
+
+            @Override
+            public void onAdClicked() {}
+
+            @Override
+            public void onLeftApplication() {}
+
+            @Override
+            public void onReturnedToApplication() {}
+
+            @Override
+            public void onImpression(@Nullable ImpressionData impressionData) {}
+        });
+
+        bannerAdView.loadAd(adRequest);
+
         setContentView(loopFW);
-
-
     }
 
     public CoreFW() {}

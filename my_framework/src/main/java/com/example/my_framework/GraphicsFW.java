@@ -64,9 +64,8 @@ public class GraphicsFW
         canvas.drawBitmap(bitmap, position.x, position.y, null);
     }
 
-    public void drawBanner(BannerAdView banner)
+    public void drawBanner(CoreFW coreFW)
     {
-
     }
 
     public int getFrameBufferWidth()

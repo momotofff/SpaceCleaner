@@ -10,6 +10,7 @@ import com.example.my_framework.StaticTextFW;
 import com.example.spacecleaner.R;
 import com.example.spacecleaner.utilities.Resource;
 import com.example.spacecleaner.utilities.Save;
+import com.yandex.mobile.ads.banner.BannerAdView;
 
 public class MainMenu extends SceneFW
 {
@@ -19,6 +20,7 @@ public class MainMenu extends SceneFW
     private final StaticTextFW MenuResults = new StaticTextFW(coreFW.getString(R.string.txtMainMenuResult), new Point(50, 500), Color.WHITE, 60);
     private final StaticTextFW MenuExit = new StaticTextFW(coreFW.getString(R.string.txtMainMenuExitGame), new Point(50, 600), Color.WHITE, 60);
     private Save save;
+    public BannerAdView banner;
 
 
     public MainMenu(CoreFW coreFW, Save save)
@@ -62,5 +64,6 @@ public class MainMenu extends SceneFW
         graphicsFW.drawText(MenuSettings);
         graphicsFW.drawText(MenuResults);
         graphicsFW.drawText(MenuExit);
+        graphicsFW.drawBanner(coreFW);
     }
 }

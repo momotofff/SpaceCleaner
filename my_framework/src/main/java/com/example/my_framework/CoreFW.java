@@ -6,6 +6,7 @@ import android.graphics.Point;
 import android.graphics.PointF;
 import android.os.Bundle;
 import android.view.Display;
+import android.view.View;
 import android.view.WindowManager;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -13,7 +14,6 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import com.yandex.mobile.ads.banner.BannerAdSize;
 import com.yandex.mobile.ads.banner.BannerAdView;
 import com.yandex.mobile.ads.common.AdRequest;
-import com.yandex.mobile.ads.common.MobileAds;
 
 public class CoreFW extends AppCompatActivity
 {
@@ -22,9 +22,6 @@ public class CoreFW extends AppCompatActivity
     private LoopFW loopFW;
     private GraphicsFW graphicsFW;
     private TouchListenerFW touchListenerFW;
-    private Display display;
-    private Point displaySize;
-    private Bitmap frameBuffer;
     private SceneFW sceneFW;
     private BackgroundAudioFW backgroundAudioFW;
     private SoundFW soundFW;
@@ -33,7 +30,6 @@ public class CoreFW extends AppCompatActivity
     private final String SETTINGS = "Settings";
 
     private final PointF scale = new PointF();
-
 
     public BannerAdView banner;
 
@@ -46,11 +42,11 @@ public class CoreFW extends AppCompatActivity
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         sharedPreferences = getSharedPreferences(SETTINGS, MODE_PRIVATE);
 
-        displaySize = new Point();
-        display = getWindowManager().getDefaultDisplay();
+        Point displaySize = new Point();
+        Display display = getWindowManager().getDefaultDisplay();
         display.getSize(displaySize);
 
-        frameBuffer = Bitmap.createBitmap(FRAME_BUFFER.x, FRAME_BUFFER.y, Bitmap.Config.ARGB_8888);
+        Bitmap frameBuffer = Bitmap.createBitmap(FRAME_BUFFER.x, FRAME_BUFFER.y, Bitmap.Config.ARGB_8888);
         scale.x = (float) FRAME_BUFFER.x / displaySize.x;
         scale.y = (float) FRAME_BUFFER.y / displaySize.y;
 
@@ -62,8 +58,15 @@ public class CoreFW extends AppCompatActivity
         touchListenerFW = new TouchListenerFW(loopFW, scale);
         sceneFW = getStartScene();
 
-        //setContentView(loopFW);
-        bannerInitialize();
+        banner = new BannerAdView(this);
+        banner.setAdSize(BannerAdSize.stickySize(this, displaySize.x));
+        banner.setAdUnitId("R-M-7427752-1");
+
+        ConstraintLayout layout = new ConstraintLayout(this);
+        layout.setLayoutParams(new WindowManager.LayoutParams(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT));
+        layout.addView(loopFW);
+        layout.addView(banner, displaySize.x, displaySize.y * 2 - 160);
+        setContentView(layout);
     }
 
     public CoreFW() {}
@@ -140,28 +143,14 @@ public class CoreFW extends AppCompatActivity
 
     public SoundFW getSoundFW() { return soundFW; }
 
-    public Point getDisplaySize() { return displaySize; }
-
-    public void bannerInitialize()
+    public void setBannerVisibility(int visibility)
     {
-        MobileAds.initialize(this, () -> {
-            // now you can use ads
-        });
+        if (banner.getVisibility() == visibility)
+            return;
 
-        banner = new BannerAdView(this);
-        banner.setAdSize(BannerAdSize.stickySize(this, displaySize.x));
-        banner.setAdUnitId("R-M-7427752-1");
-        final AdRequest adRequest = new AdRequest.Builder().build();
-        banner.loadAd(adRequest);
+        if (visibility == View.VISIBLE)
+            banner.loadAd(new AdRequest.Builder().build());
 
-        ConstraintLayout layout = new ConstraintLayout(this);
-
-        layout.setLayoutParams(new WindowManager.LayoutParams(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT));
-
-        layout.addView(loopFW);
-        layout.addView(banner, displaySize.x, displaySize.y * 2 - 160);
-
-        setContentView(layout);
-
+        this.runOnUiThread(() -> banner.setVisibility(visibility));
     }
 }

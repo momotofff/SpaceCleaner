@@ -21,8 +21,6 @@ public class LoopFW extends SurfaceView implements Runnable
     private final Bitmap frameBuffer;
     private final SurfaceHolder surfaceHolder;
 
-    public View banner;
-
     public LoopFW(CoreFW coreFW, Bitmap frameBuffer)
     {
         super(coreFW);
@@ -110,12 +108,6 @@ public class LoopFW extends SurfaceView implements Runnable
         canvas.getClipBounds(rect);
         canvas.drawBitmap(frameBuffer, null, rect, null);
         coreFW.getCurrentScene().drawing();
-        //if(coreFW.getCurrentScene() == MainMenu.class)
         surfaceHolder.unlockCanvasAndPost(canvas);
-    }
-    
-    public void setBanner(BannerAdView banner)
-    {
-        this.banner = banner;
     }
 }

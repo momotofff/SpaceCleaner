@@ -8,8 +8,6 @@ import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
 
-import com.yandex.mobile.ads.banner.BannerAdView;
-
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -62,10 +60,6 @@ public class GraphicsFW
     public void drawTexture(Bitmap bitmap, Point position)
     {
         canvas.drawBitmap(bitmap, position.x, position.y, null);
-    }
-
-    public void drawBanner(CoreFW coreFW)
-    {
     }
 
     public int getFrameBufferWidth()

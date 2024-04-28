@@ -2,6 +2,7 @@ package com.example.spacecleaner.scene;
 
 import android.graphics.Color;
 import android.graphics.Point;
+import android.view.View;
 
 import com.example.my_framework.CoreFW;
 import com.example.my_framework.SceneFW;
@@ -46,6 +47,8 @@ public class GameScene extends SceneFW
     @Override
     public void update()
     {
+        coreFW.setBannerVisibility(View.GONE);
+
         switch (gameState)
         {
             case READY:       updateStateReady(); break;
@@ -107,7 +110,7 @@ public class GameScene extends SceneFW
     @Override
     public void drawing()
     {
-        switch(gameState)
+        switch (gameState)
         {
             case READY:       drawingStateReady(); break;
             case PAUSE:       drawingStatePause(); break;

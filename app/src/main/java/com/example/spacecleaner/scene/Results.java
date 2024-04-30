@@ -16,7 +16,7 @@ public class Results extends SceneFW
 {
     private final StaticTextFW[] Numbers = new StaticTextFW[5];
     private final StaticTextFW BestResults = new StaticTextFW(coreFW.getString(R.string.txtBestResults), new Point(50, 100), Color.WHITE, 100);
-    private final StaticTextFW Back = new StaticTextFW(coreFW.getString(R.string.txtBack), new Point(50, 650), Color.WHITE, 70);
+    private final StaticTextFW Back = new StaticTextFW(coreFW.getString(R.string.txtBack), new Point(50, 580), Color.WHITE, 70);
 
     private Save save;
 

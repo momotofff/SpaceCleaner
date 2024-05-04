@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.spacecleaner'
+    namespace 'com.momotoff.spacecleaner'
     compileSdk 34
 
     defaultConfig {
-        applicationId "com.example.spacecleaner"
+        applicationId "com.momotoff.spacecleaner"
         minSdk 26
         targetSdk 34
         versionCode 1

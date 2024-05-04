@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace 'com.example.my_framework'
+    namespace 'com.momotoff.my_framework'
     compileSdk 34
 
     defaultConfig {

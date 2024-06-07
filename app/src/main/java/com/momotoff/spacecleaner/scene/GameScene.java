@@ -19,7 +19,7 @@ public class GameScene extends SceneFW
     private GameState gameState;
     private Manager manager;
     private Save save;
-    private TimerDelay powerUpDelay = new TimerDelay();
+    private final TimerDelay powerUpDelay = new TimerDelay();
 
     private final StaticTextFW Ready = new StaticTextFW(coreFW.getString(R.string.txtGameSceneReady), new Point(300,200), Color.WHITE, 100);
 

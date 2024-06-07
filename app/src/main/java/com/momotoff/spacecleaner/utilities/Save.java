@@ -26,6 +26,7 @@ public class Save implements Serializable
         for (int i = 0; i < distance.length; ++i)
         {
             int number = value;
+
             if (number > distance[i])
             {
                 value = distance[i];

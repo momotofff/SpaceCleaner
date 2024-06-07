@@ -1,16 +1,11 @@
-package com.momotoff.spacecleaner;
+package com.momotoff.spacecleaner.util;
 
 import static org.junit.Assert.assertArrayEquals;
 
-import org.junit.Test;
-
 import com.momotoff.spacecleaner.utilities.Save;
 
-/**
- * Example local unit test, which will execute on the development machine (host).
- *
- * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
- */
+import org.junit.Test;
+
 public class SaveTest
 {
     @Test

@@ -34,9 +34,13 @@ android {
     
     gradle.projectsEvaluated {
         tasks.withType(Test) { task ->
-            task.afterTest { desc, result ->
-                println "Executing test ${desc.name} [${desc.className}] with result: ${result.resultType}"
-            }
+            task.afterTest { desc, result -> {
+                print "Executing test ${desc.name} [${desc.className}] with result: "
+                if (result.getResultType().equals(TestResult.ResultType.SUCCESS))
+                    println "\033[32m${result.resultType}\033[39m\033[49m"
+                else
+                    println "\033[31m${result.resultType}\033[39m\033[49m"
+            }}
         }
     }
 }

@@ -26,9 +26,18 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+    
+    gradle.projectsEvaluated {
+        tasks.withType(Test) { task ->
+            task.afterTest { desc, result ->
+                println "Executing test ${desc.name} [${desc.className}] with result: ${result.resultType}"
+            }
+        }
     }
 }
 

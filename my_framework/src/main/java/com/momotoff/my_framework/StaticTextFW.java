@@ -1,9 +1,6 @@
 package com.momotoff.my_framework;
-
 import android.graphics.Point;
 import android.graphics.Rect;
-import android.graphics.Typeface;
-
 
 public class StaticTextFW
 {
@@ -11,7 +8,7 @@ public class StaticTextFW
     public Point position;
     public int color;
     public int size;
-    public final Typeface font = null;
+
 
     public StaticTextFW(String text, Point position, int color, int size)
     {
@@ -20,6 +17,7 @@ public class StaticTextFW
         this.color = color;
         this.size = size;
     }
+
 
     public Rect getTouchArea(GraphicsFW graphics)
     {

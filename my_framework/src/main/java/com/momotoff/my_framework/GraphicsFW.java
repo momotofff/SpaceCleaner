@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
+import android.graphics.Typeface;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -18,12 +19,15 @@ public class GraphicsFW
     public final Canvas canvas;
     private final Paint paint;
 
-    public GraphicsFW(AssetManager assetManager, Bitmap frameBuffer)
+
+    public GraphicsFW(AssetManager assetManager, Bitmap frameBuffer, Typeface tf)
     {
         this.assetManager = assetManager;
         this.frameBuffer = frameBuffer;
         this.canvas = new Canvas(frameBuffer);
         this.paint = new Paint();
+        paint.setTypeface(tf);
+
     }
 
     public void clearScene(int colorRGB)

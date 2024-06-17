@@ -4,12 +4,14 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.graphics.PointF;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.res.ResourcesCompat;
 
 import com.yandex.mobile.ads.banner.BannerAdSize;
 import com.yandex.mobile.ads.banner.BannerAdView;
@@ -33,6 +35,9 @@ public class CoreFW extends AppCompatActivity
 
     public BannerAdView banner;
 
+    private Typeface tf;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -45,6 +50,7 @@ public class CoreFW extends AppCompatActivity
         Point displaySize = new Point();
         Display display = getWindowManager().getDefaultDisplay();
         display.getSize(displaySize);
+        tf = ResourcesCompat.getFont(getApplicationContext(), R.font.maru_monica);
 
         Bitmap frameBuffer = Bitmap.createBitmap(FRAME_BUFFER.x, FRAME_BUFFER.y, Bitmap.Config.ARGB_8888);
         scale.x = (float) FRAME_BUFFER.x / displaySize.x;
@@ -54,7 +60,7 @@ public class CoreFW extends AppCompatActivity
         soundFW = new SoundFW(this);
 
         loopFW = new LoopFW(this, frameBuffer);
-        graphicsFW = new GraphicsFW(getAssets(), frameBuffer);
+        graphicsFW = new GraphicsFW(getAssets(), frameBuffer, tf);
         touchListenerFW = new TouchListenerFW(loopFW, scale);
         sceneFW = getStartScene();
 

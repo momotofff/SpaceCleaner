@@ -13,7 +13,7 @@ import com.momotoff.spacecleaner.utilities.Save;
 
 public class MainMenu extends SceneFW
 {
-    private final StaticTextFW Title = new StaticTextFW(coreFW.getString(R.string.txtMainMenuNameGame), new Point(50, 100), Color.WHITE, 100);
+    private final StaticTextFW Title = new StaticTextFW(coreFW.getString(R.string.txtMainMenuNameGame), new Point(50, 150), Color.WHITE, 100);
     private final StaticTextFW MenuStart = new StaticTextFW(coreFW.getString(R.string.txtMainMenuStartGame), new Point(50, 270), Color.WHITE, 60);
     private final StaticTextFW MenuSettings = new StaticTextFW(coreFW.getString(R.string.txtMainMenuMenuSettings), new Point(50, 370), Color.WHITE, 60);
     private final StaticTextFW MenuResults = new StaticTextFW(coreFW.getString(R.string.txtMainMenuResult), new Point(50, 470), Color.WHITE, 60);

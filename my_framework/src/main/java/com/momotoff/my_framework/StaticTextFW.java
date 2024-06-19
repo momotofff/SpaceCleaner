@@ -23,4 +23,9 @@ public class StaticTextFW
     {
         return new Rect(position.x,position.y - size,position.x + graphics.measureText(this), position.y);
     }
+
+    public void changeText(String text)
+    {
+
+    }
 }

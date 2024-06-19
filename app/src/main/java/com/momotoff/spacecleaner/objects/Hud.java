@@ -50,5 +50,6 @@ public class Hud extends ObjectFW implements IDrawable
         graphicsFW.drawText(txtCurrentSpeedPlayer);
         graphicsFW.drawText(txtCurrentShieldsPlayer);
         graphicsFW.drawText(txtLevel);
+
     }
 }

@@ -31,12 +31,11 @@ public class CoreFW extends AppCompatActivity
     private SharedPreferences sharedPreferences;
     private final String SETTINGS = "Settings";
 
-    private final PointF scale = new PointF();
+    public final PointF scale = new PointF();
 
     public BannerAdView banner;
 
     private Typeface tf;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -72,6 +71,7 @@ public class CoreFW extends AppCompatActivity
         layout.setLayoutParams(new WindowManager.LayoutParams(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT));
         layout.addView(loopFW);
         layout.addView(banner, displaySize.x, displaySize.y * 2 - 160);
+
         setContentView(layout);
     }
 

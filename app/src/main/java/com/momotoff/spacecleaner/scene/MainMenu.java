@@ -74,6 +74,6 @@ public class MainMenu extends SceneFW
         graphicsFW.drawText(MenuExit);
 
 
-        registrationWindow.drawing();
+        //registrationWindow.drawing();
     }
 }

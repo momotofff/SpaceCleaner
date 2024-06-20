@@ -2,6 +2,7 @@ package com.momotoff.my_framework;
 
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.PointF;
 import android.graphics.Typeface;
@@ -9,6 +10,11 @@ import android.os.Bundle;
 import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.res.ResourcesCompat;
@@ -34,6 +40,7 @@ public class CoreFW extends AppCompatActivity
     public final PointF scale = new PointF();
 
     public BannerAdView banner;
+    public ConstraintLayout constraintLayout;
 
     private Typeface tf;
 
@@ -63,6 +70,11 @@ public class CoreFW extends AppCompatActivity
         touchListenerFW = new TouchListenerFW(loopFW, scale);
         sceneFW = getStartScene();
 
+
+        constraintLayout = new ConstraintLayout(this);
+        initializeWindowRegistration(constraintLayout);
+
+
         banner = new BannerAdView(this);
         banner.setAdSize(BannerAdSize.stickySize(this, displaySize.x));
         banner.setAdUnitId("R-M-7427752-1");
@@ -71,6 +83,7 @@ public class CoreFW extends AppCompatActivity
         layout.setLayoutParams(new WindowManager.LayoutParams(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT));
         layout.addView(loopFW);
         layout.addView(banner, displaySize.x, displaySize.y * 2 - 160);
+        layout.addView(constraintLayout);
 
         setContentView(layout);
     }
@@ -158,5 +171,40 @@ public class CoreFW extends AppCompatActivity
             banner.loadAd(new AdRequest.Builder().build());
 
         this.runOnUiThread(() -> banner.setVisibility(visibility));
+    }
+
+    private void initializeWindowRegistration(ConstraintLayout screen)
+    {
+        LinearLayout window = new LinearLayout(this);
+        window.setOrientation(LinearLayout.VERTICAL);
+        LinearLayout.LayoutParams linLayoutParam = new LinearLayout.LayoutParams(1200, 120);
+
+        linLayoutParam.setMargins(10,10,10,10);
+        window.setBackgroundColor(Color.WHITE);
+
+        TextView name = new TextView(this);
+        name.setText("name");
+        EditText fieldName = new EditText(this);
+
+        TextView password = new TextView(this);
+        password.setText("password");
+        EditText fieldPassword = new EditText(this);
+
+        Button buttonNext = new Button(this);
+        buttonNext.setText("далее");
+
+        name.setLayoutParams(linLayoutParam);
+        fieldName.setLayoutParams(linLayoutParam);
+
+        password.setLayoutParams(linLayoutParam);
+        fieldPassword.setLayoutParams(linLayoutParam);
+
+        window.addView(name);
+        window.addView(fieldName);
+        window.addView(password);
+        window.addView(fieldPassword);
+        constraintLayout.addView(buttonNext, linLayoutParam);
+
+        screen.addView(window);
     }
 }

@@ -8,9 +8,7 @@ import android.graphics.PointF;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Display;
-import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -42,7 +40,7 @@ public class CoreFW extends AppCompatActivity
     public final PointF scale = new PointF();
 
     public BannerAdView banner;
-    public LinearLayout constraintLayout;
+    public LinearLayout linearLayout;
 
     private Typeface tf;
     private Point displaySize;
@@ -73,7 +71,7 @@ public class CoreFW extends AppCompatActivity
         touchListenerFW = new TouchListenerFW(loopFW, scale);
         sceneFW = getStartScene();
 
-        constraintLayout = initializeWindowRegistration();
+        linearLayout = initializeWindowRegistration();
 
         banner = new BannerAdView(this);
         banner.setAdSize(BannerAdSize.stickySize(this, displaySize.x));
@@ -83,7 +81,7 @@ public class CoreFW extends AppCompatActivity
         layout.setLayoutParams(new WindowManager.LayoutParams(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT));
         layout.addView(loopFW);
         layout.addView(banner, displaySize.x, displaySize.y * 2 - 160);
-        layout.addView(constraintLayout);
+        //layout.addView(linearLayout);
 
         setContentView(layout);
     }

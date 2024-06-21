@@ -40,9 +40,10 @@ public class CoreFW extends AppCompatActivity
     public final PointF scale = new PointF();
 
     public BannerAdView banner;
-    public ConstraintLayout constraintLayout;
+    public LinearLayout linearLayout;
 
     private Typeface tf;
+    private Point displaySize;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -53,7 +54,7 @@ public class CoreFW extends AppCompatActivity
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         sharedPreferences = getSharedPreferences(SETTINGS, MODE_PRIVATE);
 
-        Point displaySize = new Point();
+        displaySize = new Point();
         Display display = getWindowManager().getDefaultDisplay();
         display.getSize(displaySize);
         tf = ResourcesCompat.getFont(getApplicationContext(), R.font.maru_monica);
@@ -70,10 +71,7 @@ public class CoreFW extends AppCompatActivity
         touchListenerFW = new TouchListenerFW(loopFW, scale);
         sceneFW = getStartScene();
 
-
-        constraintLayout = new ConstraintLayout(this);
-        initializeWindowRegistration(constraintLayout);
-
+        linearLayout = initializeWindowRegistration();
 
         banner = new BannerAdView(this);
         banner.setAdSize(BannerAdSize.stickySize(this, displaySize.x));
@@ -83,7 +81,7 @@ public class CoreFW extends AppCompatActivity
         layout.setLayoutParams(new WindowManager.LayoutParams(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT));
         layout.addView(loopFW);
         layout.addView(banner, displaySize.x, displaySize.y * 2 - 160);
-        layout.addView(constraintLayout);
+        //layout.addView(linearLayout);
 
         setContentView(layout);
     }
@@ -173,38 +171,51 @@ public class CoreFW extends AppCompatActivity
         this.runOnUiThread(() -> banner.setVisibility(visibility));
     }
 
-    private void initializeWindowRegistration(ConstraintLayout screen)
+    private LinearLayout initializeWindowRegistration()
     {
+        LinearLayout screen = new LinearLayout(this);
         LinearLayout window = new LinearLayout(this);
-        window.setOrientation(LinearLayout.VERTICAL);
-        LinearLayout.LayoutParams linLayoutParam = new LinearLayout.LayoutParams(1200, 120);
 
-        linLayoutParam.setMargins(10,10,10,10);
+        window.setOrientation(LinearLayout.VERTICAL);
+        screen.setOrientation(LinearLayout.HORIZONTAL);
+
+        LinearLayout.LayoutParams windowParam = new LinearLayout.LayoutParams(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        LinearLayout.LayoutParams screenParams = new LinearLayout.LayoutParams(1280, 720);
+
+        Display display = getWindowManager().getDefaultDisplay();
+
+        windowParam.setMargins(20,20,20,20);
+        screenParams.setMargins(500,200,500,200);
+
         window.setBackgroundColor(Color.WHITE);
+        //screen.setBackgroundColor(Color.BLUE);
 
         TextView name = new TextView(this);
-        name.setText("name");
+        name.setText("Name");
         EditText fieldName = new EditText(this);
 
         TextView password = new TextView(this);
-        password.setText("password");
+        password.setText("Password");
         EditText fieldPassword = new EditText(this);
 
         Button buttonNext = new Button(this);
         buttonNext.setText("далее");
 
-        name.setLayoutParams(linLayoutParam);
-        fieldName.setLayoutParams(linLayoutParam);
+        name.setLayoutParams(windowParam);
+        fieldName.setLayoutParams(windowParam);
 
-        password.setLayoutParams(linLayoutParam);
-        fieldPassword.setLayoutParams(linLayoutParam);
+        password.setLayoutParams(windowParam);
+        fieldPassword.setLayoutParams(windowParam);
+
+        buttonNext.setLayoutParams(windowParam);
 
         window.addView(name);
         window.addView(fieldName);
         window.addView(password);
         window.addView(fieldPassword);
-        constraintLayout.addView(buttonNext, linLayoutParam);
+        window.addView(buttonNext);
 
-        screen.addView(window);
+        screen.addView(window, screenParams);
+        return screen;
     }
 }

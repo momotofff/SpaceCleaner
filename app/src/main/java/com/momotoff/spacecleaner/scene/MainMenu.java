@@ -19,7 +19,6 @@ public class MainMenu extends SceneFW
     private final StaticTextFW MenuResults = new StaticTextFW(coreFW.getString(R.string.txtMainMenuResult), new Point(50, 470), Color.WHITE, 60);
     private final StaticTextFW MenuExit = new StaticTextFW(coreFW.getString(R.string.txtMainMenuExitGame), new Point(50, 570), Color.WHITE, 60);
     private Save save;
-    private RegistrationWindow registrationWindow;
 
 
     public MainMenu(CoreFW coreFW, Save save)
@@ -29,7 +28,6 @@ public class MainMenu extends SceneFW
 
         coreFW.getBackgroundAudioFW().setTrack(com.momotoff.my_framework.R.raw.menu);
         coreFW.getBackgroundAudioFW().start();
-        registrationWindow = new RegistrationWindow(coreFW);
     }
 
     @Override
@@ -72,8 +70,5 @@ public class MainMenu extends SceneFW
         graphicsFW.drawText(MenuSettings);
         graphicsFW.drawText(MenuResults);
         graphicsFW.drawText(MenuExit);
-
-
-        //registrationWindow.drawing();
     }
 }

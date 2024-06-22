@@ -20,7 +20,6 @@ public class MainMenu extends SceneFW
     private final StaticTextFW MenuExit = new StaticTextFW(coreFW.getString(R.string.txtMainMenuExitGame), new Point(50, 570), Color.WHITE, 60);
     private Save save;
 
-
     public MainMenu(CoreFW coreFW, Save save)
     {
         super(coreFW);
@@ -58,6 +57,7 @@ public class MainMenu extends SceneFW
 
         }
 
+        // TODO: Lets create banner here, not in framework
         coreFW.setBannerVisibility(View.VISIBLE);
     }
 

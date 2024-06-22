@@ -8,6 +8,7 @@ import android.graphics.PointF;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Display;
+import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -73,6 +74,7 @@ public class CoreFW extends AppCompatActivity
 
         linearLayout = initializeWindowRegistration();
 
+        // TODO: And this shit shouldn't be here
         banner = new BannerAdView(this);
         banner.setAdSize(BannerAdSize.stickySize(this, displaySize.x));
         banner.setAdUnitId("R-M-7427752-1");
@@ -81,7 +83,7 @@ public class CoreFW extends AppCompatActivity
         layout.setLayoutParams(new WindowManager.LayoutParams(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT));
         layout.addView(loopFW);
         layout.addView(banner, displaySize.x, displaySize.y * 2 - 160);
-        //layout.addView(linearLayout);
+        layout.addView(linearLayout);
 
         setContentView(layout);
     }
@@ -173,49 +175,42 @@ public class CoreFW extends AppCompatActivity
 
     private LinearLayout initializeWindowRegistration()
     {
-        LinearLayout screen = new LinearLayout(this);
-        LinearLayout window = new LinearLayout(this);
-
-        window.setOrientation(LinearLayout.VERTICAL);
-        screen.setOrientation(LinearLayout.HORIZONTAL);
-
-        LinearLayout.LayoutParams windowParam = new LinearLayout.LayoutParams(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
-        LinearLayout.LayoutParams screenParams = new LinearLayout.LayoutParams(1280, 720);
-
-        Display display = getWindowManager().getDefaultDisplay();
-
+        // TODO: Move it out, framework isn't a garbage can to put anything inside
+        LinearLayout.LayoutParams windowParam = new LinearLayout.LayoutParams(displaySize.x / 2, WindowManager.LayoutParams.WRAP_CONTENT);
         windowParam.setMargins(20,20,20,20);
-        screenParams.setMargins(500,200,500,200);
 
+        LinearLayout window = new LinearLayout(this);
         window.setBackgroundColor(Color.WHITE);
-        //screen.setBackgroundColor(Color.BLUE);
+        window.setOrientation(LinearLayout.VERTICAL);
 
         TextView name = new TextView(this);
         name.setText("Name");
+        name.setLayoutParams(windowParam);
+        window.addView(name);
+
         EditText fieldName = new EditText(this);
+        fieldName.setLayoutParams(windowParam);
+        window.addView(fieldName);
 
         TextView password = new TextView(this);
         password.setText("Password");
+        password.setLayoutParams(windowParam);
+        window.addView(password);
+
         EditText fieldPassword = new EditText(this);
+        fieldPassword.setLayoutParams(windowParam);
+        window.addView(fieldPassword);
 
         Button buttonNext = new Button(this);
         buttonNext.setText("далее");
-
-        name.setLayoutParams(windowParam);
-        fieldName.setLayoutParams(windowParam);
-
-        password.setLayoutParams(windowParam);
-        fieldPassword.setLayoutParams(windowParam);
-
         buttonNext.setLayoutParams(windowParam);
-
-        window.addView(name);
-        window.addView(fieldName);
-        window.addView(password);
-        window.addView(fieldPassword);
         window.addView(buttonNext);
 
-        screen.addView(window, screenParams);
+        LinearLayout screen = new LinearLayout(this);
+        screen.setLayoutParams(new LinearLayout.LayoutParams(displaySize.x, displaySize.y));
+        screen.setGravity(Gravity.CENTER);
+        screen.addView(window);
+
         return screen;
     }
 }

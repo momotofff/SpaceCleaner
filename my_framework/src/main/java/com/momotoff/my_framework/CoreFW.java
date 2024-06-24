@@ -1,5 +1,6 @@
 package com.momotoff.my_framework;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -28,6 +29,8 @@ public class CoreFW extends AppCompatActivity
 {
     private final Point FRAME_BUFFER = new Point(1280, 720);
 
+
+
     private LoopFW loopFW;
     private GraphicsFW graphicsFW;
     private TouchListenerFW touchListenerFW;
@@ -40,11 +43,12 @@ public class CoreFW extends AppCompatActivity
 
     public final PointF scale = new PointF();
 
-    public BannerAdView banner;
-    public LinearLayout linearLayout;
+    //public BannerAdView banner;
+
 
     private Typeface tf;
     private Point displaySize;
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -72,20 +76,17 @@ public class CoreFW extends AppCompatActivity
         touchListenerFW = new TouchListenerFW(loopFW, scale);
         sceneFW = getStartScene();
 
-        linearLayout = initializeWindowRegistration();
+        context = getApplicationContext();
 
         // TODO: And this shit shouldn't be here
-        banner = new BannerAdView(this);
-        banner.setAdSize(BannerAdSize.stickySize(this, displaySize.x));
-        banner.setAdUnitId("R-M-7427752-1");
+        //banner = new BannerAdView(this);
+        //banner.setAdSize(BannerAdSize.stickySize(this, displaySize.x));
+        //banner.setAdUnitId("R-M-7427752-1");
 
-        ConstraintLayout layout = new ConstraintLayout(this);
-        layout.setLayoutParams(new WindowManager.LayoutParams(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT));
-        layout.addView(loopFW);
-        layout.addView(banner, displaySize.x, displaySize.y * 2 - 160);
-        layout.addView(linearLayout);
 
-        setContentView(layout);
+
+        //layout.addView(banner, displaySize.x, displaySize.y * 2 - 160);
+
     }
 
     public CoreFW() {}
@@ -162,7 +163,9 @@ public class CoreFW extends AppCompatActivity
 
     public SoundFW getSoundFW() { return soundFW; }
 
+    /*
     public void setBannerVisibility(int visibility)
+
     {
         if (banner.getVisibility() == visibility)
             return;
@@ -172,45 +175,11 @@ public class CoreFW extends AppCompatActivity
 
         this.runOnUiThread(() -> banner.setVisibility(visibility));
     }
+    */
 
-    private LinearLayout initializeWindowRegistration()
-    {
-        // TODO: Move it out, framework isn't a garbage can to put anything inside
-        LinearLayout.LayoutParams windowParam = new LinearLayout.LayoutParams(displaySize.x / 2, WindowManager.LayoutParams.WRAP_CONTENT);
-        windowParam.setMargins(20,20,20,20);
-
-        LinearLayout window = new LinearLayout(this);
-        window.setBackgroundColor(Color.WHITE);
-        window.setOrientation(LinearLayout.VERTICAL);
-
-        TextView name = new TextView(this);
-        name.setText("Name");
-        name.setLayoutParams(windowParam);
-        window.addView(name);
-
-        EditText fieldName = new EditText(this);
-        fieldName.setLayoutParams(windowParam);
-        window.addView(fieldName);
-
-        TextView password = new TextView(this);
-        password.setText("Password");
-        password.setLayoutParams(windowParam);
-        window.addView(password);
-
-        EditText fieldPassword = new EditText(this);
-        fieldPassword.setLayoutParams(windowParam);
-        window.addView(fieldPassword);
-
-        Button buttonNext = new Button(this);
-        buttonNext.setText("далее");
-        buttonNext.setLayoutParams(windowParam);
-        window.addView(buttonNext);
-
-        LinearLayout screen = new LinearLayout(this);
-        screen.setLayoutParams(new LinearLayout.LayoutParams(displaySize.x, displaySize.y));
-        screen.setGravity(Gravity.CENTER);
-        screen.addView(window);
-
-        return screen;
+    public Point getDisplaySize(){ return displaySize;}
+    public Context getContext(){ return context;}
+    public LoopFW getLoopFW() {
+        return loopFW;
     }
 }

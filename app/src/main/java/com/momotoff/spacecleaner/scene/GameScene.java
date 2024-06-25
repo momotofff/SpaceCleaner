@@ -3,7 +3,6 @@ package com.momotoff.spacecleaner.scene;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.view.View;
-
 import com.momotoff.my_framework.CoreFW;
 import com.momotoff.my_framework.SceneFW;
 import com.momotoff.my_framework.StaticTextFW;

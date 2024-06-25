@@ -2,6 +2,7 @@ package com.momotoff.spacecleaner.scene;
 
 import android.graphics.Color;
 import android.graphics.Point;
+import android.view.View;
 
 import com.momotoff.my_framework.CoreFW;
 import com.momotoff.my_framework.SceneFW;
@@ -41,10 +42,13 @@ public class Results extends SceneFW
     @Override
     public void update()
     {
+        MainMenu.bannerAdvertising.setBannerVisibility(View.GONE);
+        MainMenu.windowRegistration.setWindowRegistrationVisibility(View.GONE);
+
         if (coreFW.getTouchListenerFW().getTouchUp(Back.getTouchArea(graphicsFW)))
         {
             coreFW.getSoundFW().start(R.raw.tap);
-            //coreFW.getBackgroundAudioFW().stop();
+            coreFW.getBackgroundAudioFW().stop();
             coreFW.setScene(new MainMenu(coreFW, save));
         }
     }

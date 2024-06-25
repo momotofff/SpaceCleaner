@@ -23,7 +23,7 @@ public class MainMenu extends SceneFW
     private final StaticTextFW MenuExit = new StaticTextFW(coreFW.getString(R.string.txtMainMenuExitGame), new Point(50, 570), Color.WHITE, 60);
     private Save save;
 
-    private WindowRegistration windowRegistration;
+    public static WindowRegistration windowRegistration;
     public static BannerAdvertising bannerAdvertising;
 
 
@@ -37,6 +37,7 @@ public class MainMenu extends SceneFW
 
         ConstraintLayout layout = new ConstraintLayout(this.coreFW.getApplicationContext());
         layout.setLayoutParams(new WindowManager.LayoutParams(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT));
+        layout.removeAllViews();
         layout.addView(coreFW.getLoopFW());
         coreFW.setContentView(layout);
 
@@ -53,6 +54,8 @@ public class MainMenu extends SceneFW
     @Override
     public void update()
     {
+        //windowRegistration.update();
+
         if (coreFW.getTouchListenerFW().getTouchUp(MenuStart.getTouchArea(graphicsFW)))
         {
             coreFW.getBackgroundAudioFW().stop();

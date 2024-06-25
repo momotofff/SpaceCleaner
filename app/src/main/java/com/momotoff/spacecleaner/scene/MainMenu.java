@@ -2,15 +2,8 @@ package com.momotoff.spacecleaner.scene;
 
 import android.graphics.Color;
 import android.graphics.Point;
-import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-
-import androidx.annotation.ContentView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.momotoff.my_framework.CoreFW;
@@ -20,7 +13,6 @@ import com.momotoff.spacecleaner.R;
 import com.momotoff.spacecleaner.utilities.Resource;
 import com.momotoff.spacecleaner.utilities.Save;
 
-import java.lang.annotation.Annotation;
 
 public class MainMenu extends SceneFW
 {

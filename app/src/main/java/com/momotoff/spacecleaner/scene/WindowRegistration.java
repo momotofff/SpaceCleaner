@@ -17,13 +17,32 @@ public class WindowRegistration extends View
 {
     private CoreFW coreFW;
     public LinearLayout view;
+    EditText fieldName;
+    EditText fieldPassword;
+    Button buttonNext;
 
     public WindowRegistration(CoreFW coreFW)
     {
         super(coreFW.getApplication());
         this.coreFW = coreFW;
         view = initializeWindowRegistration();
+
     }
+
+    public void update()
+    {
+        View.OnClickListener onClickListener = new OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                if (view.getId() == buttonNext.getId())
+                {
+                    setWindowRegistrationVisibility(View.GONE);
+                }
+            }
+        };
+    }
+
 
     public void setWindowRegistrationVisibility(int visibility)
     {
@@ -37,7 +56,6 @@ public class WindowRegistration extends View
 
     private LinearLayout initializeWindowRegistration()
     {
-        // TODO: Move it out, framework isn't a garbage can to put anything inside
         LinearLayout.LayoutParams windowParam = new LinearLayout.LayoutParams(coreFW.getDisplaySize().x / 2, WindowManager.LayoutParams.WRAP_CONTENT);
         windowParam.setMargins(20,20,20,20);
 
@@ -50,7 +68,7 @@ public class WindowRegistration extends View
         name.setLayoutParams(windowParam);
         window.addView(name);
 
-        EditText fieldName = new EditText(coreFW.getApplication());
+        fieldName = new EditText(coreFW.getApplication());
         fieldName.setLayoutParams(windowParam);
         window.addView(fieldName);
 
@@ -59,11 +77,11 @@ public class WindowRegistration extends View
         password.setLayoutParams(windowParam);
         window.addView(password);
 
-        EditText fieldPassword = new EditText(coreFW.getApplication());
+        fieldPassword = new EditText(coreFW.getApplication());
         fieldPassword.setLayoutParams(windowParam);
         window.addView(fieldPassword);
 
-        Button buttonNext = new Button(coreFW.getApplication());
+        buttonNext = new Button(coreFW.getApplication());
         buttonNext.setText("далее");
         buttonNext.setLayoutParams(windowParam);
         window.addView(buttonNext);

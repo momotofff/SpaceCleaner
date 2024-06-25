@@ -45,7 +45,7 @@ public class GameScene extends SceneFW
     @Override
     public void update()
     {
-        //coreFW.setBannerVisibility(View.GONE);
+        MainMenu.bannerAdvertising.setBannerVisibility(View.GONE);
 
         switch (gameState)
         {

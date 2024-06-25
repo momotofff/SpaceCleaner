@@ -29,8 +29,6 @@ public class CoreFW extends AppCompatActivity
 {
     private final Point FRAME_BUFFER = new Point(1280, 720);
 
-
-
     private LoopFW loopFW;
     private GraphicsFW graphicsFW;
     private TouchListenerFW touchListenerFW;
@@ -43,12 +41,8 @@ public class CoreFW extends AppCompatActivity
 
     public final PointF scale = new PointF();
 
-    //public BannerAdView banner;
-
-
     private Typeface tf;
     private Point displaySize;
-    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -75,18 +69,6 @@ public class CoreFW extends AppCompatActivity
         graphicsFW = new GraphicsFW(getAssets(), frameBuffer, tf);
         touchListenerFW = new TouchListenerFW(loopFW, scale);
         sceneFW = getStartScene();
-
-        context = getApplicationContext();
-
-        // TODO: And this shit shouldn't be here
-        //banner = new BannerAdView(this);
-        //banner.setAdSize(BannerAdSize.stickySize(this, displaySize.x));
-        //banner.setAdUnitId("R-M-7427752-1");
-
-
-
-        //layout.addView(banner, displaySize.x, displaySize.y * 2 - 160);
-
     }
 
     public CoreFW() {}
@@ -163,22 +145,8 @@ public class CoreFW extends AppCompatActivity
 
     public SoundFW getSoundFW() { return soundFW; }
 
-    /*
-    public void setBannerVisibility(int visibility)
-
-    {
-        if (banner.getVisibility() == visibility)
-            return;
-
-        if (visibility == View.VISIBLE)
-            banner.loadAd(new AdRequest.Builder().build());
-
-        this.runOnUiThread(() -> banner.setVisibility(visibility));
-    }
-    */
-
     public Point getDisplaySize(){ return displaySize;}
-    public Context getContext(){ return context;}
+
     public LoopFW getLoopFW() {
         return loopFW;
     }

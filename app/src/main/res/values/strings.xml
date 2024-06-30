@@ -28,4 +28,8 @@
     <string name="txtBestResults">Лучшие результаты</string>
     <string name="txtBack">Назад</string>
 
+    //Registration window
+    <string name="txtUserName">Имя пользователя</string>
+    <string name="txtPassword">Пароль</string>
+    <string name="txtNext">Далее</string>
 </resources>

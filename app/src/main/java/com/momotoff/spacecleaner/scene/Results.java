@@ -7,6 +7,7 @@ import android.view.View;
 import com.momotoff.my_framework.CoreFW;
 import com.momotoff.my_framework.SceneFW;
 import com.momotoff.my_framework.StaticTextFW;
+import com.momotoff.spacecleaner.Main;
 import com.momotoff.spacecleaner.R;
 import com.momotoff.spacecleaner.utilities.Resource;
 import com.momotoff.spacecleaner.utilities.Save;
@@ -42,14 +43,11 @@ public class Results extends SceneFW
     @Override
     public void update()
     {
-        MainMenu.bannerAdvertising.setBannerVisibility(View.GONE);
-        MainMenu.windowRegistration.setWindowRegistrationVisibility(View.GONE);
-
         if (coreFW.getTouchListenerFW().getTouchUp(Back.getTouchArea(graphicsFW)))
         {
             coreFW.getSoundFW().start(R.raw.tap);
             coreFW.getBackgroundAudioFW().stop();
-            coreFW.setScene(new MainMenu(coreFW, save));
+            coreFW.setScene(MainMenu.getInstance());
         }
     }
 

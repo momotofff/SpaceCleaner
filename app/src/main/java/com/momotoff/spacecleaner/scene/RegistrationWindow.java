@@ -1,7 +1,8 @@
 package com.momotoff.spacecleaner.scene;
 
-import android.annotation.SuppressLint;
+import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
@@ -11,50 +12,27 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.momotoff.my_framework.CoreFW;
+import com.momotoff.spacecleaner.R;
 
-@SuppressLint("ViewConstructor")
-public class WindowRegistration extends View
+public class RegistrationWindow extends LinearLayout
 {
     private CoreFW coreFW;
-    public LinearLayout view;
-    EditText fieldName;
-    EditText fieldPassword;
-    Button buttonNext;
+    private EditText fieldName;
+    private EditText fieldPassword;
 
-    public WindowRegistration(CoreFW coreFW)
+    public RegistrationWindow(CoreFW coreFW)
     {
         super(coreFW.getApplication());
         this.coreFW = coreFW;
-        view = initializeWindowRegistration();
-
+        initialize();
     }
 
-    public void update()
+    public RegistrationWindow(Context context)
     {
-        View.OnClickListener onClickListener = new OnClickListener() {
-            @Override
-            public void onClick(View view)
-            {
-                if (view.getId() == buttonNext.getId())
-                {
-                    setWindowRegistrationVisibility(View.GONE);
-                }
-            }
-        };
+        super(context);
     }
 
-
-    public void setWindowRegistrationVisibility(int visibility)
-    {
-
-    }
-
-    public boolean checkRegistration()
-    {
-        return true;
-    }
-
-    private LinearLayout initializeWindowRegistration()
+    private void initialize()
     {
         LinearLayout.LayoutParams windowParam = new LinearLayout.LayoutParams(coreFW.getDisplaySize().x / 2, WindowManager.LayoutParams.WRAP_CONTENT);
         windowParam.setMargins(20,20,20,20);
@@ -64,7 +42,7 @@ public class WindowRegistration extends View
         window.setOrientation(LinearLayout.VERTICAL);
 
         TextView name = new TextView(coreFW.getApplication());
-        name.setText("Name");
+        name.setText(coreFW.getString(R.string.txtUserName));
         name.setLayoutParams(windowParam);
         window.addView(name);
 
@@ -73,7 +51,7 @@ public class WindowRegistration extends View
         window.addView(fieldName);
 
         TextView password = new TextView(coreFW.getApplication());
-        password.setText("Password");
+        password.setText(coreFW.getString(R.string.txtPassword));
         password.setLayoutParams(windowParam);
         window.addView(password);
 
@@ -81,17 +59,20 @@ public class WindowRegistration extends View
         fieldPassword.setLayoutParams(windowParam);
         window.addView(fieldPassword);
 
-        buttonNext = new Button(coreFW.getApplication());
-        buttonNext.setText("далее");
+        Button buttonNext = new Button(coreFW.getApplication());
+        buttonNext.setText(coreFW.getString(R.string.txtNext));
         buttonNext.setLayoutParams(windowParam);
+        buttonNext.setOnClickListener((View view) -> onNextClick());
         window.addView(buttonNext);
 
-        LinearLayout screen = new LinearLayout(coreFW.getApplication());
-        screen.setLayoutParams(new LinearLayout.LayoutParams(coreFW.getDisplaySize().x, coreFW.getDisplaySize().y));
-        screen.setGravity(Gravity.CENTER);
-        screen.addView(window);
-
-        return screen;
+        this.setLayoutParams(new LinearLayout.LayoutParams(coreFW.getDisplaySize().x, coreFW.getDisplaySize().y));
+        this.setGravity(Gravity.CENTER);
+        this.addView(window);
     }
 
+    private void onNextClick()
+    {
+        Log.d("", "User: " + fieldName.getText() + ", pass: " + fieldPassword.getText());
+        this.setVisibility(View.GONE);
+    }
 }

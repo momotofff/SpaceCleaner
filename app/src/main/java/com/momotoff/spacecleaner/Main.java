@@ -16,7 +16,6 @@ public class Main extends CoreFW
     {
         loading = new Loading(this, this.getGraphicsFW());
         save.load(getSharedPreferences());
-
-        return new MainMenu(this, save);
+        return MainMenu.createInstance(this, save);
     }
 }

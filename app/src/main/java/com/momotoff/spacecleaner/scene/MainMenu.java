@@ -2,6 +2,7 @@ package com.momotoff.spacecleaner.scene;
 
 import android.graphics.Color;
 import android.graphics.Point;
+import android.graphics.Rect;
 import android.view.View;
 import android.view.WindowManager;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -21,13 +22,30 @@ public class MainMenu extends SceneFW
     private final StaticTextFW MenuSettings = new StaticTextFW(coreFW.getString(R.string.txtMainMenuMenuSettings), new Point(50, 370), Color.WHITE, 60);
     private final StaticTextFW MenuResults = new StaticTextFW(coreFW.getString(R.string.txtMainMenuResult), new Point(50, 470), Color.WHITE, 60);
     private final StaticTextFW MenuExit = new StaticTextFW(coreFW.getString(R.string.txtMainMenuExitGame), new Point(50, 570), Color.WHITE, 60);
-    private Save save;
+    private final Save save;
 
-    public static WindowRegistration windowRegistration;
-    public static BannerAdvertising bannerAdvertising;
+    private final RegistrationWindow registrationWindow;
+    private final BannerAdvertising adBanner;
 
+    private static MainMenu instance;
 
-    public MainMenu(CoreFW coreFW, Save save)
+    public static MainMenu createInstance(CoreFW coreFW, Save save)
+    {
+        if (instance == null)
+            instance = new MainMenu(coreFW, save);
+
+        return instance;
+    }
+
+    public static MainMenu getInstance()
+    {
+        if (instance == null)
+            throw new RuntimeException("You should call createInstance first!");
+
+        return instance;
+    }
+
+    private MainMenu(CoreFW coreFW, Save save)
     {
         super(coreFW);
         this.save = save;
@@ -41,12 +59,12 @@ public class MainMenu extends SceneFW
         layout.addView(coreFW.getLoopFW());
         coreFW.setContentView(layout);
 
-        windowRegistration = new WindowRegistration(coreFW);
-        layout.addView(windowRegistration.view);
+        registrationWindow = new RegistrationWindow(coreFW);
+        layout.addView(registrationWindow);
 
         // R-M-7427752-1
-        bannerAdvertising = new BannerAdvertising(coreFW, "demo-banner-yandex");
-        layout.addView(bannerAdvertising.banner, coreFW.getDisplaySize().x, coreFW.getDisplaySize().y * 2 - 160);
+        adBanner = new BannerAdvertising(coreFW, "demo-banner-yandex");
+        layout.addView(adBanner.banner, coreFW.getDisplaySize().x, coreFW.getDisplaySize().y * 2 - 160);
 
         coreFW.setContentView(layout);
     }
@@ -54,7 +72,15 @@ public class MainMenu extends SceneFW
     @Override
     public void update()
     {
-        //windowRegistration.update();
+        adBanner.setBannerVisibility(View.VISIBLE);
+
+        if (registrationWindow.getVisibility() == View.VISIBLE)
+        {
+            if (coreFW.getTouchListenerFW().getTouchUp(new Rect(0, 0, sceneSize.x, sceneSize.y)))
+                setRegistrationWindowVisibility(View.GONE);
+
+            return;
+        }
 
         if (coreFW.getTouchListenerFW().getTouchUp(MenuStart.getTouchArea(graphicsFW)))
         {
@@ -79,8 +105,6 @@ public class MainMenu extends SceneFW
         {
             coreFW.getSoundFW().start(R.raw.tap);
         }
-
-        bannerAdvertising.setBannerVisibility(View.VISIBLE);
     }
 
     @Override
@@ -92,5 +116,15 @@ public class MainMenu extends SceneFW
         graphicsFW.drawText(MenuSettings);
         graphicsFW.drawText(MenuResults);
         graphicsFW.drawText(MenuExit);
+    }
+
+    public void setBannerVisibility(int visibility)
+    {
+        this.coreFW.runOnUiThread(() -> adBanner.setBannerVisibility(visibility));
+    }
+
+    public void setRegistrationWindowVisibility(int visibility)
+    {
+        this.coreFW.runOnUiThread(() -> registrationWindow.setVisibility(visibility));
     }
 }

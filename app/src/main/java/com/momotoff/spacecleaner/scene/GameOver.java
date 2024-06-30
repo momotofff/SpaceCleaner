@@ -6,6 +6,7 @@ import android.graphics.Point;
 import com.momotoff.my_framework.CoreFW;
 import com.momotoff.my_framework.SceneFW;
 import com.momotoff.my_framework.StaticTextFW;
+import com.momotoff.spacecleaner.Main;
 import com.momotoff.spacecleaner.R;
 import com.momotoff.spacecleaner.classes.Manager;
 import com.momotoff.spacecleaner.utilities.Save;
@@ -44,7 +45,7 @@ public class GameOver extends SceneFW
         {
             coreFW.getSoundFW().start(R.raw.tap);
             coreFW.getBackgroundAudioFW().stop();
-            coreFW.setScene(new MainMenu(coreFW, save));
+            coreFW.setScene(MainMenu.getInstance());
         }
     }
 

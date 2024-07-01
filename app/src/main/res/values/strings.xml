@@ -25,7 +25,8 @@
     <string name="txtExitMenu">Выход в меню</string>
 
     //Results
-    <string name="txtBestResults">Лучшие результаты</string>
+    <string name="txtLocalRating">Личный рейтинг</string>
+    <string name="txtWorldRating">Мировой рейтинг</string>
     <string name="txtBack">Назад</string>
 
     //Registration window

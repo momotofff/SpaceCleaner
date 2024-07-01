@@ -2,27 +2,26 @@ package com.momotoff.spacecleaner.scene;
 
 import android.graphics.Color;
 import android.graphics.Point;
-import android.view.View;
 
 import com.momotoff.my_framework.CoreFW;
 import com.momotoff.my_framework.SceneFW;
 import com.momotoff.my_framework.StaticTextFW;
-import com.momotoff.spacecleaner.Main;
 import com.momotoff.spacecleaner.R;
 import com.momotoff.spacecleaner.utilities.Resource;
 import com.momotoff.spacecleaner.utilities.Save;
 
 import java.util.Locale;
 
-public class Results extends SceneFW
+public class LocalRating extends SceneFW
 {
     private final StaticTextFW[] Numbers = new StaticTextFW[5];
-    private final StaticTextFW BestResults = new StaticTextFW(coreFW.getString(R.string.txtBestResults), new Point(50, 100), Color.WHITE, 100);
+    private final StaticTextFW LocalRating = new StaticTextFW(coreFW.getString(R.string.txtLocalRating), new Point(50, 100), Color.WHITE, 100);
+    private final StaticTextFW WorldRating = new StaticTextFW(coreFW.getString(R.string.txtWorldRating), new Point(400, 580), Color.WHITE, 70);
     private final StaticTextFW Back = new StaticTextFW(coreFW.getString(R.string.txtBack), new Point(50, 580), Color.WHITE, 70);
 
     private Save save;
 
-    public Results(CoreFW coreFW, Save save)
+    public LocalRating(CoreFW coreFW, Save save)
     {
         super(coreFW);
         this.save = save;
@@ -30,7 +29,7 @@ public class Results extends SceneFW
         final int RESULT_START_Y = 200;
         final int RESULT_STEP_Y = 70;
 
-        Point position = new Point(BestResults.position.x, RESULT_START_Y);
+        Point position = new Point(LocalRating.position.x, RESULT_START_Y);
 
         for (int i = 0; i < Numbers.length; ++i)
         {
@@ -49,14 +48,22 @@ public class Results extends SceneFW
             coreFW.getBackgroundAudioFW().stop();
             coreFW.setScene(MainMenu.getInstance());
         }
+
+        if (coreFW.getTouchListenerFW().getTouchUp(WorldRating.getTouchArea(graphicsFW)))
+        {
+            coreFW.getSoundFW().start(R.raw.tap);
+            coreFW.getBackgroundAudioFW().stop();
+            coreFW.setScene(new WorldRating(coreFW, save));
+        }
     }
 
     @Override
     public void drawing()
     {
         graphicsFW.drawTexture(Resource.menuImage, new Point(0, 0));
-        graphicsFW.drawText(BestResults);
+        graphicsFW.drawText(LocalRating);
         graphicsFW.drawText(Back);
+        graphicsFW.drawText(WorldRating);
 
         for (StaticTextFW number: Numbers)
             graphicsFW.drawText(number);

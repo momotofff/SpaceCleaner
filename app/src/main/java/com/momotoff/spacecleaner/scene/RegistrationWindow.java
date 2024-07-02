@@ -1,5 +1,6 @@
 package com.momotoff.spacecleaner.scene;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.util.Log;
@@ -10,6 +11,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.momotoff.my_framework.CoreFW;
 import com.momotoff.spacecleaner.R;
@@ -72,6 +76,12 @@ public class RegistrationWindow extends LinearLayout
 
     private void onNextClick()
     {
+        if(fieldName.getText().toString().isEmpty() || fieldPassword.getText().toString().isEmpty())
+        {
+            Toast.makeText(coreFW.getApplication(), "Заполните поля", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         Log.d("", "User: " + fieldName.getText() + ", pass: " + fieldPassword.getText());
         this.setVisibility(View.GONE);
     }

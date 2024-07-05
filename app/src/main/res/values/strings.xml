@@ -33,4 +33,7 @@
     <string name="txtUserName">Имя пользователя</string>
     <string name="txtPassword">Пароль</string>
     <string name="txtNext">Далее</string>
+    <string name="txtFillToast">Заполните поля</string>
+    <string name="txtInvalidInputToast">Не корректный ввод</string>
+    <string name="txtYouAreLoggedToast">Вы вошли под именем </string>
 </resources>

@@ -1,6 +1,6 @@
 package com.momotoff.spacecleaner.scene;
 
-import android.app.Activity;
+
 import android.content.Context;
 import android.graphics.Color;
 import android.util.Log;
@@ -13,8 +13,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import androidx.annotation.NonNull;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.momotoff.my_framework.CoreFW;
 import com.momotoff.spacecleaner.R;
 
@@ -24,10 +29,17 @@ public class RegistrationWindow extends LinearLayout
     private EditText fieldName;
     private EditText fieldPassword;
 
+    private FirebaseAuth firebaseAuth;
+    private DatabaseReference ref;
+    private FirebaseDatabase database;
+
     public RegistrationWindow(CoreFW coreFW)
     {
         super(coreFW.getApplication());
         this.coreFW = coreFW;
+        firebaseAuth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance();
+        ref = database.getReference();
         initialize();
     }
 
@@ -76,11 +88,26 @@ public class RegistrationWindow extends LinearLayout
 
     private void onNextClick()
     {
-        if(fieldName.getText().toString().isEmpty() || fieldPassword.getText().toString().isEmpty())
-        {
-            Toast.makeText(coreFW.getApplication(), "Заполните поля", Toast.LENGTH_SHORT).show();
+        if(fieldName.getText().toString().isEmpty() || fieldPassword.getText().toString().isEmpty()) {
+            Toast.makeText(coreFW.getApplication(), coreFW.getString(R.string.txtFillToast), Toast.LENGTH_SHORT).show();
             return;
         }
+
+        firebaseAuth.createUserWithEmailAndPassword(fieldName.getText().toString(), fieldPassword.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>()
+        {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task)
+            {
+                if (!task.isSuccessful())
+                {
+                    Toast.makeText(coreFW.getApplication(), coreFW.getString(R.string.txtInvalidInputToast), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                String name = fieldName.getText().toString().substring(0, fieldName.getText().toString().indexOf('@'));
+                Toast.makeText(coreFW.getApplication(), coreFW.getString(R.string.txtYouAreLoggedToast) + name, Toast.LENGTH_SHORT).show();
+            }
+        });
 
         Log.d("", "User: " + fieldName.getText() + ", pass: " + fieldPassword.getText());
         this.setVisibility(View.GONE);

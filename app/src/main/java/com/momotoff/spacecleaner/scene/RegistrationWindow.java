@@ -1,9 +1,8 @@
 package com.momotoff.spacecleaner.scene;
 
-
+import android.app.Application;
 import android.content.Context;
 import android.graphics.Color;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
@@ -13,10 +12,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -88,28 +83,34 @@ public class RegistrationWindow extends LinearLayout
 
     private void onNextClick()
     {
-        if(fieldName.getText().toString().isEmpty() || fieldPassword.getText().toString().isEmpty()) {
-            Toast.makeText(coreFW.getApplication(), coreFW.getString(R.string.txtFillToast), Toast.LENGTH_SHORT).show();
+        Application app = coreFW.getApplication();
+
+        if (fieldName.getText().toString().isEmpty() || fieldPassword.getText().toString().isEmpty())
+        {
+            Toast.makeText(app, coreFW.getString(R.string.txtFillToast), Toast.LENGTH_SHORT).show();
             return;
         }
 
-        firebaseAuth.createUserWithEmailAndPassword(fieldName.getText().toString(), fieldPassword.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>()
-        {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task)
-            {
-                if (!task.isSuccessful())
-                {
-                    Toast.makeText(coreFW.getApplication(), coreFW.getString(R.string.txtInvalidInputToast), Toast.LENGTH_SHORT).show();
-                    return;
-                }
+        String username = fieldName.getText().toString();
+        String password = fieldPassword.getText().toString();
 
-                String name = fieldName.getText().toString().substring(0, fieldName.getText().toString().indexOf('@'));
-                Toast.makeText(coreFW.getApplication(), coreFW.getString(R.string.txtYouAreLoggedToast) + name, Toast.LENGTH_SHORT).show();
+        // TODO: We have to check if we are logged in already
+        firebaseAuth.createUserWithEmailAndPassword(username, password).addOnCompleteListener(task -> {
+            if (!task.isSuccessful())
+            {
+                if (task.getException() instanceof com.google.firebase.auth.FirebaseAuthUserCollisionException)
+                    // TODO: We have log in if account exists: firebaseAuth.signInWithEmailAndPassword()
+                    // TODO: And better to log in first, before creation attempt
+                    Toast.makeText(app, "Такой пользователь уже есть", Toast.LENGTH_SHORT).show();
+                else
+                    Toast.makeText(app, coreFW.getString(R.string.txtInvalidInputToast), Toast.LENGTH_SHORT).show();
+
+                return;
             }
+
+            Toast.makeText(app, coreFW.getString(R.string.txtYouAreLoggedToast) + " " + username, Toast.LENGTH_SHORT).show();
         });
 
-        Log.d("", "User: " + fieldName.getText() + ", pass: " + fieldPassword.getText());
         this.setVisibility(View.GONE);
     }
 }

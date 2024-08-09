@@ -15,7 +15,8 @@ public class Main extends CoreFW
     public SceneFW getStartScene()
     {
         loading = new Loading(this, this.getGraphicsFW());
-        save.load(getSharedPreferences());
+        save.loadDistance(getSharedPreferences());
+        save.loadLogoPass(getSharedPreferences());
         return MainMenu.createInstance(this, save);
     }
 }

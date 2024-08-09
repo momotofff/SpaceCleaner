@@ -59,7 +59,7 @@ public class MainMenu extends SceneFW
         layout.addView(coreFW.getLoopFW());
         coreFW.setContentView(layout);
 
-        registrationWindow = new RegistrationWindow(coreFW);
+        registrationWindow = new RegistrationWindow(coreFW, save);
         layout.addView(registrationWindow);
 
         // R-M-7427752-1

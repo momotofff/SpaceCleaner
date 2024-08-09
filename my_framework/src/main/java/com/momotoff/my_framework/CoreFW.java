@@ -24,6 +24,7 @@ public class CoreFW extends AppCompatActivity
     private SoundFW soundFW;
 
     private SharedPreferences sharedPreferences;
+
     private final String SETTINGS = "Settings";
 
     public final PointF scale = new PointF();

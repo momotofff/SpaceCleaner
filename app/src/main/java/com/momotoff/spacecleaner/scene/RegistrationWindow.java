@@ -17,10 +17,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.momotoff.my_framework.CoreFW;
 import com.momotoff.spacecleaner.R;
+import com.momotoff.spacecleaner.utilities.Save;
 
 public class RegistrationWindow extends LinearLayout
 {
     private CoreFW coreFW;
+    private Save save;
     private EditText fieldName;
     private EditText fieldPassword;
 
@@ -28,10 +30,12 @@ public class RegistrationWindow extends LinearLayout
     private DatabaseReference ref;
     private FirebaseDatabase database;
 
-    public RegistrationWindow(CoreFW coreFW)
+
+    public RegistrationWindow(CoreFW coreFW, Save save)
     {
         super(coreFW.getApplication());
         this.coreFW = coreFW;
+        this.save = save;
         firebaseAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
         ref = database.getReference();
@@ -45,6 +49,9 @@ public class RegistrationWindow extends LinearLayout
 
     private void initialize()
     {
+        if (checkInitialize(save))
+            return;
+
         LinearLayout.LayoutParams windowParam = new LinearLayout.LayoutParams(coreFW.getDisplaySize().x / 2, WindowManager.LayoutParams.WRAP_CONTENT);
         windowParam.setMargins(20,20,20,20);
 
@@ -80,6 +87,16 @@ public class RegistrationWindow extends LinearLayout
         this.setGravity(Gravity.CENTER);
         this.addView(window);
     }
+    private boolean checkInitialize(Save save)
+    {
+        if (save.getLogoPass() != null)
+        {
+            Application app = coreFW.getApplication();
+            Toast.makeText(app, coreFW.getString(R.string.txtYouAreLoggedToast) + " " + save.getLogoPass().get("login"), Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        return false;
+    }
 
     private void onNextClick()
     {
@@ -94,7 +111,6 @@ public class RegistrationWindow extends LinearLayout
         String username = fieldName.getText().toString();
         String password = fieldPassword.getText().toString();
 
-        // TODO: We have to check if we are logged in already
         firebaseAuth.createUserWithEmailAndPassword(username, password).addOnCompleteListener(task -> {
             if (!task.isSuccessful())
             {
@@ -109,6 +125,8 @@ public class RegistrationWindow extends LinearLayout
             }
 
             Toast.makeText(app, coreFW.getString(R.string.txtYouAreLoggedToast) + " " + username, Toast.LENGTH_SHORT).show();
+            save.setLogoPass(username, password);
+            save.save(coreFW.getSharedPreferences());
         });
 
         this.setVisibility(View.GONE);

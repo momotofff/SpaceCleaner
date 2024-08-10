@@ -15,7 +15,6 @@ import java.util.Map;
 public class Save implements Serializable
 {
     private int[] distance = {0, 0, 0, 0, 0};
-    private Map<String, String> logoPass = null;
 
     public Save(int[] distance)
     {
@@ -36,18 +35,6 @@ public class Save implements Serializable
                 distance[i] = number;
             }
         }
-    }
-
-    public void setLogoPass(String login, String password)
-    {
-        logoPass = new HashMap<>();
-        logoPass.put("login", login);
-        logoPass.put("password", password);
-    }
-
-    public Map<String, String> getLogoPass()
-    {
-        return logoPass;
     }
 
     public void save(SharedPreferences preferences)
@@ -83,23 +70,6 @@ public class Save implements Serializable
         {
             ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(data));
             this.distance = ((Save) ois.readObject()).distance;
-            ois.close();
-        }
-        catch (Exception e)
-        {
-            Log.w(this.getClass().getSimpleName(), "Error while deserializing save data. Exception says: " + e.getMessage());
-        }
-    }
-
-    public void loadLogoPass(SharedPreferences preferences)
-    {
-        String serialized = preferences.getString(this.getClass().getSimpleName(), "");
-        byte[] data = Base64.getDecoder().decode(serialized);
-
-        try
-        {
-            ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(data));
-            this.logoPass = ((Save) ois.readObject()).logoPass;
             ois.close();
         }
         catch (Exception e)

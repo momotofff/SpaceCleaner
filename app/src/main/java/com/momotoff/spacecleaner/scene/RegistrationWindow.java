@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.momotoff.my_framework.CoreFW;
@@ -22,7 +23,6 @@ import com.momotoff.spacecleaner.utilities.Save;
 public class RegistrationWindow extends LinearLayout
 {
     private CoreFW coreFW;
-    private Save save;
     private EditText fieldName;
     private EditText fieldPassword;
 
@@ -30,12 +30,11 @@ public class RegistrationWindow extends LinearLayout
     private DatabaseReference ref;
     private FirebaseDatabase database;
 
-
-    public RegistrationWindow(CoreFW coreFW, Save save)
+    public RegistrationWindow(CoreFW coreFW)
     {
         super(coreFW.getApplication());
+
         this.coreFW = coreFW;
-        this.save = save;
         firebaseAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
         ref = database.getReference();
@@ -49,7 +48,7 @@ public class RegistrationWindow extends LinearLayout
 
     private void initialize()
     {
-        if (checkInitialize(save))
+        if (isLoggedIn())
             return;
 
         LinearLayout.LayoutParams windowParam = new LinearLayout.LayoutParams(coreFW.getDisplaySize().x / 2, WindowManager.LayoutParams.WRAP_CONTENT);
@@ -87,15 +86,16 @@ public class RegistrationWindow extends LinearLayout
         this.setGravity(Gravity.CENTER);
         this.addView(window);
     }
-    private boolean checkInitialize(Save save)
+
+    private boolean isLoggedIn()
     {
-        if (save.getLogoPass() != null)
-        {
-            Application app = coreFW.getApplication();
-            Toast.makeText(app, coreFW.getString(R.string.txtYouAreLoggedToast) + " " + save.getLogoPass().get("login"), Toast.LENGTH_SHORT).show();
-            return true;
-        }
-        return false;
+        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+        if (currentUser == null)
+            return false;
+
+        Application app = coreFW.getApplication();
+        Toast.makeText(app, coreFW.getString(R.string.txtYouAreLoggedToast) + " " + currentUser.getEmail(), Toast.LENGTH_SHORT).show();
+        return true;
     }
 
     private void onNextClick()
@@ -125,8 +125,6 @@ public class RegistrationWindow extends LinearLayout
             }
 
             Toast.makeText(app, coreFW.getString(R.string.txtYouAreLoggedToast) + " " + username, Toast.LENGTH_SHORT).show();
-            save.setLogoPass(username, password);
-            save.save(coreFW.getSharedPreferences());
         });
 
         this.setVisibility(View.GONE);

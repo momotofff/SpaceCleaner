@@ -34,6 +34,7 @@ public class WorldRating extends SceneFW
         for (int i = 0; i < Numbers.length; ++i)
         {
             String text = String.format(Locale.getDefault(), "%d. %d", i + 1, save.getDistance()[i]);
+
             this.Numbers[i] = new StaticTextFW(text, new Point(position), Color.WHITE, 50);
             position.y += RESULT_STEP_Y;
         }

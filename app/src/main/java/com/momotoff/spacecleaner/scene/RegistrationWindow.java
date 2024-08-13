@@ -11,7 +11,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -20,24 +19,29 @@ import com.momotoff.my_framework.CoreFW;
 import com.momotoff.spacecleaner.R;
 import com.momotoff.spacecleaner.utilities.Save;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class RegistrationWindow extends LinearLayout
 {
     private CoreFW coreFW;
     private EditText fieldName;
     private EditText fieldPassword;
+    private Save save;
 
-    private FirebaseAuth firebaseAuth;
-    private DatabaseReference ref;
+    private FirebaseAuth mAuth;
+    private DatabaseReference databaseReferencere;
     private FirebaseDatabase database;
 
-    public RegistrationWindow(CoreFW coreFW)
+    public RegistrationWindow(CoreFW coreFW, Save save)
     {
         super(coreFW.getApplication());
 
         this.coreFW = coreFW;
-        firebaseAuth = FirebaseAuth.getInstance();
+        this.save = save;
+        mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
-        ref = database.getReference();
+        databaseReferencere = database.getReference();
         initialize();
     }
 
@@ -89,7 +93,7 @@ public class RegistrationWindow extends LinearLayout
 
     private boolean isLoggedIn()
     {
-        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser == null)
             return false;
 
@@ -111,7 +115,9 @@ public class RegistrationWindow extends LinearLayout
         String username = fieldName.getText().toString();
         String password = fieldPassword.getText().toString();
 
-        firebaseAuth.createUserWithEmailAndPassword(username, password).addOnCompleteListener(task -> {
+
+
+        mAuth.createUserWithEmailAndPassword(username, password).addOnCompleteListener(task -> {
             if (!task.isSuccessful())
             {
                 if (task.getException() instanceof com.google.firebase.auth.FirebaseAuthUserCollisionException)
@@ -123,6 +129,9 @@ public class RegistrationWindow extends LinearLayout
 
                 return;
             }
+
+            databaseReferencere.child("Users").child(mAuth.getCurrentUser().getUid()).child("Email").setValue(username);
+            databaseReferencere.child("Users").child(mAuth.getCurrentUser().getUid()).child("Result").setValue(save.getDistance()[0]);
 
             Toast.makeText(app, coreFW.getString(R.string.txtYouAreLoggedToast) + " " + username, Toast.LENGTH_SHORT).show();
         });

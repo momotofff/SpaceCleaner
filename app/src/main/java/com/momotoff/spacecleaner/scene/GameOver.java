@@ -3,10 +3,12 @@ package com.momotoff.spacecleaner.scene;
 import android.graphics.Color;
 import android.graphics.Point;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.momotoff.my_framework.CoreFW;
 import com.momotoff.my_framework.SceneFW;
 import com.momotoff.my_framework.StaticTextFW;
-import com.momotoff.spacecleaner.Main;
 import com.momotoff.spacecleaner.R;
 import com.momotoff.spacecleaner.classes.Manager;
 import com.momotoff.spacecleaner.utilities.Save;
@@ -19,6 +21,8 @@ public class GameOver extends SceneFW
 
     private Manager manager;
     private Save save;
+    private DatabaseReference databaseReference;
+    private FirebaseAuth mAuth;
 
     public GameOver(CoreFW coreFW, Manager manager, Save save)
     {
@@ -28,6 +32,9 @@ public class GameOver extends SceneFW
 
         coreFW.getBackgroundAudioFW().setTrack(com.momotoff.my_framework.R.raw.game_over);
         coreFW.getBackgroundAudioFW().start();
+        mAuth = FirebaseAuth.getInstance();
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+        databaseReference.child("Users").child(mAuth.getCurrentUser().getUid()).child("Result").setValue(save.getDistance()[0]);
     }
 
     @Override

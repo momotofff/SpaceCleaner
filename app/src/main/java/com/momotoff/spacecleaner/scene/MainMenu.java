@@ -60,7 +60,7 @@ public class MainMenu extends SceneFW
         coreFW.setContentView(layout);
 
         // TODO: Add logout button
-        registrationWindow = new RegistrationWindow(coreFW);
+        registrationWindow = new RegistrationWindow(coreFW, save);
         layout.addView(registrationWindow);
 
         // R-M-7427752-1

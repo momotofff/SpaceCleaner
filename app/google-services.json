@@ -1,13 +1,14 @@
 {
   "project_info": {
-    "project_number": "1027702504829",
-    "project_id": "spacecleanerbase",
-    "storage_bucket": "spacecleanerbase.appspot.com"
+    "project_number": "872363124195",
+    "firebase_url": "https://spacecleaner-c61d3-default-rtdb.firebaseio.com",
+    "project_id": "spacecleaner-c61d3",
+    "storage_bucket": "spacecleaner-c61d3.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1027702504829:android:478f0b724abef89c6ce014",
+        "mobilesdk_app_id": "1:872363124195:android:bd1374c803ea0662d2acd6",
         "android_client_info": {
           "package_name": "com.momotoff.spacecleaner"
         }
@@ -15,7 +16,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBDjYZl7wc-BexMIQNFQi9_TjluHa1E8Zc"
+          "current_key": "AIzaSyD7gy0KBY0d6DXTk9RP339I8FK-W_l5ZL4"
         }
       ],
       "services": {

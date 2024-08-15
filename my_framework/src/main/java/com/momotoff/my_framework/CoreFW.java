@@ -14,7 +14,7 @@ import androidx.core.content.res.ResourcesCompat;
 
 public class CoreFW extends AppCompatActivity
 {
-    private final Point FRAME_BUFFER = new Point(1280, 720);
+    private final Point FRAME_BUFFER = new Point(1024, 720);
 
     private LoopFW loopFW;
     private GraphicsFW graphicsFW;

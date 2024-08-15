@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.graphics.Point;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.momotoff.my_framework.CoreFW;
@@ -34,7 +35,13 @@ public class GameOver extends SceneFW
         coreFW.getBackgroundAudioFW().start();
         mAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference();
-        databaseReference.child("Users").child(mAuth.getCurrentUser().getUid()).child("Result").setValue(save.getDistance()[0]);
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        if (currentUser != null)
+        {
+            databaseReference.child("Users").child(currentUser.getUid()).child("Email").setValue(currentUser.getEmail());
+            databaseReference.child("Users").child(currentUser.getUid()).child("Result").setValue(save.getDistance()[0]);
+        }
     }
 
     @Override

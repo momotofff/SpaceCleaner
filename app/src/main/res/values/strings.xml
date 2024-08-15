@@ -32,8 +32,10 @@
     //Registration window
     <string name="txtUserName">Имя пользователя</string>
     <string name="txtPassword">Пароль</string>
-    <string name="txtNext">Далее</string>
+    <string name="txtSingIn">Войти</string>
+    <string name="txtSingUp">Зарегистрироваться</string>
     <string name="txtFillToast">Заполните поля</string>
     <string name="txtInvalidInputToast">Некорректный ввод</string>
+    <string name="txtUserCollision">Такой пользователь уже есть</string>
     <string name="txtYouAreLoggedToast">Вы вошли под именем </string>
 </resources>

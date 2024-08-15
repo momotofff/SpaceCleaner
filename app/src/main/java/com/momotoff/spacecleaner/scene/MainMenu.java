@@ -59,13 +59,13 @@ public class MainMenu extends SceneFW
         layout.addView(coreFW.getLoopFW());
         coreFW.setContentView(layout);
 
-        // TODO: Add logout button
-        registrationWindow = new RegistrationWindow(coreFW, save);
-        layout.addView(registrationWindow);
-
         // R-M-7427752-1
         adBanner = new BannerAdvertising(coreFW, "demo-banner-yandex");
         layout.addView(adBanner.banner, coreFW.getDisplaySize().x, coreFW.getDisplaySize().y * 2 - 160);
+
+        // TODO: Add logout button
+        registrationWindow = new RegistrationWindow(coreFW, save);
+        layout.addView(registrationWindow);
 
         coreFW.setContentView(layout);
     }

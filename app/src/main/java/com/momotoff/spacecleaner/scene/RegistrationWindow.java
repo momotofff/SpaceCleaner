@@ -3,6 +3,7 @@ package com.momotoff.spacecleaner.scene;
 import android.app.Application;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
@@ -11,6 +12,12 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -30,7 +37,7 @@ public class RegistrationWindow extends LinearLayout
     private Save save;
 
     private FirebaseAuth mAuth;
-    private DatabaseReference databaseReferencere;
+    private DatabaseReference databaseReference;
     private FirebaseDatabase database;
 
     public RegistrationWindow(CoreFW coreFW, Save save)
@@ -41,7 +48,7 @@ public class RegistrationWindow extends LinearLayout
         this.save = save;
         mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
-        databaseReferencere = database.getReference();
+        databaseReference = database.getReference();
         initialize();
     }
 
@@ -55,8 +62,8 @@ public class RegistrationWindow extends LinearLayout
         if (isLoggedIn())
             return;
 
-        LinearLayout.LayoutParams windowParam = new LinearLayout.LayoutParams(coreFW.getDisplaySize().x / 2, WindowManager.LayoutParams.WRAP_CONTENT);
-        windowParam.setMargins(20,20,20,20);
+        LinearLayout.LayoutParams windowParam = new LinearLayout.LayoutParams((coreFW.getDisplaySize().x / 2), WindowManager.LayoutParams.WRAP_CONTENT);
+        windowParam.setMargins(10,10,10,10);
 
         LinearLayout window = new LinearLayout(coreFW.getApplication());
         window.setBackgroundColor(Color.WHITE);
@@ -80,11 +87,17 @@ public class RegistrationWindow extends LinearLayout
         fieldPassword.setLayoutParams(windowParam);
         window.addView(fieldPassword);
 
-        Button buttonNext = new Button(coreFW.getApplication());
-        buttonNext.setText(coreFW.getString(R.string.txtNext));
-        buttonNext.setLayoutParams(windowParam);
-        buttonNext.setOnClickListener((View view) -> onNextClick());
-        window.addView(buttonNext);
+        Button buttonSingIn = new Button(coreFW.getApplication());
+        buttonSingIn.setText(coreFW.getString(R.string.txtSingIn));
+        buttonSingIn.setLayoutParams(windowParam);
+        buttonSingIn.setOnClickListener((View view) -> singInAccount(fieldName.getText().toString(), fieldPassword.getText().toString()));
+        window.addView(buttonSingIn);
+
+        Button buttonSingUp = new Button(coreFW.getApplication());
+        buttonSingUp.setText(coreFW.getString(R.string.txtSingUp));
+        buttonSingUp.setLayoutParams(windowParam);
+        buttonSingUp.setOnClickListener((View view) -> singUpAccount(fieldName.getText().toString(), fieldPassword.getText().toString()));
+        window.addView(buttonSingUp);
 
         this.setLayoutParams(new LinearLayout.LayoutParams(coreFW.getDisplaySize().x, coreFW.getDisplaySize().y));
         this.setGravity(Gravity.CENTER);
@@ -99,10 +112,13 @@ public class RegistrationWindow extends LinearLayout
 
         Application app = coreFW.getApplication();
         Toast.makeText(app, coreFW.getString(R.string.txtYouAreLoggedToast) + " " + currentUser.getEmail(), Toast.LENGTH_SHORT).show();
+
+        databaseReference.child("Users").child(currentUser.getUid()).child("Email").setValue(currentUser.getEmail());
+        databaseReference.child("Users").child(currentUser.getUid()).child("Result").setValue(save.getDistance()[0]);
         return true;
     }
 
-    private void onNextClick()
+    private void singUpAccount(String email, String password)
     {
         Application app = coreFW.getApplication();
 
@@ -112,30 +128,45 @@ public class RegistrationWindow extends LinearLayout
             return;
         }
 
-        String username = fieldName.getText().toString();
-        String password = fieldPassword.getText().toString();
-
-
-
-        mAuth.createUserWithEmailAndPassword(username, password).addOnCompleteListener(task -> {
+        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
             if (!task.isSuccessful())
             {
                 if (task.getException() instanceof com.google.firebase.auth.FirebaseAuthUserCollisionException)
-                    // TODO: We have log in if account exists: firebaseAuth.signInWithEmailAndPassword()
-                    // TODO: And better to log in first, before creation attempt
-                    Toast.makeText(app, "Такой пользователь уже есть", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(app, coreFW.getString(R.string.txtUserCollision), Toast.LENGTH_SHORT).show();
                 else
                     Toast.makeText(app, coreFW.getString(R.string.txtInvalidInputToast), Toast.LENGTH_SHORT).show();
 
                 return;
             }
 
-            databaseReferencere.child("Users").child(mAuth.getCurrentUser().getUid()).child("Email").setValue(username);
-            databaseReferencere.child("Users").child(mAuth.getCurrentUser().getUid()).child("Result").setValue(save.getDistance()[0]);
-
-            Toast.makeText(app, coreFW.getString(R.string.txtYouAreLoggedToast) + " " + username, Toast.LENGTH_SHORT).show();
+            Toast.makeText(app, coreFW.getString(R.string.txtYouAreLoggedToast) + " " + email, Toast.LENGTH_SHORT).show();
+            databaseReference.child("Users").child(task.getResult().getUser().getUid()).child("Email").setValue(email);
+            databaseReference.child("Users").child(task.getResult().getUser().getUid()).child("Result").setValue(save.getDistance()[0]);
+            this.setVisibility(View.GONE);
         });
+    }
 
-        this.setVisibility(View.GONE);
+    private void singInAccount(String email, String password)
+    {
+        Application app = coreFW.getApplication();
+
+        if (fieldName.getText().toString().isEmpty() || fieldPassword.getText().toString().isEmpty())
+        {
+            Toast.makeText(app, coreFW.getString(R.string.txtFillToast), Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
+            if (!task.isSuccessful())
+            {
+                Toast.makeText(app, coreFW.getString(R.string.txtInvalidInputToast), Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            Toast.makeText(app, coreFW.getString(R.string.txtYouAreLoggedToast) + " " + email, Toast.LENGTH_SHORT).show();
+            databaseReference.child("Users").child(task.getResult().getUser().getUid()).child("Email").setValue(email);
+            databaseReference.child("Users").child(task.getResult().getUser().getUid()).child("Result").setValue(save.getDistance()[0]);
+            this.setVisibility(View.GONE);
+        });
     }
 }

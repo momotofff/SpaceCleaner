@@ -12,6 +12,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.FirebaseDatabaseKtxRegistrar;
 import com.google.firebase.database.ValueEventListener;
 
 import com.momotoff.my_framework.CoreFW;
@@ -28,6 +29,7 @@ import java.util.Map;
 public class WorldRating extends SceneFW
 {
     private final StaticTextFW[] Numbers = new StaticTextFW[5];
+    private final StaticTextFW[] Users = new StaticTextFW[5];
     private final StaticTextFW WorldRating = new StaticTextFW(coreFW.getString(R.string.txtWorldRating), new Point(50, 100), Color.WHITE, 100);
     private final StaticTextFW LocalRating = new StaticTextFW(coreFW.getString(R.string.txtLocalRating), new Point(400, 580), Color.WHITE, 70);
     private final StaticTextFW Back = new StaticTextFW(coreFW.getString(R.string.txtBack), new Point(50, 580), Color.WHITE, 70);
@@ -48,26 +50,25 @@ public class WorldRating extends SceneFW
 
         Point position = new Point(WorldRating.position.x, RESULT_START_Y);
 
-
-        ValueEventListener postListener = new ValueEventListener()
+        databaseReference = FirebaseDatabase.getInstance().getReference("Users");
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener()
         {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot)
             {
-                Post post = snapshot.getValue(Post.class);
-                Map<String, Object> map = post.toMap();
-
-                System.out.println(map.getClass());
+                int i = 0;
+                for (DataSnapshot dataSnapshot : snapshot.getChildren())
+                {
+                    Users[i] = new StaticTextFW(dataSnapshot.child("Result").getValue().toString(), new Point(position), Color.WHITE, 50);
+                    position.y += RESULT_STEP_Y;
+                    ++i;
+                }
             }
-
             @Override
-            public void onCancelled(@NonNull DatabaseError error)
-            {
-                Log.w(TAG, "loadPost:onCancelled", error.toException());
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.d("myDebug", "onCancelled: ");
             }
-        };
-
-        databaseReference.addValueEventListener(postListener);
+        });
 
 
         for (int i = 0; i < Numbers.length; ++i)
@@ -77,6 +78,8 @@ public class WorldRating extends SceneFW
             this.Numbers[i] = new StaticTextFW(text, new Point(position), Color.WHITE, 50);
             position.y += RESULT_STEP_Y;
         }
+
+
     }
 
     @Override
@@ -105,7 +108,7 @@ public class WorldRating extends SceneFW
         graphicsFW.drawText(Back);
         graphicsFW.drawText(LocalRating);
 
-        for (StaticTextFW number: Numbers)
+        for (StaticTextFW number: Users)
             graphicsFW.drawText(number);
     }
 }

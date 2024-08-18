@@ -1,11 +1,20 @@
 package com.momotoff.spacecleaner.classes;
 
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.Rect;
+import android.util.Log;
 
+import androidx.annotation.NonNull;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.momotoff.my_framework.CoreFW;
 import com.momotoff.my_framework.GraphicsFW;
+import com.momotoff.my_framework.StaticTextFW;
 import com.momotoff.spacecleaner.R;
 import com.momotoff.spacecleaner.utilities.Resource;
 
@@ -15,11 +24,11 @@ public class Loading
 {
     private final Point SPRITE_SIZE = new Point(128, 64);
 
-    public Loading(CoreFW coreFW, GraphicsFW graphicsFW) {
+    public Loading(CoreFW coreFW, GraphicsFW graphicsFW)
+    {
         loadTexture(graphicsFW);
         loadSprite(graphicsFW);
         loadSounds(coreFW);
-        loadSettings();
     }
 
     private void loadSprite(GraphicsFW graphicsFW)
@@ -62,10 +71,5 @@ public class Loading
         Resource.textureAtlas = graphicsFW.newTexture("textureAtlas.png");
         Resource.menuImage = graphicsFW.newTexture("menuImage.jpg");
         Resource.starSky = graphicsFW.newTexture("starSky.jpg");
-    }
-
-    private void loadSettings()
-    {
-
     }
 }

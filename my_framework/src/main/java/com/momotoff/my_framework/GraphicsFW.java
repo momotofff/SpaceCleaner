@@ -66,17 +66,6 @@ public class GraphicsFW
         canvas.drawBitmap(bitmap, position.x, position.y, null);
     }
 
-    public void drawWindow(Point position)
-    {
-        //основное окно
-        canvas.drawRect(position.x, position.y, position.x + 500, position.y + 400, paint);
-        //поле NAME
-        canvas.drawRect(position.x, position.y, position.x + 500, position.y + 400, paint);
-        //canvas.drawText();
-        //поле PASSWORD
-        canvas.drawRect(position.x, position.y, position.x + 500, position.y + 400, paint);
-    }
-
     public int getFrameBufferWidth()
     {
         return frameBuffer.getWidth();

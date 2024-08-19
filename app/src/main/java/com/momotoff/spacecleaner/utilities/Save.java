@@ -26,9 +26,9 @@ public class Save implements Serializable
 {
     private int[] distance = {0, 0, 0, 0, 0};
 
-    private Map<String, Integer> worldRating = new HashMap<>();
-    private Map<String, Integer> map = new HashMap<>();
-    private DatabaseReference databaseReference;
+    //private Map<String, Integer> worldRating = new HashMap<>();
+    //private Map<String, Integer> map = new HashMap<>();
+    //private DatabaseReference databaseReference;
 
     public Save(int[] distance)
     {
@@ -37,11 +37,8 @@ public class Save implements Serializable
 
     public Save()
     {
-        synchronized (worldRating)
-        {
-            loadBase();
-            worldRating = sortByValue(map);
-        }
+        //loadBase();
+        //worldRating = sortByValue(map);
     }
 
     public void addDistance(int value)
@@ -101,7 +98,7 @@ public class Save implements Serializable
 
     public int[] getDistance() { return distance; }
 
-    private void loadBase()
+    /*private void loadBase()
     {
         databaseReference = FirebaseDatabase.getInstance().getReference("Users");
 
@@ -140,5 +137,5 @@ public class Save implements Serializable
 
     public Map<String, Integer> getWorldRating() {
         return worldRating;
-    }
+    }*/
 }

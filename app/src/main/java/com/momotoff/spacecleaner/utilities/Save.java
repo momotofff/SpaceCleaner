@@ -97,45 +97,4 @@ public class Save implements Serializable
     }
 
     public int[] getDistance() { return distance; }
-
-    /*private void loadBase()
-    {
-        databaseReference = FirebaseDatabase.getInstance().getReference("Users");
-
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener()
-        {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot)
-            {
-                for (DataSnapshot dataSnapshot : snapshot.getChildren())
-                {
-                    String str = dataSnapshot.child("Email").getValue().toString();
-                    String email = str.replace("@", "");
-                    int result = Integer.parseInt(dataSnapshot.child("Result").getValue().toString());
-
-                    map.put(email, result);
-                }
-
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.d("myDebug", "onCancelled: ");
-            }
-        });
-    }
-
-    private static <K, V extends Comparable<? super V>> Map<K, V> sortByValue( Map<K, V> map )
-    {
-        Map<K,V> result = new LinkedHashMap<>();
-        Stream<Map.Entry<K,V>> st = map.entrySet().stream();
-
-        st.sorted(Comparator.comparing(e -> e.getValue()))
-                .forEach(e -> result.put(e.getKey(),e.getValue()));
-
-        return result;
-    }
-
-    public Map<String, Integer> getWorldRating() {
-        return worldRating;
-    }*/
 }

@@ -2,22 +2,20 @@ package com.momotoff.spacecleaner.scene;
 
 import android.graphics.Color;
 import android.graphics.Point;
-
 import com.momotoff.my_framework.CoreFW;
 import com.momotoff.my_framework.SceneFW;
 import com.momotoff.my_framework.StaticTextFW;
 import com.momotoff.spacecleaner.R;
 import com.momotoff.spacecleaner.utilities.Resource;
 import com.momotoff.spacecleaner.utilities.Save;
-
 import java.util.Locale;
 
 public class LocalRating extends SceneFW
 {
-    private final StaticTextFW[] Numbers = new StaticTextFW[5];
-    private final StaticTextFW LocalRating = new StaticTextFW(coreFW.getString(R.string.txtLocalRating), new Point(50, 100), Color.WHITE, 100);
-    private final StaticTextFW WorldRating = new StaticTextFW(coreFW.getString(R.string.txtWorldRating), new Point(400, 580), Color.WHITE, 70);
-    private final StaticTextFW Back = new StaticTextFW(coreFW.getString(R.string.txtBack), new Point(50, 580), Color.WHITE, 70);
+    private final StaticTextFW[] numbers = new StaticTextFW[5];
+    private final StaticTextFW localRating = new StaticTextFW(coreFW.getString(R.string.txtLocalRating), new Point(50, 100), Color.WHITE, 100);
+    private final StaticTextFW worldRating = new StaticTextFW(coreFW.getString(R.string.txtWorldRating), new Point(400, 580), Color.WHITE, 70);
+    private final StaticTextFW back = new StaticTextFW(coreFW.getString(R.string.txtBack), new Point(50, 580), Color.WHITE, 70);
 
     private Save save;
 
@@ -29,12 +27,12 @@ public class LocalRating extends SceneFW
         final int RESULT_START_Y = 200;
         final int RESULT_STEP_Y = 70;
 
-        Point position = new Point(LocalRating.position.x, RESULT_START_Y);
+        Point position = new Point(localRating.position.x, RESULT_START_Y);
 
-        for (int i = 0; i < Numbers.length; ++i)
+        for (int i = 0; i < numbers.length; ++i)
         {
             String text = String.format(Locale.getDefault(), "%d. %d", i + 1, save.getDistance()[i]);
-            this.Numbers[i] = new StaticTextFW(text, new Point(position), Color.WHITE, 50);
+            this.numbers[i] = new StaticTextFW(text, new Point(position), Color.WHITE, 50);
             position.y += RESULT_STEP_Y;
         }
     }
@@ -42,14 +40,14 @@ public class LocalRating extends SceneFW
     @Override
     public void update()
     {
-        if (coreFW.getTouchListenerFW().getTouchUp(Back.getTouchArea(graphicsFW)))
+        if (coreFW.getTouchListenerFW().getTouchUp(back.getTouchArea(graphicsFW)))
         {
             coreFW.getSoundFW().start(R.raw.tap);
             coreFW.getBackgroundAudioFW().stop();
             coreFW.setScene(MainMenu.getInstance());
         }
 
-        if (coreFW.getTouchListenerFW().getTouchUp(WorldRating.getTouchArea(graphicsFW)))
+        if (coreFW.getTouchListenerFW().getTouchUp(worldRating.getTouchArea(graphicsFW)))
         {
             coreFW.getSoundFW().start(R.raw.tap);
             coreFW.getBackgroundAudioFW().stop();
@@ -61,11 +59,11 @@ public class LocalRating extends SceneFW
     public void drawing()
     {
         graphicsFW.drawTexture(Resource.menuImage, new Point(0, 0));
-        graphicsFW.drawText(LocalRating);
-        graphicsFW.drawText(Back);
-        graphicsFW.drawText(WorldRating);
+        graphicsFW.drawText(localRating);
+        graphicsFW.drawText(back);
+        graphicsFW.drawText(worldRating);
 
-        for (StaticTextFW number: Numbers)
+        for (StaticTextFW number: numbers)
             graphicsFW.drawText(number);
     }
 }

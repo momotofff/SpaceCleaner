@@ -105,6 +105,7 @@ public class MainMenu extends SceneFW
         if (coreFW.getTouchListenerFW().getTouchUp(MenuSettings.getTouchArea(graphicsFW)))
         {
             coreFW.getSoundFW().start(R.raw.tap);
+            coreFW.setScene(new Settings(coreFW));
         }
     }
 

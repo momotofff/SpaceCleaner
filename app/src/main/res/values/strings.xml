@@ -38,4 +38,7 @@
     <string name="txtInvalidInputToast">Некорректный ввод</string>
     <string name="txtUserCollision">Такой пользователь уже есть</string>
     <string name="txtYouAreLoggedToast">Вы вошли под именем </string>
+    <string name="txtDeleteAccount">Удалить аккаунт</string>
+    <string name="txtSingOut">Выйти из аккаунта</string>
+
 </resources>

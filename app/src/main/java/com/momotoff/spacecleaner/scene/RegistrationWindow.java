@@ -3,7 +3,6 @@ package com.momotoff.spacecleaner.scene;
 import android.app.Application;
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.Point;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
@@ -12,12 +11,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import androidx.annotation.NonNull;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -25,9 +18,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.momotoff.my_framework.CoreFW;
 import com.momotoff.spacecleaner.R;
 import com.momotoff.spacecleaner.utilities.Save;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class RegistrationWindow extends LinearLayout
 {

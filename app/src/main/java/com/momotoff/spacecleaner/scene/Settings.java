@@ -43,7 +43,6 @@ public class Settings extends SceneFW
                 coreFW.getBackgroundAudioFW().stop();
 
                 FirebaseAuth.getInstance().signOut();
-                Toast.makeText(coreFW.getApplication(), coreFW.getString(R.string.txtSingOut), Toast.LENGTH_SHORT).show();
             }
 
             if (coreFW.getTouchListenerFW().getTouchUp(deleteAccount.getTouchArea(graphicsFW)))
@@ -55,13 +54,14 @@ public class Settings extends SceneFW
                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
+                                if (task.isSuccessful())
+                                {
                                     Log.d(TAG, "User account deleted.");
                                 }
                             }
                         });
 
-                Toast.makeText(coreFW.getApplication(), coreFW.getString(R.string.txtDeleteAccount), Toast.LENGTH_SHORT).show();
+
             }
         }
 

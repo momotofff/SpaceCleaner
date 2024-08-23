@@ -63,7 +63,6 @@ public class MainMenu extends SceneFW
         adBanner = new BannerAdvertising(coreFW, "demo-banner-yandex");
         layout.addView(adBanner.banner, coreFW.getDisplaySize().x, coreFW.getDisplaySize().y * 2 - 160);
 
-        // TODO: Add logout button
         registrationWindow = new RegistrationWindow(coreFW, save);
         layout.addView(registrationWindow);
 

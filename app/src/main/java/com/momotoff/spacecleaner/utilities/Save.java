@@ -2,13 +2,6 @@ package com.momotoff.spacecleaner.utilities;
 
 import android.content.SharedPreferences;
 import android.util.Log;
-import androidx.annotation.NonNull;
-
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -16,19 +9,10 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.Base64;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.stream.Stream;
 
 public class Save implements Serializable
 {
     private int[] distance = {0, 0, 0, 0, 0};
-
-    //private Map<String, Integer> worldRating = new HashMap<>();
-    //private Map<String, Integer> map = new HashMap<>();
-    //private DatabaseReference databaseReference;
 
     public Save(int[] distance)
     {
@@ -37,8 +21,6 @@ public class Save implements Serializable
 
     public Save()
     {
-        //loadBase();
-        //worldRating = sortByValue(map);
     }
 
     public void addDistance(int value)

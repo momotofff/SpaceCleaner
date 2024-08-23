@@ -28,7 +28,6 @@ public class RegistrationWindow extends LinearLayout
 
     private FirebaseAuth mAuth;
     private DatabaseReference databaseReference;
-    private FirebaseDatabase database;
 
     public RegistrationWindow(CoreFW coreFW, Save save)
     {
@@ -37,7 +36,7 @@ public class RegistrationWindow extends LinearLayout
         this.coreFW = coreFW;
         this.save = save;
         mAuth = FirebaseAuth.getInstance();
-        database = FirebaseDatabase.getInstance();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
         databaseReference = database.getReference();
         initialize();
     }

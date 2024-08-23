@@ -8,13 +8,12 @@ import com.momotoff.spacecleaner.utilities.Save;
 
 public class Main extends CoreFW
 {
-    private Loading loading;
     private final Save save = new Save();
 
     @Override
     public SceneFW getStartScene()
     {
-        loading = new Loading(this, this.getGraphicsFW());
+        Loading loading = new Loading(this, this.getGraphicsFW());
         save.loadDistance(getSharedPreferences());
         return MainMenu.createInstance(this, save);
     }

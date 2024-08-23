@@ -16,8 +16,8 @@ import com.momotoff.spacecleaner.utilities.Save;
 public class GameScene extends SceneFW
 {
     private GameState gameState;
-    private Manager manager;
-    private Save save;
+    private final Manager manager;
+    private final Save save;
     private final TimerDelay powerUpDelay = new TimerDelay();
 
     private final StaticTextFW Ready = new StaticTextFW(coreFW.getString(R.string.txtGameSceneReady), new Point(300,200), Color.WHITE, 100);

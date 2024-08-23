@@ -20,10 +20,8 @@ public class GameOver extends SceneFW
     private final StaticTextFW Restart = new StaticTextFW(coreFW.getString(R.string.txtRestart), new Point(300,350), Color.WHITE, 50);
     private final StaticTextFW ExitMenu = new StaticTextFW(coreFW.getString(R.string.txtExitMenu), new Point(300,450), Color.WHITE, 50);
 
-    private Manager manager;
-    private Save save;
-    private DatabaseReference databaseReference;
-    private FirebaseAuth mAuth;
+    private final Manager manager;
+    private final Save save;
 
     public GameOver(CoreFW coreFW, Manager manager, Save save)
     {
@@ -33,8 +31,8 @@ public class GameOver extends SceneFW
 
         coreFW.getBackgroundAudioFW().setTrack(com.momotoff.my_framework.R.raw.game_over);
         coreFW.getBackgroundAudioFW().start();
-        mAuth = FirebaseAuth.getInstance();
-        databaseReference = FirebaseDatabase.getInstance().getReference();
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
         if (currentUser != null)

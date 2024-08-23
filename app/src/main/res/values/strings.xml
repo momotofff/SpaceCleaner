@@ -39,6 +39,8 @@
     <string name="txtUserCollision">Такой пользователь уже есть</string>
     <string name="txtYouAreLoggedToast">Вы вошли под именем </string>
     <string name="txtDeleteAccount">Удалить аккаунт</string>
-    <string name="txtSingOut">Выйти из аккаунта</string>
-
+    <string name="txtSignOut">Выйти из аккаунта</string>
+    <string name="txtAccountDeleteSuccess">Аккаунт удалён</string>
+    <string name="txtAccountDeleteFailed">Не удалось удалить аккаунт</string>
+    <string name="txtSignOutSuccess">Вы вышли из аккаунта</string>
 </resources>

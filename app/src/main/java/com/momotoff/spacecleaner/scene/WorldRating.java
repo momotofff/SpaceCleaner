@@ -19,53 +19,56 @@ import com.momotoff.spacecleaner.utilities.Save;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
-public class WorldRating extends SceneFW
+public class WorldRating extends SceneFW implements ValueEventListener
 {
     private final StaticTextFW WorldRating = new StaticTextFW(coreFW.getString(R.string.txtWorldRating), new Point(50, 100), Color.WHITE, 100);
     private final StaticTextFW LocalRating = new StaticTextFW(coreFW.getString(R.string.txtLocalRating), new Point(400, 580), Color.WHITE, 70);
     private final StaticTextFW Back = new StaticTextFW(coreFW.getString(R.string.txtBack), new Point(50, 580), Color.WHITE, 70);
 
-    private FirebaseDatabase firebaseDatabase;
-    private DatabaseReference databaseReference;
-    private Save save;
-    private List<String> list = new ArrayList<>();
-    private List<StaticTextFW> worldRating = new ArrayList<>();
+    private final Save save;
+    private final List<StaticTextFW> worldRating = new ArrayList<>();
 
     public WorldRating(CoreFW coreFW, Save save)
     {
         super(coreFW);
-
         this.save = save;
 
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference("Users");
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference databaseReference = firebaseDatabase.getReference("Users");
         Query query = databaseReference.orderByChild("Result").limitToLast(5);
-        query.addListenerForSingleValueEvent(new ValueEventListener()
+        query.addListenerForSingleValueEvent(this);
+    }
+
+    @Override
+    public void onDataChange(@NonNull DataSnapshot snapshot)
+    {
+        List<String> list = new ArrayList<>();
+
+        for (DataSnapshot dataSnapshot : snapshot.getChildren())
         {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot)
-            {
-                for (DataSnapshot dataSnapshot : snapshot.getChildren())
-                {
-                    String email = dataSnapshot.child("Email").getValue().toString();
-                    String result = dataSnapshot.child("Result").getValue().toString();
+            String email = dataSnapshot.child("Email").getValue(String.class);
+            Long result = dataSnapshot.child("Result").getValue(Long.class);
+            list.add(String.format(Locale.getDefault(), "%s - %d", email, result));
+        }
 
-                    StringBuilder buffer = new StringBuilder();
-                    buffer.append(email);
-                    buffer.append(" - ");
-                    buffer.append(result);
-                    list.add(buffer.toString());
-                }
-                createWorldRating(list);
-            }
+        final int RESULT_START_Y = 200;
+        final int RESULT_STEP_Y = 70;
+        Point position = new Point(WorldRating.position.x, RESULT_START_Y);
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error)
-            {
-                Log.d("myDebug", "onCancelled: ");
-            }
-        });
+        for (int i = 1; i <= list.size(); ++i)
+        {
+            String text = String.format(Locale.getDefault(), "%d. %s", i, list.get(list.size() - i));
+            worldRating.add(new StaticTextFW(text, new Point(position), Color.WHITE, 50));
+            position.y += RESULT_STEP_Y;
+        }
+    }
+
+    @Override
+    public void onCancelled(@NonNull DatabaseError error)
+    {
+        Log.d("myDebug", "onCancelled: ");
     }
 
     @Override
@@ -96,21 +99,5 @@ public class WorldRating extends SceneFW
 
         for (StaticTextFW text: worldRating)
             graphicsFW.drawText(text);
-    }
-
-    private void createWorldRating(List<String> list)
-    {
-        final int RESULT_START_Y = 200;
-        final int RESULT_STEP_Y = 70;
-        Point position = new Point(WorldRating.position.x, RESULT_START_Y);
-
-        for (int i = 0; i < list.size(); ++i)
-        {
-            StringBuffer buffer = new StringBuffer(i + 1 + ". ");
-            buffer.append(list.get(list.size() - i - 1));
-            StaticTextFW text = new StaticTextFW(buffer.toString(), new Point(position), Color.WHITE, 50);
-            worldRating.add(text);
-            position.y += RESULT_STEP_Y;
-        }
     }
 }

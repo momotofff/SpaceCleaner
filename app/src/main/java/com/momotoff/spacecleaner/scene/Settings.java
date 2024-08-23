@@ -6,9 +6,6 @@ import android.graphics.Color;
 import android.graphics.Point;
 import android.util.Log;
 import android.widget.Toast;
-import androidx.annotation.NonNull;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.momotoff.my_framework.CoreFW;
@@ -20,7 +17,7 @@ import com.momotoff.spacecleaner.utilities.Resource;
 public class Settings extends SceneFW
 {
     private final StaticTextFW settings = new StaticTextFW(coreFW.getString(R.string.txtMainMenuMenuSettings), new Point(50, 150), Color.WHITE, 100);
-    private final StaticTextFW singOut = new StaticTextFW(coreFW.getString(R.string.txtSingOut), new Point(50, 250), Color.WHITE, 60);
+    private final StaticTextFW singOut = new StaticTextFW(coreFW.getString(R.string.txtSignOut), new Point(50, 250), Color.WHITE, 60);
     private final StaticTextFW deleteAccount = new StaticTextFW(coreFW.getString(R.string.txtDeleteAccount), new Point(50, 350), Color.WHITE, 60);
     private final StaticTextFW back = new StaticTextFW(coreFW.getString(R.string.txtBack), new Point(50, 580), Color.WHITE, 70);
 
@@ -43,6 +40,7 @@ public class Settings extends SceneFW
                 coreFW.getBackgroundAudioFW().stop();
 
                 FirebaseAuth.getInstance().signOut();
+                coreFW.runOnUiThread(() -> Toast.makeText(coreFW.getApplication(), coreFW.getString(R.string.txtSignOutSuccess), Toast.LENGTH_SHORT).show());
             }
 
             if (coreFW.getTouchListenerFW().getTouchUp(deleteAccount.getTouchArea(graphicsFW)))
@@ -50,18 +48,18 @@ public class Settings extends SceneFW
                 coreFW.getSoundFW().start(R.raw.tap);
                 coreFW.getBackgroundAudioFW().stop();
 
-                currentUser.delete()
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful())
-                                {
-                                    Log.d(TAG, "User account deleted.");
-                                }
-                            }
-                        });
-
-
+                currentUser.delete().addOnCompleteListener(task -> {
+                    if (task.isSuccessful())
+                    {
+                        Log.d(TAG, "User account deleted");
+                        coreFW.runOnUiThread(() -> Toast.makeText(coreFW.getApplication(), coreFW.getString(R.string.txtAccountDeleteSuccess), Toast.LENGTH_SHORT).show());
+                    }
+                    else
+                    {
+                        Log.e(TAG, "User account delete failed");
+                        coreFW.runOnUiThread(() -> Toast.makeText(coreFW.getApplication(), coreFW.getString(R.string.txtAccountDeleteFailed), Toast.LENGTH_SHORT).show());
+                    }
+                });
             }
         }
 

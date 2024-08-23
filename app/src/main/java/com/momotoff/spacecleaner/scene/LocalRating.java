@@ -17,7 +17,7 @@ public class LocalRating extends SceneFW
     private final StaticTextFW worldRating = new StaticTextFW(coreFW.getString(R.string.txtWorldRating), new Point(400, 580), Color.WHITE, 70);
     private final StaticTextFW back = new StaticTextFW(coreFW.getString(R.string.txtBack), new Point(50, 580), Color.WHITE, 70);
 
-    private Save save;
+    private final Save save;
 
     public LocalRating(CoreFW coreFW, Save save)
     {

@@ -20,7 +20,7 @@ public class GameScene extends SceneFW
     private final Save save;
     private final TimerDelay powerUpDelay = new TimerDelay();
 
-    private final StaticTextFW Ready = new StaticTextFW(coreFW.getString(R.string.txtGameSceneReady), new Point(300,200), Color.WHITE, 100);
+    private final StaticTextFW Ready = new StaticTextFW(coreFW.getString(R.string.txtGameSceneReady), new Point(300,200), 100);
 
     enum GameState
     {

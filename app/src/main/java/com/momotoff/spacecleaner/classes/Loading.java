@@ -1,23 +1,12 @@
 package com.momotoff.spacecleaner.classes;
 
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.Rect;
-import android.util.Log;
-
-import androidx.annotation.NonNull;
-
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.momotoff.my_framework.CoreFW;
 import com.momotoff.my_framework.GraphicsFW;
-import com.momotoff.my_framework.StaticTextFW;
 import com.momotoff.spacecleaner.R;
 import com.momotoff.spacecleaner.utilities.Resource;
-
 import java.util.ArrayList;
 
 public class Loading

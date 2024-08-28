@@ -2,7 +2,6 @@ package com.momotoff.spacecleaner.scene;
 
 import static android.content.ContentValues.TAG;
 
-import android.graphics.Color;
 import android.graphics.Point;
 import android.util.Log;
 import android.widget.Toast;
@@ -16,10 +15,10 @@ import com.momotoff.spacecleaner.utilities.Resource;
 
 public class Settings extends SceneFW
 {
-    private final StaticTextFW settings = new StaticTextFW(coreFW.getString(R.string.txtMainMenuMenuSettings), new Point(50, 150), Color.WHITE, 100);
-    private final StaticTextFW singOut = new StaticTextFW(coreFW.getString(R.string.txtSignOut), new Point(50, 250), Color.WHITE, 60);
-    private final StaticTextFW deleteAccount = new StaticTextFW(coreFW.getString(R.string.txtDeleteAccount), new Point(50, 350), Color.WHITE, 60);
-    private final StaticTextFW back = new StaticTextFW(coreFW.getString(R.string.txtBack), new Point(50, 580), Color.WHITE, 70);
+    private final StaticTextFW settings = new StaticTextFW(coreFW.getString(R.string.txtMainMenuMenuSettings), new Point(50, 150), 100);
+    private final StaticTextFW singOut = new StaticTextFW(coreFW.getString(R.string.txtSignOut), new Point(50, 250), 60);
+    private final StaticTextFW deleteAccount = new StaticTextFW(coreFW.getString(R.string.txtDeleteAccount), new Point(50, 350), 60);
+    private final StaticTextFW back = new StaticTextFW(coreFW.getString(R.string.txtBack), new Point(50, 580), 70);
 
     public Settings(CoreFW coreFW)
     {

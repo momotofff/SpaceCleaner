@@ -4,6 +4,7 @@ import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
@@ -56,7 +57,7 @@ public class GraphicsFW
 
     public void drawText(StaticTextFW text)
     {
-        paint.setColor(text.color);
+        paint.setColor(Color.WHITE);
         paint.setTextSize(text.size);
         canvas.drawText(text.text, text.position.x, text.position.y, paint);
     }

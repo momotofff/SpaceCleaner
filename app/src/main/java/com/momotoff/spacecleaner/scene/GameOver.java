@@ -2,7 +2,6 @@ package com.momotoff.spacecleaner.scene;
 
 import android.graphics.Color;
 import android.graphics.Point;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -16,9 +15,9 @@ import com.momotoff.spacecleaner.utilities.Save;
 
 public class GameOver extends SceneFW
 {
-    private final StaticTextFW GameOver = new StaticTextFW(coreFW.getString(R.string.txtGameOver), new Point(300,200), Color.WHITE, 100);
-    private final StaticTextFW Restart = new StaticTextFW(coreFW.getString(R.string.txtRestart), new Point(300,350), Color.WHITE, 50);
-    private final StaticTextFW ExitMenu = new StaticTextFW(coreFW.getString(R.string.txtExitMenu), new Point(300,450), Color.WHITE, 50);
+    private final StaticTextFW GameOver = new StaticTextFW(coreFW.getString(R.string.txtGameOver), new Point(300,200), 100);
+    private final StaticTextFW Restart = new StaticTextFW(coreFW.getString(R.string.txtRestart), new Point(300,350), 50);
+    private final StaticTextFW ExitMenu = new StaticTextFW(coreFW.getString(R.string.txtExitMenu), new Point(300,450), 50);
 
     private final Manager manager;
     private final Save save;
@@ -69,7 +68,7 @@ public class GameOver extends SceneFW
         graphicsFW.drawText(ExitMenu);
         graphicsFW.drawText(Restart);
 
-        StaticTextFW result = new StaticTextFW(manager.player.getTxtPassedDistance(), new Point(300,550), Color.WHITE, 50);
+        StaticTextFW result = new StaticTextFW(manager.player.getTxtPassedDistance(), new Point(300,550), 50);
         graphicsFW.drawText(result);
     }
 }

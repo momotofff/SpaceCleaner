@@ -2,7 +2,6 @@ package com.momotoff.spacecleaner.objects;
 
 import android.graphics.Color;
 import android.graphics.Point;
-
 import com.momotoff.my_framework.CoreFW;
 import com.momotoff.my_framework.GraphicsFW;
 import com.momotoff.my_framework.IDrawable;
@@ -27,10 +26,10 @@ public class Hud extends ObjectFW implements IDrawable
         this.player = player;
         this.height = height;
 
-        txtPassedDistance = new StaticTextFW(player.getTxtPassedDistance(), new Point(10, 70), Color.WHITE, 40);
-        txtCurrentSpeedPlayer = new StaticTextFW(player.getSpeed(), new Point(400, 70), Color.WHITE, 40);
-        txtCurrentShieldsPlayer = new StaticTextFW(player.getShields(), new Point(700, 70), Color.WHITE, 40);
-        txtLevel = new StaticTextFW(player.getLevel(), new Point(1000,70), Color.WHITE, 40);
+        txtPassedDistance = new StaticTextFW(player.getTxtPassedDistance(), new Point(10, 70), 40);
+        txtCurrentSpeedPlayer = new StaticTextFW(player.getSpeed(), new Point(400, 70), 40);
+        txtCurrentShieldsPlayer = new StaticTextFW(player.getShields(), new Point(700, 70), 40);
+        txtLevel = new StaticTextFW(player.getLevel(), new Point(1000,70), 40);
     }
 
     @Override

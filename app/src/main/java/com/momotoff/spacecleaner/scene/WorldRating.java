@@ -1,6 +1,5 @@
 package com.momotoff.spacecleaner.scene;
 
-import android.graphics.Color;
 import android.graphics.Point;
 import android.util.Log;
 import androidx.annotation.NonNull;
@@ -23,9 +22,9 @@ import java.util.Locale;
 
 public class WorldRating extends SceneFW implements ValueEventListener
 {
-    private final StaticTextFW WorldRating = new StaticTextFW(coreFW.getString(R.string.txtWorldRating), new Point(50, 100), Color.WHITE, 100);
-    private final StaticTextFW LocalRating = new StaticTextFW(coreFW.getString(R.string.txtLocalRating), new Point(400, 580), Color.WHITE, 70);
-    private final StaticTextFW Back = new StaticTextFW(coreFW.getString(R.string.txtBack), new Point(50, 580), Color.WHITE, 70);
+    private final StaticTextFW WorldRating = new StaticTextFW(coreFW.getString(R.string.txtWorldRating), new Point(50, 100), 100);
+    private final StaticTextFW LocalRating = new StaticTextFW(coreFW.getString(R.string.txtLocalRating), new Point(400, 580), 70);
+    private final StaticTextFW Back = new StaticTextFW(coreFW.getString(R.string.txtBack), new Point(50, 580), 70);
 
     private final Save save;
     private final List<StaticTextFW> worldRating = new ArrayList<>();
@@ -60,7 +59,7 @@ public class WorldRating extends SceneFW implements ValueEventListener
         for (int i = 1; i <= list.size(); ++i)
         {
             String text = String.format(Locale.getDefault(), "%d. %s", i, list.get(list.size() - i));
-            worldRating.add(new StaticTextFW(text, new Point(position), Color.WHITE, 50));
+            worldRating.add(new StaticTextFW(text, new Point(position), 50));
             position.y += RESULT_STEP_Y;
         }
     }

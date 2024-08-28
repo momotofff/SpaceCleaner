@@ -8,7 +8,6 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Display;
 import android.view.WindowManager;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
 
@@ -35,7 +34,6 @@ public class CoreFW extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
-        System.out.println("запустился onCreate");
         super.onCreate(savedInstanceState);
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
@@ -64,7 +62,6 @@ public class CoreFW extends AppCompatActivity
     @Override
     public void onResume()
     {
-        System.out.println("запустился onResume");
         super.onResume();
         backgroundAudioFW.start();
     }
@@ -72,7 +69,6 @@ public class CoreFW extends AppCompatActivity
     @Override
     public void onStart()
     {
-        System.out.println("запустился onStart");
         super.onStart();
         loopFW.startGame();
         backgroundAudioFW.start();
@@ -81,7 +77,6 @@ public class CoreFW extends AppCompatActivity
     @Override
     public void onPause()
     {
-        System.out.println("запустился onPause");
         super.onPause();
         loopFW.pausedGame();
         backgroundAudioFW.pause();
@@ -99,24 +94,14 @@ public class CoreFW extends AppCompatActivity
     @Override
     public void onDestroy()
     {
-        System.out.println("запустился onDestroy");
         super.onDestroy();
     }
 
     @Override
     public void onStop()
     {
-        System.out.println("запустился onStop");
         super.onStop();
         loopFW.stopGame();
-    }
-
-    @Override
-    public void onBackPressed()
-    {
-        super.onBackPressed();
-        System.out.println("запустился onBackPressed");
-        finish();
     }
 
     public GraphicsFW getGraphicsFW() { return graphicsFW; }
@@ -133,9 +118,7 @@ public class CoreFW extends AppCompatActivity
 
     public SoundFW getSoundFW() { return soundFW; }
 
-    public Point getDisplaySize(){ return displaySize;}
+    public Point getDisplaySize() { return displaySize;}
 
-    public LoopFW getLoopFW() {
-        return loopFW;
-    }
+    public LoopFW getLoopFW() { return loopFW; }
 }

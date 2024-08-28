@@ -1,6 +1,5 @@
 package com.momotoff.spacecleaner.scene;
 
-import android.graphics.Color;
 import android.graphics.Point;
 import com.momotoff.my_framework.CoreFW;
 import com.momotoff.my_framework.SceneFW;
@@ -13,9 +12,9 @@ import java.util.Locale;
 public class LocalRating extends SceneFW
 {
     private final StaticTextFW[] numbers = new StaticTextFW[5];
-    private final StaticTextFW localRating = new StaticTextFW(coreFW.getString(R.string.txtLocalRating), new Point(50, 100), Color.WHITE, 100);
-    private final StaticTextFW worldRating = new StaticTextFW(coreFW.getString(R.string.txtWorldRating), new Point(400, 580), Color.WHITE, 70);
-    private final StaticTextFW back = new StaticTextFW(coreFW.getString(R.string.txtBack), new Point(50, 580), Color.WHITE, 70);
+    private final StaticTextFW localRating = new StaticTextFW(coreFW.getString(R.string.txtLocalRating), new Point(50, 100), 100);
+    private final StaticTextFW worldRating = new StaticTextFW(coreFW.getString(R.string.txtWorldRating), new Point(400, 580), 70);
+    private final StaticTextFW back = new StaticTextFW(coreFW.getString(R.string.txtBack), new Point(50, 580), 70);
 
     private final Save save;
 
@@ -32,7 +31,7 @@ public class LocalRating extends SceneFW
         for (int i = 0; i < numbers.length; ++i)
         {
             String text = String.format(Locale.getDefault(), "%d. %d", i + 1, save.getDistance()[i]);
-            this.numbers[i] = new StaticTextFW(text, new Point(position), Color.WHITE, 50);
+            this.numbers[i] = new StaticTextFW(text, new Point(position), 50);
             position.y += RESULT_STEP_Y;
         }
     }

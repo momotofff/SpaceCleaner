@@ -25,7 +25,6 @@ public class Settings extends SceneFW
         super(coreFW);
     }
 
-
     @Override
     public void update()
     {
@@ -36,7 +35,6 @@ public class Settings extends SceneFW
             if (coreFW.getTouchListenerFW().getTouchUp(singOut.getTouchArea(graphicsFW)))
             {
                 coreFW.getSoundFW().start(R.raw.tap);
-                coreFW.getBackgroundAudioFW().stop();
 
                 FirebaseAuth.getInstance().signOut();
                 coreFW.runOnUiThread(() -> Toast.makeText(coreFW.getApplication(), coreFW.getString(R.string.txtSignOutSuccess), Toast.LENGTH_SHORT).show());
@@ -45,7 +43,6 @@ public class Settings extends SceneFW
             if (coreFW.getTouchListenerFW().getTouchUp(deleteAccount.getTouchArea(graphicsFW)))
             {
                 coreFW.getSoundFW().start(R.raw.tap);
-                coreFW.getBackgroundAudioFW().stop();
 
                 currentUser.delete().addOnCompleteListener(task -> {
                     if (task.isSuccessful())
@@ -65,7 +62,6 @@ public class Settings extends SceneFW
         if (coreFW.getTouchListenerFW().getTouchUp(back.getTouchArea(graphicsFW)))
         {
             coreFW.getSoundFW().start(R.raw.tap);
-            coreFW.getBackgroundAudioFW().stop();
             coreFW.setScene(MainMenu.getInstance());
         }
     }

@@ -49,13 +49,13 @@ public class GameOver extends SceneFW
             coreFW.getSoundFW().start(R.raw.tap);
             coreFW.getBackgroundAudioFW().stop();
             coreFW.setScene(new GameScene(coreFW, save));
-
         }
 
         if (coreFW.getTouchListenerFW().getTouchUp(ExitMenu.getTouchArea(graphicsFW)))
         {
             coreFW.getSoundFW().start(R.raw.tap);
-            coreFW.getBackgroundAudioFW().stop();
+            coreFW.getBackgroundAudioFW().setTrack(com.momotoff.my_framework.R.raw.menu);
+            coreFW.getBackgroundAudioFW().start();
             coreFW.setScene(MainMenu.getInstance());
         }
     }
@@ -67,7 +67,6 @@ public class GameOver extends SceneFW
         graphicsFW.drawText(GameOver);
         graphicsFW.drawText(ExitMenu);
         graphicsFW.drawText(Restart);
-
         StaticTextFW result = new StaticTextFW(manager.player.getTxtPassedDistance(), new Point(300,550), 50);
         graphicsFW.drawText(result);
     }

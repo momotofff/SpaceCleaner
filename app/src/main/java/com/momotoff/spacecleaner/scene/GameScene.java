@@ -2,6 +2,7 @@ package com.momotoff.spacecleaner.scene;
 
 import android.graphics.Color;
 import android.graphics.Point;
+import android.graphics.Rect;
 import android.view.View;
 import com.momotoff.my_framework.CoreFW;
 import com.momotoff.my_framework.SceneFW;
@@ -98,7 +99,7 @@ public class GameScene extends SceneFW
 
     private void updateStateReady()
     {
-        if (coreFW.getTouchListenerFW().getTouchUp(Ready.getTouchArea(graphicsFW)))
+        if (coreFW.getTouchListenerFW().getTouchUp(new Rect(0, 0, manager.maxScreen.x, manager.maxScreen.y)))
         {
             coreFW.getSoundFW().start(R.raw.tap);
             gameState = GameState.RUNNING;

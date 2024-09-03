@@ -76,14 +76,12 @@ public class WorldRating extends SceneFW implements ValueEventListener
         if (coreFW.getTouchListenerFW().getTouchUp(Back.getTouchArea(graphicsFW)))
         {
             coreFW.getSoundFW().start(R.raw.tap);
-            coreFW.getBackgroundAudioFW().stop();
             coreFW.setScene(MainMenu.getInstance());
         }
 
         if (coreFW.getTouchListenerFW().getTouchUp(LocalRating.getTouchArea(graphicsFW)))
         {
-            coreFW.getSoundFW().start(R.raw.tap);
-            coreFW.getBackgroundAudioFW().stop();
+            coreFW.getSoundFW().start(R.raw.tap);;
             coreFW.setScene(new LocalRating(coreFW, save));
         }
     }

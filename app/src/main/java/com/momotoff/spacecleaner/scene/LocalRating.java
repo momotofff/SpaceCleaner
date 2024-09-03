@@ -42,14 +42,12 @@ public class LocalRating extends SceneFW
         if (coreFW.getTouchListenerFW().getTouchUp(back.getTouchArea(graphicsFW)))
         {
             coreFW.getSoundFW().start(R.raw.tap);
-            coreFW.getBackgroundAudioFW().stop();
             coreFW.setScene(MainMenu.getInstance());
         }
 
         if (coreFW.getTouchListenerFW().getTouchUp(worldRating.getTouchArea(graphicsFW)))
         {
             coreFW.getSoundFW().start(R.raw.tap);
-            coreFW.getBackgroundAudioFW().stop();
             coreFW.setScene(new WorldRating(coreFW, save));
         }
     }

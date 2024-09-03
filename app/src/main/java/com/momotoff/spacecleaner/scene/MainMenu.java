@@ -1,6 +1,5 @@
 package com.momotoff.spacecleaner.scene;
 
-
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.view.View;
@@ -12,7 +11,6 @@ import com.momotoff.my_framework.StaticTextFW;
 import com.momotoff.spacecleaner.R;
 import com.momotoff.spacecleaner.utilities.Resource;
 import com.momotoff.spacecleaner.utilities.Save;
-
 
 public class MainMenu extends SceneFW
 {
@@ -40,7 +38,6 @@ public class MainMenu extends SceneFW
     {
         if (instance == null)
             throw new RuntimeException("You should call createInstance first!");
-
         return instance;
     }
 
@@ -48,7 +45,6 @@ public class MainMenu extends SceneFW
     {
         super(coreFW);
         this.save = save;
-
         coreFW.getBackgroundAudioFW().setTrack(com.momotoff.my_framework.R.raw.menu);
         coreFW.getBackgroundAudioFW().start();
 
@@ -58,8 +54,8 @@ public class MainMenu extends SceneFW
         layout.addView(coreFW.getLoopFW());
         coreFW.setContentView(layout);
 
-        // R-M-7427752-1
-        adBanner = new BannerAdvertising(coreFW, "demo-banner-yandex");
+        //    demo-banner-yandex
+        adBanner = new BannerAdvertising(coreFW, "R-M-7427752-1");
         layout.addView(adBanner.banner, coreFW.getDisplaySize().x, coreFW.getDisplaySize().y * 2 - 160);
 
         registrationWindow = new RegistrationWindow(coreFW, save);

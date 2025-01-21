@@ -121,4 +121,6 @@ public class CoreFW extends AppCompatActivity
     public Point getDisplaySize() { return displaySize;}
 
     public LoopFW getLoopFW() { return loopFW; }
+
+    public Point getFRAME_BUFFER() { return FRAME_BUFFER; }
 }

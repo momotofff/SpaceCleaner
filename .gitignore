@@ -9,6 +9,7 @@
 /wrapper
 /daemon
 /native
+/relaese
 .externalNativeBuild
 .cxx
 local.properties

@@ -55,7 +55,7 @@ public class MainMenu extends SceneFW
         coreFW.setContentView(layout);
 
         //    demo-banner-yandex
-        adBanner = new BannerAdvertising(coreFW, "R-M-7427752-1");
+        adBanner = new BannerAdvertising(coreFW, "R-M-13765196-1");
         layout.addView(adBanner.banner, coreFW.getDisplaySize().x, coreFW.getDisplaySize().y * 2 - 160);
 
         registrationWindow = new RegistrationWindow(coreFW, save);

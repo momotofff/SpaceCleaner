@@ -17,8 +17,10 @@ import com.momotoff.spacecleaner.utilities.Resource;
 import com.momotoff.spacecleaner.utilities.Save;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 public class WorldRating extends SceneFW implements ValueEventListener
 {
@@ -27,7 +29,7 @@ public class WorldRating extends SceneFW implements ValueEventListener
     private final StaticTextFW Back = new StaticTextFW(coreFW.getString(R.string.txtBack), new Point(50, 580), 70);
 
     private final Save save;
-    private final List<StaticTextFW> worldRating = new ArrayList<>();
+    private final Map<StaticTextFW, StaticTextFW> worldRating = new HashMap<>();
 
     public WorldRating(CoreFW coreFW, Save save)
     {
@@ -43,24 +45,29 @@ public class WorldRating extends SceneFW implements ValueEventListener
     @Override
     public void onDataChange(@NonNull DataSnapshot snapshot)
     {
-        List<String> list = new ArrayList<>();
+        List<String> listName = new ArrayList<>();
+        List<String> listResult = new ArrayList<>();
 
         for (DataSnapshot dataSnapshot : snapshot.getChildren())
         {
             String email = dataSnapshot.child("Email").getValue(String.class);
             Long result = dataSnapshot.child("Result").getValue(Long.class);
-            list.add(String.format(Locale.getDefault(), "%s - %d", email, result));
+            listName.add(String.format(Locale.getDefault(), "%s", email.substring(0, email.indexOf('@'))));
+            listResult.add(String.format(Locale.getDefault(), "%d", result));
         }
 
         final int RESULT_START_Y = 200;
         final int RESULT_STEP_Y = 70;
-        Point position = new Point(WorldRating.position.x, RESULT_START_Y);
+        Point positionName = new Point(WorldRating.position.x, RESULT_START_Y);
+        Point positionResult = new Point(WorldRating.position.x + coreFW.getFRAME_BUFFER().x / 2, RESULT_START_Y);
 
-        for (int i = 1; i <= list.size(); ++i)
+        for (int i = 1; i <= listName.size(); ++i)
         {
-            String text = String.format(Locale.getDefault(), "%d. %s", i, list.get(list.size() - i));
-            worldRating.add(new StaticTextFW(text, new Point(position), 50));
-            position.y += RESULT_STEP_Y;
+            String textName = String.format(Locale.getDefault(), "%d. %s", i, listName.get(listName.size() - i));
+            String textResult = listResult.get(listResult.size() - i);
+            worldRating.put(new StaticTextFW(textName, new Point(positionName), 50), new StaticTextFW(textResult, new Point(positionResult), 50));
+            positionName.y += RESULT_STEP_Y;
+            positionResult.y += RESULT_STEP_Y;
         }
     }
 
@@ -94,7 +101,11 @@ public class WorldRating extends SceneFW implements ValueEventListener
         graphicsFW.drawText(Back);
         graphicsFW.drawText(LocalRating);
 
-        for (StaticTextFW text: worldRating)
-            graphicsFW.drawText(text);
+        for (Map.Entry<StaticTextFW, StaticTextFW> entry : worldRating.entrySet()) {
+            StaticTextFW key = entry.getKey();
+            StaticTextFW value = entry.getValue();
+            graphicsFW.drawText(key);
+            graphicsFW.drawText(value);
+        }
     }
 }

@@ -30,14 +30,14 @@
     <string name="txtBack">Назад</string>
 
     //Registration window
-    <string name="txtUserName">Имя пользователя</string>
+    <string name="txtUserName">Ваш Email</string>
     <string name="txtPassword">Пароль</string>
     <string name="txtSingIn">Войти</string>
     <string name="txtSingUp">Зарегистрироваться</string>
     <string name="txtFillToast">Заполните поля</string>
     <string name="txtInvalidInputToast">Некорректный ввод</string>
     <string name="txtUserCollision">Такой пользователь уже есть</string>
-    <string name="txtYouAreLoggedToast">Вы вошли под именем </string>
+    <string name="txtYouAreLoggedToast">Вы вошли через почту </string>
     <string name="txtDeleteAccount">Удалить аккаунт</string>
     <string name="txtSignOut">Выйти из аккаунта</string>
     <string name="txtAccountDeleteSuccess">Аккаунт удалён</string>

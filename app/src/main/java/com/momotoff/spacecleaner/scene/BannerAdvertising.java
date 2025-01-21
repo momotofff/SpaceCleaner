@@ -11,7 +11,6 @@ public class BannerAdvertising extends AppCompatActivity
 {
     BannerAdView banner;
 
-
     public BannerAdvertising(CoreFW coreFW, String id)
     {
         banner = new BannerAdView(coreFW.getApplication());
